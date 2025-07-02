@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSuraj 4D System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white">
+    <!-- Sidebar Toggle Button -->
+    <div class="absolute top-4 right-4">
+        <button id="toggleSidebar" class="text-3xl text-red-600 focus:outline-none">
+            &#9776;
+        </button>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar"
+        class="fixed top-0 left-0 w-64 h-full bg-gray-900 text-white transform -translate-x-full transition-transform z-50">
+        <div class="flex items-center justify-between p-4 border-b border-red-600">
+            <span class="text-red-600 font-bold text-xl">SmartSuraj</span>
+            <button id="closeSidebar" class="text-2xl text-red-600 md:hidden focus:outline-none"
+                aria-label="Close sidebar">&times;</button>
+        </div>
+        <nav class="p-4 space-y-4 text-sm">
+            <a href="/predict" class="block text-white hover:text-red-500 sidebar-link">🔢 4D Number Predictor</a>
+            <a href="/predict" class="block text-white hover:text-red-500 sidebar-link">🧠 Pattern Engine</a>
+            <a href="#" class="block text-white hover:text-red-500 sidebar-link">📈 History Trends (Coming Soon)</a>
+        </nav>
+    </div>
+    <!-- Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col justify-center items-center min-h-screen text-center p-6">
+        <!-- Animated Logo -->
+        <!-- Fullscreen or half-screen image without borders -->
+        <!-- Fullscreen background image with overlay -->
+        <div class="flex flex-col justify-center items-center min-h-screen text-center p-6 relative z-10">
+            <div id="photo-effect-container" class="transition-all duration-500">
+                <img id="specialPhoto" src="/static/my photo.png" alt="Suraj"
+                    class="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-xl cursor-pointer select-none">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar toggle for mobile with overlay and close button
+        const toggleBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const closeBtn = document.getElementById('closeSidebar');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        }
+        function closeSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+
+        toggleBtn.addEventListener('click', openSidebar);
+        closeBtn.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+
+        // Special effect on image click/touch
+        const photo = document.getElementById('specialPhoto');
+        const photoContainer = document.getElementById('photo-effect-container');
+        function triggerPhotoEffect() {
+            photoContainer.classList.add('ring-8', 'ring-red-500', 'ring-opacity-60', 'scale-105', 'shadow-2xl');
+            setTimeout(() => {
+                photoContainer.classList.remove('ring-8', 'ring-red-500', 'ring-opacity-60', 'scale-105', 'shadow-2xl');
+            }, 600);
+        }
+        if (photo) {
+            photo.addEventListener('click', triggerPhotoEffect);
+            photo.addEventListener('touchstart', triggerPhotoEffect);
+        }
+    </script>
+</body>
+
+</html>
