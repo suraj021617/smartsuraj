@@ -1,95 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartSuraj 4D System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>4D Results Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
 
-<body class="bg-black text-white">
-    <!-- Sidebar Toggle Button -->
-    <div class="absolute top-4 right-4">
-        <button id="toggleSidebar" class="text-3xl text-red-600 focus:outline-none">
-            &#9776;
-        </button>
+<body class="bg-white p-4">
+  <div class="max-w-[1400px] mx-auto">
+    
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-4 text-blue-900">🎯 4D Results Dashboard</h1>
+    {% if test_marker %}
+    <div class="bg-green-500 text-white text-center py-2 mb-4 font-bold">
+      ✓ FLASK APP RUNNING - {{ test_marker }}
+    </div>
+    {% endif %}
+    
+    <!-- Date Filter -->
+    <form method="get" class="mb-4 flex justify-center items-center gap-3">
+      <label class="font-semibold text-base">Date:</label>
+      <input type="date" name="selected_date" value="{{ selected_date or '' }}" class="border px-2 py-1 rounded">
+      <button type="submit" class="bg-blue-700 text-white px-4 py-1 rounded hover:bg-blue-900">Show</button>
+      {% if selected_date %}
+      <a href="/" class="text-red-600 underline text-sm">Clear</a>
+      {% endif %}
+    </form>
+
+    <!-- Prediction Tools -->
+    <div class="mb-4">
+      <a href="/decision-helper" class="block bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white px-6 py-8 rounded-2xl text-center font-black text-4xl mb-4 hover:from-yellow-500 hover:via-orange-600 hover:to-red-700 shadow-2xl border-4 border-yellow-300 animate-pulse">🎯 WHAT SHOULD I PLAY?</a>
+      <a href="/quick-pick" class="block bg-gradient-to-r from-green-400 via-teal-500 to-blue-600 text-white px-4 py-6 rounded-xl text-center font-bold text-3xl mb-3 hover:from-green-500 hover:via-teal-600 hover:to-blue-700 shadow-2xl border-4 border-green-300 animate-pulse">🎲 QUICK PICK - GET 5 NUMBERS INSTANTLY!</a>
+      <!-- Ultimate predictor route not implemented yet -->
+      <!-- <a href="/ultimate-predictor" class="block bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white px-4 py-4 rounded-lg text-center font-bold text-2xl mb-3 hover:from-yellow-500 hover:via-orange-600 hover:to-red-700 shadow-2xl border-4 border-yellow-300">🏆 ULTIMATE PREDICTOR - ALL METHODS COMBINED!</a> -->
+      <a href="/advanced-predictions" class="block bg-gradient-to-r from-yellow-500 to-red-600 text-white px-4 py-3 rounded-lg text-center font-bold text-lg mb-2 hover:from-yellow-600 hover:to-red-700">🎯 ADVANCED PREDICTIONS</a>
+      <a href="/prediction-history" class="block bg-gradient-to-r from-green-500 to-blue-600 text-white px-4 py-3 rounded-lg text-center font-bold text-lg mb-2 hover:from-green-600 hover:to-blue-700">🎯 PREDICTION HISTORY</a>
     </div>
 
-    <!-- Sidebar -->
-    <div id="sidebar"
-        class="fixed top-0 left-0 w-64 h-full bg-gray-900 text-white transform -translate-x-full transition-transform z-50">
-        <div class="flex items-center justify-between p-4 border-b border-red-600">
-            <span class="text-red-600 font-bold text-xl">SmartSuraj</span>
-            <button id="closeSidebar" class="text-2xl text-red-600 md:hidden focus:outline-none"
-                aria-label="Close sidebar">&times;</button>
+    <div class="mb-2">
+      <a href="/past-results" class="block bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-3 rounded-lg text-center font-bold text-lg hover:from-purple-600 hover:to-pink-700">📊 PAST RESULTS - 5D/6D/Lotto/3+3D</a>
+    </div>
+
+    <div class="mb-4 p-4 bg-gradient-to-r from-purple-900 to-pink-900 rounded-lg">
+      <h2 class="text-2xl font-bold text-white text-center mb-3">⚡ POWER PREDICTIONS ⚡</h2>
+      <a href="/power-simple" class="block bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-4 rounded-lg text-center font-bold text-xl hover:from-yellow-500 hover:to-orange-600 shadow-xl border-2 border-yellow-300">⚡ VIEW POWER PREDICTIONS<br><span class="text-sm">AI + ML + Pattern Analysis</span></a>
+    </div>
+
+
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
+      <a href="/pattern-analyzer" class="bg-green-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-green-700">🔍 Pattern Analyzer</a>
+      <a href="/best-predictions" class="bg-orange-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-orange-700">📊 Best Predictions</a>
+      <a href="/accuracy-dashboard" class="bg-purple-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-purple-700">📜 Accuracy</a>
+      <a href="/statistics" class="bg-indigo-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-indigo-700">📊 Statistics</a>
+      <a href="/lucky-generator" class="bg-red-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-red-700">🧠 Lucky Gen</a>
+      <a href="/day-to-day-predictor" class="bg-pink-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-pink-700">📅 Day-to-Day</a>
+      <a href="/frequency-analyzer" class="bg-yellow-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-yellow-700">📊 Frequency</a>
+      <a href="/missing-number-finder" class="bg-teal-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-teal-700">🔍 Missing #</a>
+      <a href="/empty-box-predictor" class="bg-cyan-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-cyan-700">📦 Empty Box</a>
+      <a href="/master-analyzer" class="bg-gray-700 text-white px-3 py-2 rounded text-center font-semibold hover:bg-gray-800">🔬 Master</a>
+      <a href="/smart-auto-weight" class="bg-blue-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-blue-700">⚙️ Auto Weight</a>
+      <a href="/ml-predictor" class="bg-violet-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-violet-700">🤖 AI ML</a>
+      <a href="/consensus-predictor" class="bg-emerald-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-emerald-700">🎯 Consensus</a>
+      <a href="/learning-insights" class="bg-indigo-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-indigo-700">🧠 Learning</a>
+      <a href="/smart-predictor" class="bg-fuchsia-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-fuchsia-700">🎯 Smart</a>
+      <a href="/smart-history" class="bg-lime-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-lime-700">📈 History</a>
+      <a href="/hot-cold" class="bg-rose-600 text-white px-3 py-2 rounded text-center font-semibold hover:bg-rose-700">🌶️ Hot/Cold</a>
+    </div>
+
+    {% if selected_date and not cards %}
+    <p class="text-gray-500 text-lg mt-6 text-center">No results for this date.</p>
+    {% endif %}
+
+    <!-- Past Results Section -->
+    {% if damacai_3plus3d or sports_toto_games or magnum_life or magnum_jackpot_gold %}
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold text-center mb-4 text-purple-900">📊 Past Results - 5D/6D/Lotto/3+3D</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Damacai 3+3D -->
+        <div class="bg-white border-2 border-blue-300 rounded-lg p-4">
+          <h3 class="font-bold text-blue-800 mb-2">🎲 Damacai 3+3D</h3>
+          <p class="text-sm text-gray-600">Draw: {{ damacai_3plus3d.draw_no }}</p>
+          <p class="text-sm text-gray-600">Date: {{ damacai_3plus3d.date }}</p>
+          <div class="mt-2">
+            {% for num in damacai_3plus3d.numbers %}
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold mr-1">{{ num }}</span>
+            {% endfor %}
+          </div>
         </div>
-        <nav class="p-4 space-y-4 text-sm">
-            <a href="/predict" class="block text-white hover:text-red-500 sidebar-link">🔢 4D Number Predictor</a>
-            <a href="/predict" class="block text-white hover:text-red-500 sidebar-link">🧠 Pattern Engine</a>
-            <a href="#" class="block text-white hover:text-red-500 sidebar-link">📈 History Trends (Coming Soon)</a>
-        </nav>
-    </div>
-    <!-- Overlay -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
-    <!-- Main Content -->
-    <div class="flex flex-col justify-center items-center min-h-screen text-center p-6">
-        <!-- Animated Logo -->
-        <!-- Fullscreen or half-screen image without borders -->
-        <!-- Fullscreen background image with overlay -->
-        <div class="flex flex-col justify-center items-center min-h-screen text-center p-6 relative z-10">
-            <div id="photo-effect-container" class="transition-all duration-500">
-                <img id="specialPhoto" src="/static/my photo.png" alt="Suraj"
-                    class="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-xl cursor-pointer select-none">
-            </div>
+        <!-- Sports Toto Games -->
+        <div class="bg-white border-2 border-red-300 rounded-lg p-4">
+          <h3 class="font-bold text-red-800 mb-2">🎯 Sports Toto</h3>
+          {% for game in sports_toto_games %}
+          <div class="mb-2">
+            <p class="text-xs font-semibold">{{ game.name }}</p>
+            <p class="text-xs text-gray-600">{{ game.draw_no }} - {{ game.date }}</p>
+            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-bold">{{ game.result }}</span>
+          </div>
+          {% endfor %}
         </div>
+
+        <!-- Magnum Life -->
+        <div class="bg-white border-2 border-yellow-300 rounded-lg p-4">
+          <h3 class="font-bold text-yellow-800 mb-2">🌟 Magnum Life</h3>
+          <p class="text-sm text-gray-600">Draw: {{ magnum_life.draw_no }}</p>
+          <p class="text-sm text-gray-600">Date: {{ magnum_life.date }}</p>
+          <div class="mt-2">
+            {% for num in magnum_life.numbers %}
+            <span class="bg-yellow-100 text-yellow-800 px-1 py-1 rounded text-xs font-bold mr-1">{{ num }}</span>
+            {% endfor %}
+          </div>
+          <p class="text-xs mt-1">Life: <span class="bg-green-100 text-green-800 px-2 py-1 rounded font-bold">{{ magnum_life.life_number }}</span></p>
+        </div>
+
+        <!-- Magnum Jackpot Gold -->
+        <div class="bg-white border-2 border-green-300 rounded-lg p-4">
+          <h3 class="font-bold text-green-800 mb-2">💰 Jackpot Gold</h3>
+          <p class="text-sm text-gray-600">Draw: {{ magnum_jackpot_gold.draw_no }}</p>
+          <p class="text-sm text-gray-600">Date: {{ magnum_jackpot_gold.date }}</p>
+          <div class="mt-2">
+            {% for num in magnum_jackpot_gold.numbers %}
+            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold mr-1">{{ num }}</span>
+            {% endfor %}
+          </div>
+          <p class="text-xs mt-1 text-green-600 font-bold">RM {{ magnum_jackpot_gold.jackpot_amount }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Results Cards -->
+    <div class="flex flex-wrap gap-4 justify-center">
+      {% for card in cards %}
+      {% set provider = card.get('provider', '').lower() %}
+      
+      <div class="border border-gray-300 rounded-md w-full md:w-[380px]">
+        <!-- Header -->
+        <div class="flex items-center {% if 'magnum' in provider %}bg-yellow-400{% elif 'damacai' in provider %}bg-blue-900{% elif 'toto' in provider %}bg-red-900{% elif 'singapore' in provider %}bg-blue-700{% elif 'dragon' in provider or 'gdlotto' in provider %}bg-red-700{% else %}bg-gray-700{% endif %} rounded-t-md px-3 py-2">
+          <img alt="Logo" class="h-10 w-10 mr-2" height="40" width="40"
+            src="{% if 'magnum' in provider %}https://storage.googleapis.com/a1aa/image/b56a2367-728d-4ad1-c151-f2e7134f8ca2.jpg{% elif 'damacai' in provider %}https://storage.googleapis.com/a1aa/image/ead09741-6fd9-44d8-64f5-d403a32e695f.jpg{% elif 'toto' in provider %}https://storage.googleapis.com/a1aa/image/f6c00380-4e91-4ebb-1676-2e8b0cf35ddd.jpg{% else %}https://storage.googleapis.com/a1aa/image/e7f57389-dcc6-468e-d435-486327e2b640.jpg{% endif %}"/>
+          <h2 class="font-bold {% if 'magnum' in provider %}text-black{% else %}text-white{% endif %} text-lg">
+            {% if 'magnum' in provider %}Magnum 4D 萬能
+            {% elif 'damacai' in provider %}Da Ma Cai 1+3D 大馬彩
+            {% elif 'toto' in provider %}SportsToto 4D 多多
+            {% elif 'singapore' in provider %}Singapore 4D
+            {% elif 'dragon' in provider or 'gdlotto' in provider %}Grand Dragon 4D 豪龙
+            {% else %}{{ provider|capitalize }}
+            {% endif %}
+          </h2>
+        </div>
+
+        <!-- Date & Draw -->
+        <div class="flex justify-between text-sm px-3 py-1">
+          <div>Date: {{ card['date_parsed'].strftime('%d-%m-%Y (%a)') if card['date_parsed'] else '' }}</div>
+          <div>Draw No: {% if 'Draw No:' in card.get('draw_info', '')|string %}{{ card['draw_info'].split('Draw No:')[-1]|trim }}{% else %}{{ card.get('draw_info', '') }}{% endif %}</div>
+        </div>
+
+        <!-- Prizes Table -->
+        <table class="w-full border-collapse text-sm">
+          <tbody>
+            <tr>
+              <td class="bg-gray-900 text-white font-bold px-3 py-1 w-[120px] border border-gray-300">1st Prize 首獎</td>
+              <td class="font-extrabold text-xl px-3 py-1 border border-gray-300 text-right">{{ card.get('1st_real', '') }}</td>
+            </tr>
+            <tr>
+              <td class="bg-gray-900 text-white font-bold px-3 py-1 border border-gray-300">2nd Prize 二獎</td>
+              <td class="font-extrabold text-xl px-3 py-1 border border-gray-300 text-right">{{ card.get('2nd_real', '') }}</td>
+            </tr>
+            <tr>
+              <td class="bg-gray-900 text-white font-bold px-3 py-1 border border-gray-300">3rd Prize 三獎</td>
+              <td class="font-extrabold text-xl px-3 py-1 border border-gray-300 text-right">{{ card.get('3rd_real', '') }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Special -->
+        {% set specials = card['special'].split() if card['special'] and card['special']|string != 'nan' else [] %}
+        {% if specials %}
+        <div class="bg-gray-900 text-white font-bold text-center text-sm py-1 border border-gray-300">Special 特別獎</div>
+        <div class="grid grid-cols-5 text-center text-lg font-normal border border-t-0 border-gray-300">
+          {% for num in specials[:5] %}
+          <div class="border-r border-b border-gray-300 py-1">{{ num }}</div>
+          {% endfor %}
+          {% for num in specials[5:10] %}
+          <div class="border-r border-b border-gray-300 py-1">{{ num }}</div>
+          {% endfor %}
+          {% for num in specials[10:13] %}
+          <div class="border-r border-gray-300 py-1">{{ num }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Consolation -->
+        {% set cons = card['consolation'].split() if card['consolation'] and card['consolation']|string != 'nan' and 'Jackpot' not in card['consolation']|string else [] %}
+        {% if cons %}
+        <div class="bg-gray-900 text-white font-bold text-center text-sm py-1 border border-gray-300 border-t-0">Consolation 安慰獎</div>
+        <div class="grid grid-cols-5 text-center text-lg font-normal border border-t-0 border-gray-300">
+          {% for num in cons[:5] %}
+          <div class="border-r border-b border-gray-300 py-1">{{ num }}</div>
+          {% endfor %}
+          {% for num in cons[5:10] %}
+          <div class="border-r border-b border-gray-300 py-1">{{ num }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Jackpot -->
+        {% if 'Jackpot' in card.get('consolation', '')|string %}
+        <div class="grid grid-cols-2 text-xs font-bold border border-gray-300">
+          <div class="bg-gray-300 px-2 py-1 border-r border-gray-400">4D Jackpot 1 Prize</div>
+          <div class="bg-gray-300 px-2 py-1 border-gray-400">4D Jackpot 2 Prize</div>
+          <div class="px-2 py-1 border-r border-gray-400 font-normal text-base">RM 3,506,302.08</div>
+          <div class="px-2 py-1 font-normal text-base text-red-600 italic">RM 230,197.05 <span class="text-xs not-italic font-normal">Partially Won</span></div>
+        </div>
+        <div class="bg-blue-900 text-white font-bold text-center text-sm py-1 border border-gray-300 border-t-0">Next Draw Estimated Amount</div>
+        <div class="grid grid-cols-2 text-xs font-bold border border-gray-300 border-t-0">
+          <div class="bg-gray-300 px-2 py-1 border-r border-gray-400">4D Jackpot 1 Prize</div>
+          <div class="bg-gray-300 px-2 py-1 border-gray-400">4D Jackpot 2 Prize</div>
+          <div class="px-2 py-1 border-r border-gray-400 font-normal text-base">RM 4,202,000</div>
+          <div class="px-2 py-1 font-normal text-base">RM 300,000</div>
+        </div>
+        {% endif %}
+
+      </div>
+      {% endfor %}
     </div>
 
-    <script>
-        // Sidebar toggle for mobile with overlay and close button
-        const toggleBtn = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        const closeBtn = document.getElementById('closeSidebar');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        function openSidebar() {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-        }
-        function closeSidebar() {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        }
-
-        toggleBtn.addEventListener('click', openSidebar);
-        closeBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', closeSidebar);
-        });
-
-        // Special effect on image click/touch
-        const photo = document.getElementById('specialPhoto');
-        const photoContainer = document.getElementById('photo-effect-container');
-        function triggerPhotoEffect() {
-            photoContainer.classList.add('ring-8', 'ring-red-500', 'ring-opacity-60', 'scale-105', 'shadow-2xl');
-            setTimeout(() => {
-                photoContainer.classList.remove('ring-8', 'ring-red-500', 'ring-opacity-60', 'scale-105', 'shadow-2xl');
-            }, 600);
-        }
-        if (photo) {
-            photo.addEventListener('click', triggerPhotoEffect);
-            photo.addEventListener('touchstart', triggerPhotoEffect);
-        }
-    </script>
+  </div>
 </body>
-
 </html>
