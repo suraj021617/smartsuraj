@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4D Analysis Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border: 1px solid #ddd; }
+        th { background: #3498db; color: white; font-weight: bold; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .hot { background: #ff6b6b !important; color: white; font-weight: bold; }
+        .cold { background: #4ecdc4 !important; color: white; font-weight: bold; }
+        .pattern-abcd { background: #ffeaa7; }
+        .pattern-aabc { background: #74b9ff; }
+        .pattern-aabb { background: #a29bfe; }
+        .stat-box { display: inline-block; padding: 15px 25px; margin: 10px; background: #ecf0f1; border-radius: 5px; }
+        .stat-value { font-size: 32px; font-weight: bold; color: #2c3e50; }
+        .stat-label { font-size: 14px; color: #7f8c8d; }
+        .digit-freq { display: flex; gap: 10px; flex-wrap: wrap; }
+        .digit-box { padding: 15px; background: #3498db; color: white; border-radius: 5px; text-align: center; min-width: 60px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 4D Lottery Analysis Dashboard</h1>
+        <p><strong>Total Numbers Analyzed:</strong> {{ total_analyzed }} | <strong>Unique Numbers:</strong> {{ unique_numbers }}</p>
+        
+        <h2>🔥 TOP 30 MOST FREQUENT NUMBERS (HOT)</h2>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Number</th>
+                <th>Frequency</th>
+                <th>Status</th>
+            </tr>
+            {% for num, freq in hot_numbers %}
+            <tr class="hot">
+                <td>{{ loop.index }}</td>
+                <td><strong>{{ num }}</strong></td>
+                <td>{{ freq }}</td>
+                <td>🔥 HOT</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>❄️ TOP 30 LEAST FREQUENT NUMBERS (COLD/OVERDUE)</h2>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Number</th>
+                <th>Frequency</th>
+                <th>Status</th>
+            </tr>
+            {% for num, freq in cold_numbers %}
+            <tr class="cold">
+                <td>{{ loop.index }}</td>
+                <td><strong>{{ num }}</strong></td>
+                <td>{{ freq }}</td>
+                <td>❄️ OVERDUE</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>🎯 DIGIT FREQUENCY BY POSITION</h2>
+        {% for pos, digits in digit_frequency.items() %}
+        <h3>Position {{ pos }}</h3>
+        <div class="digit-freq">
+            {% for digit, count in digits[:5] %}
+            <div class="digit-box">
+                <div style="font-size: 24px;">{{ digit }}</div>
+                <div>{{ count }} times</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <h2>📈 PATTERN ANALYSIS</h2>
+        <div>
+            {% for pattern, count, pct in pattern_stats %}
+            <div class="stat-box pattern-{{ pattern.lower() }}">
+                <div class="stat-value">{{ count }}</div>
+                <div class="stat-label">{{ pattern }} ({{ pct }}%)</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>📊 SUMMARY STATISTICS</h2>
+        <div>
+            <div class="stat-box">
+                <div class="stat-value">{{ total_analyzed }}</div>
+                <div class="stat-label">Total Draws</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">{{ unique_numbers }}</div>
+                <div class="stat-label">Unique Numbers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">{{ hot_numbers|length }}</div>
+                <div class="stat-label">Hot Numbers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">{{ cold_numbers|length }}</div>
+                <div class="stat-label">Cold Numbers</div>
+            </div>
+        </div>
+
+        <p style="margin-top: 40px; text-align: center; color: #7f8c8d;">
+            <a href="/">← Back to Home</a>
+        </p>
+    </div>
+</body>
+</html>

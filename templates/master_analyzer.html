@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Pattern Analyzer - All Features</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; margin: 0; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 30px; }
+        .filter-bar { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab { padding: 12px 24px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .tab:hover { background: #667eea; color: white; transform: translateY(-2px); }
+        .tab.active { background: #667eea; color: white; }
+        .section { background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: none; }
+        .section.active { display: block; }
+        .prediction-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .pred-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; color: white; text-align: center; transition: transform 0.3s; }
+        .pred-card:hover { transform: scale(1.05); }
+        .pred-number { font-size: 2.5em; font-weight: bold; letter-spacing: 3px; margin: 10px 0; }
+        .pred-confidence { font-size: 1.2em; color: #ffd700; margin: 5px 0; }
+        .pred-reasons { font-size: 0.85em; opacity: 0.9; margin-top: 10px; }
+        .heatmap { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; margin: 20px 0; }
+        .heatmap-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-weight: bold; font-size: 0.9em; }
+        .table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .table th { background: #667eea; color: white; padding: 12px; text-align: left; }
+        .table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .table tr:hover { background: #f8f9fa; }
+        .stat-box { background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0; }
+        .chart-bar { background: #667eea; height: 30px; border-radius: 5px; display: flex; align-items: center; padding: 0 10px; color: white; margin: 5px 0; }
+        .new-badge { background: #e74c3c; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.7em; font-weight: bold; margin-left: 8px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .tutorial-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; display: none; }
+        .tutorial-overlay.active { display: flex; align-items: center; justify-content: center; }
+        .tutorial-box { background: white; padding: 30px; border-radius: 15px; max-width: 600px; text-align: center; position: relative; }
+        .tutorial-box h2 { color: #667eea; margin-bottom: 20px; }
+        .tutorial-box button { background: #667eea; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; margin: 10px; }
+        .tutorial-box button:hover { background: #764ba2; }
+        .tooltip { position: absolute; background: #667eea; color: white; padding: 15px 20px; border-radius: 10px; z-index: 10000; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); max-width: 300px; }
+        .tooltip.active { display: block; animation: fadeIn 0.3s; }
+        .tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -10px; border: 10px solid transparent; border-top-color: #667eea; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .help-btn { position: fixed; bottom: 30px; right: 30px; background: #667eea; color: white; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 24px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; }
+        .help-btn:hover { background: #764ba2; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Master Pattern Analyzer</h1>
+        <p class="subtitle">Complete Advanced Pattern Analysis - 13 Features + AI Learning</p>
+        
+        <div class="filter-bar">
+            <label><strong>Provider:</strong></label>
+            <select onchange="window.location.href='?provider=' + this.value" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                {% for p in provider_options %}
+                <option value="{{ p }}" {% if p == provider %}selected{% endif %}>{{ p.title() }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('master')">🏆 Master Predictions</button>
+            <button class="tab" onclick="showSection('repeaters')" id="tab-repeaters">🎲 Repeaters<span class="new-badge">NEW</span></button>
+            <button class="tab" onclick="showSection('digitfreq')" id="tab-digitfreq">🔢 Digit Frequency<span class="new-badge">NEW</span></button>
+            <button class="tab" onclick="showSection('accuracy')" id="tab-accuracy">📈 Accuracy Tracker<span class="new-badge">NEW</span></button>
+            <button class="tab" onclick="showSection('hotcold')">🔥 Hot & Cold</button>
+            <button class="tab" onclick="showSection('pairs')">🔗 Pair Analysis</button>
+            <button class="tab" onclick="showSection('sums')">➕ Sum Analysis</button>
+            <button class="tab" onclick="showSection('positions')">📍 Position Analysis</button>
+            <button class="tab" onclick="showSection('gaps')">⏰ Gap & Overdue</button>
+            <button class="tab" onclick="showSection('oddeven')">⚖️ Odd/Even</button>
+            <button class="tab" onclick="showSection('providers')">🏢 Provider Compare</button>
+            <button class="tab" onclick="showSection('time')">📅 Time Patterns</button>
+            <button class="tab" onclick="showSection('sequence')">🔄 Multi-Step</button>
+        </div>
+
+        <!-- MASTER PREDICTIONS -->
+        <div id="master" class="section active">
+            <h2>🏆 Master Predictions (Combined AI)</h2>
+            <p>Top 20 predictions combining all analysis methods</p>
+            <div class="prediction-grid">
+                {% for pred in master_predictions %}
+                <div class="pred-card">
+                    <div class="pred-number">{{ pred.number }}</div>
+                    <div class="pred-confidence">{{ pred.confidence }}%</div>
+                    <div class="pred-reasons">
+                        {% for reason in pred.reasons %}
+                        • {{ reason }}<br>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- REPEATERS -->
+        <div id="repeaters" class="section">
+            <h2>🎲 Number Repeater Analysis (Last 7 Days)</h2>
+            <p>Numbers appearing multiple times in short periods - HOT STREAKS!</p>
+            {% if repeaters %}
+            <div class="prediction-grid">
+                {% for rep in repeaters %}
+                <div class="pred-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="pred-number">{{ rep.number }}</div>
+                    <div class="pred-confidence">{{ rep.confidence }}%</div>
+                    <div class="pred-reasons">
+                        <strong>{{ rep.status }}</strong><br>
+                        Appeared {{ rep.count }}x in 7 days
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p style="text-align: center; color: #7f8c8d; padding: 40px;">No repeating numbers found in the last 7 days</p>
+            {% endif %}
+        </div>
+
+        <!-- DIGIT FREQUENCY -->
+        <div id="digitfreq" class="section">
+            <h2>🔢 Individual Digit Frequency Analysis</h2>
+            <div class="stat-box">
+                <h3>Digit Distribution (0-9)</h3>
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin: 20px 0;">
+                    {% for digit in '0123456789' %}
+                    {% set pct = digit_freq.percentages[digit] %}
+                    <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #667eea {{ 100 - pct * 5 }}%, #764ba2 100%); border-radius: 10px; color: white;">
+                        <div style="font-size: 3em; font-weight: bold;">{{ digit }}</div>
+                        <div style="font-size: 1.5em; margin: 10px 0;">{{ pct }}%</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">frequency</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <h3>🔥 Hot Digits: {{ digit_freq.hot_digits|join(', ') }}</h3>
+            <h3>Predictions Based on Hot Digits</h3>
+            <div class="prediction-grid">
+                {% for pred in digit_freq.predictions %}
+                <div class="pred-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="pred-number">{{ pred.number }}</div>
+                    <div class="pred-confidence">{{ pred.confidence }}%</div>
+                    <div class="pred-reasons">{{ pred.reason }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- ACCURACY TRACKER -->
+        <div id="accuracy" class="section">
+            <h2>📈 Prediction Accuracy Tracker (Last 30 Draws)</h2>
+            <p>Which prediction method actually works best?</p>
+            
+            {% if accuracy.best_method %}
+            <div class="stat-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center;">
+                <h3 style="color: white; margin: 0;">🏆 Best Performing Method</h3>
+                <div style="font-size: 2.5em; font-weight: bold; margin: 20px 0;">{{ accuracy.best_method.replace('_', ' ').title() }}</div>
+                <div style="font-size: 1.5em;">{{ accuracy.accuracy[accuracy.best_method].rate }}% Accuracy</div>
+            </div>
+            {% endif %}
+            
+            <h3>Method Comparison</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Method</th>
+                        <th>Accuracy Rate</th>
+                        <th>Wins</th>
+                        <th>Total Predictions</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for method, data in accuracy.ranked %}
+                    <tr>
+                        <td style="font-weight: bold; font-size: 1.2em;">{{ loop.index }}</td>
+                        <td style="font-weight: bold;">{{ method.replace('_', ' ').title() }}</td>
+                        <td style="font-size: 1.3em; color: {% if data.rate >= 30 %}#27ae60{% elif data.rate >= 20 %}#f39c12{% else %}#e74c3c{% endif %}; font-weight: bold;">
+                            {{ data.rate }}%
+                        </td>
+                        <td>{{ data.wins }}</td>
+                        <td>{{ data.total }}</td>
+                        <td>
+                            <div class="chart-bar" style="width: {{ data.rate * 3 }}%; background: {% if data.rate >= 30 %}#27ae60{% elif data.rate >= 20 %}#f39c12{% else %}#e74c3c{% endif %};">
+                                {{ data.rate }}%
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 8px;">
+                <h4>💡 How to Read This</h4>
+                <ul>
+                    <li><strong>Green (30%+):</strong> Excellent performance - Use this method!</li>
+                    <li><strong>Orange (20-30%):</strong> Good performance - Reliable</li>
+                    <li><strong>Red (&lt;20%):</strong> Needs improvement - Use with caution</li>
+                </ul>
+                <p><strong>Note:</strong> Accuracy is calculated by checking if any of the top 5 predictions from each method matched the actual winning numbers in the next draw.</p>
+            </div>
+        </div>
+
+        <!-- HOT & COLD -->
+        <div id="hotcold" class="section">
+            <h2>🔥 Hot & Cold Numbers</h2>
+            {% for period in ['7d', '30d', '90d'] %}
+            <div class="stat-box">
+                <h3>{{ period.upper() }} Analysis</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="color: #e74c3c;">🔥 Hot Numbers</h4>
+                        {% for num, count in hot_cold[period]['hot'] %}
+                        <div class="chart-bar" style="width: {{ (count / hot_cold[period]['hot'][0][1] * 100)|int }}%; background: linear-gradient(90deg, #e74c3c, #c0392b);">
+                            {{ num }} - {{ count }}x
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <h4 style="color: #3498db;">❄️ Cold Numbers</h4>
+                        {% for num, count in hot_cold[period]['cold'] %}
+                        <div class="chart-bar" style="width: {{ (count / hot_cold[period]['cold'][-1][1] * 100)|int }}%; background: linear-gradient(90deg, #3498db, #2980b9);">
+                            {{ num }} - {{ count }}x
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- PAIRS -->
+        <div id="pairs" class="section">
+            <h2>🔗 Number Pair Analysis</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h3>Top Digit Pairs (within numbers)</h3>
+                    <table class="table">
+                        <thead><tr><th>Pair</th><th>Frequency</th></tr></thead>
+                        <tbody>
+                            {% for pair, count in pairs.digit_pairs %}
+                            <tr><td style="font-weight: bold; font-size: 1.2em;">{{ pair }}</td><td>{{ count }}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>Consecutive Pairs (same draw)</h3>
+                    <table class="table">
+                        <thead><tr><th>Number 1</th><th>Number 2</th><th>Times Together</th></tr></thead>
+                        <tbody>
+                            {% for (num1, num2), count in pairs.consecutive_pairs %}
+                            <tr><td>{{ num1 }}</td><td>{{ num2 }}</td><td>{{ count }}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMS -->
+        <div id="sums" class="section">
+            <h2>➕ Sum Analysis</h2>
+            <div class="stat-box">
+                <h3>Sum Range Distribution</h3>
+                {% for range, pct in sums.ranges.items() %}
+                <div class="chart-bar" style="width: {{ pct }}%;">
+                    {{ range }}: {{ pct }}%
+                </div>
+                {% endfor %}
+            </div>
+            <h3>Most Common Digit Sums</h3>
+            <table class="table">
+                <thead><tr><th>Sum</th><th>Frequency</th></tr></thead>
+                <tbody>
+                    {% for sum_val, count in sums.most_common %}
+                    <tr><td style="font-weight: bold;">{{ sum_val }}</td><td>{{ count }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h3>Top Predictions (by sum patterns)</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                {% for num in sums.predictions[:10] %}
+                <div style="background: #667eea; color: white; padding: 15px 20px; border-radius: 8px; font-size: 1.3em; font-weight: bold;">
+                    {{ num }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- POSITIONS -->
+        <div id="positions" class="section">
+            <h2>📍 Position Analysis</h2>
+            <h3>Digit Frequency Heatmap</h3>
+            {% for pos_idx in range(4) %}
+            <div style="margin: 20px 0;">
+                <h4>Position {{ pos_idx + 1 }}</h4>
+                <div class="heatmap">
+                    {% for digit in range(10) %}
+                    {% set count = positions.heatmap[pos_idx][digit] %}
+                    {% set max_count = positions.heatmap[pos_idx]|max %}
+                    {% set intensity = (count / max_count * 255)|int if max_count > 0 else 0 %}
+                    <div class="heatmap-cell" style="background: rgb({{ 255 - intensity }}, {{ 100 + intensity//2 }}, {{ 100 + intensity//2 }}); color: {% if intensity > 150 %}white{% else %}black{% endif %};">
+                        {{ digit }}<br><small>{{ count }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="stat-box">
+                <h3>🎯 Position-Based Prediction</h3>
+                <div style="text-align: center; font-size: 3em; font-weight: bold; color: #667eea; margin: 20px 0;">
+                    {{ positions.prediction }}
+                </div>
+                <p style="text-align: center;">Built from most frequent digit per position</p>
+            </div>
+        </div>
+
+        <!-- GAPS -->
+        <div id="gaps" class="section">
+            <h2>⏰ Gap Analysis & Overdue Numbers</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Average Gap</th>
+                        <th>Current Gap</th>
+                        <th>Overdue By</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in gaps %}
+                    <tr>
+                        <td style="font-weight: bold; font-size: 1.3em;">{{ item.number }}</td>
+                        <td>{{ item.avg_gap }} draws</td>
+                        <td>{{ item.current_gap }} draws</td>
+                        <td style="color: #e74c3c; font-weight: bold;">+{{ item.overdue_by }}</td>
+                        <td><span style="background: #e74c3c; color: white; padding: 5px 10px; border-radius: 5px;">OVERDUE</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ODD/EVEN -->
+        <div id="oddeven" class="section">
+            <h2>⚖️ Odd/Even Pattern Analysis</h2>
+            <div class="stat-box">
+                <h3>Pattern Distribution</h3>
+                {% for pattern, count in odd_even.distribution %}
+                <div class="chart-bar" style="width: {{ (count / odd_even.distribution[0][1] * 100)|int }}%;">
+                    {{ pattern }} - {{ count }} times
+                </div>
+                {% endfor %}
+            </div>
+            <div class="stat-box">
+                <h3>Last 10 Draws Pattern</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    {% for pattern in odd_even.recent %}
+                    <div style="background: #3498db; color: white; padding: 10px 15px; border-radius: 5px; font-weight: bold;">
+                        {{ pattern }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="stat-box">
+                <h3>🎯 Recommended Pattern</h3>
+                <div style="text-align: center; font-size: 2.5em; font-weight: bold; color: #667eea; margin: 20px 0;">
+                    {{ odd_even.recommendation }}
+                </div>
+            </div>
+        </div>
+
+        <!-- PROVIDERS -->
+        <div id="providers" class="section">
+            <h2>🏢 Provider Comparison</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                {% for prov, data in provider_comparison.items() %}
+                <div class="stat-box">
+                    <h3>{{ prov.title() }}</h3>
+                    <p><strong>Total Draws:</strong> {{ data.total_draws }}</p>
+                    <p><strong>Unique Numbers:</strong> {{ data.unique_numbers }}</p>
+                    <p><strong>Favorite Digit:</strong> {{ data.favorite_digit[0] }} ({{ data.favorite_digit[1] }}x)</p>
+                    <h4>Top 5 Numbers</h4>
+                    {% for num, count in data.top_5 %}
+                    <div style="background: #ecf0f1; padding: 8px; margin: 5px 0; border-radius: 5px;">
+                        <strong>{{ num }}</strong> - {{ count }}x
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- TIME PATTERNS -->
+        <div id="time" class="section">
+            <h2>📅 Time-Based Patterns</h2>
+            <h3>Day of Week Analysis</h3>
+            <table class="table">
+                <thead><tr><th>Day</th><th>Top 5 Numbers</th></tr></thead>
+                <tbody>
+                    {% for day, nums in time_patterns.day_patterns.items() %}
+                    <tr>
+                        <td style="font-weight: bold;">{{ day }}</td>
+                        <td>
+                            {% for num, count in nums %}
+                            <span style="background: #667eea; color: white; padding: 5px 10px; margin: 2px; display: inline-block; border-radius: 5px;">
+                                {{ num }} ({{ count }}x)
+                            </span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MULTI-STEP -->
+        <div id="sequence" class="section">
+            <h2>🔄 Multi-Step Sequential Predictions</h2>
+            <div class="stat-box">
+                <h3>Recent Number Sequence</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    {% for num in recent_sequence %}
+                    <div style="background: #95a5a6; color: white; padding: 10px 15px; border-radius: 5px; font-weight: bold;">
+                        {{ num }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <h3>Next 5 Predicted Steps</h3>
+            <table class="table">
+                <thead><tr><th>Step</th><th>From</th><th>→</th><th>Predicted Number</th><th>Probability</th></tr></thead>
+                <tbody>
+                    {% for pred in multi_step %}
+                    <tr>
+                        <td style="font-weight: bold;">Step {{ pred.step }}</td>
+                        <td>{{ pred.from }}</td>
+                        <td style="font-size: 1.5em; color: #667eea;">→</td>
+                        <td style="font-weight: bold; font-size: 1.3em; color: #e74c3c;">{{ pred.number }}</td>
+                        <td>{{ pred.probability }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p style="text-align: center; color: #7f8c8d; margin-top: 40px;">
+            Last Updated: {{ last_updated }} | <a href="/" style="color: #667eea;">Back to Home</a>
+        </p>
+    </div>
+
+    <!-- Tutorial Overlay -->
+    <div class="tutorial-overlay" id="tutorialOverlay">
+        <div class="tutorial-box">
+            <h2>🎉 Welcome to Master Pattern Analyzer!</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;">We've added <strong>3 NEW powerful features</strong> to help you predict better!</p>
+            <div style="text-align: left; margin: 20px 0;">
+                <p><strong>🎲 Repeaters:</strong> Find numbers on hot streaks (appearing multiple times recently)</p>
+                <p><strong>🔢 Digit Frequency:</strong> Analyze individual digits (0-9) and get predictions</p>
+                <p><strong>📈 Accuracy Tracker:</strong> See which prediction method actually works best!</p>
+            </div>
+            <button onclick="startTour()">Show Me Around 🚀</button>
+            <button onclick="closeTutorial()" style="background: #95a5a6;">Skip Tutorial</button>
+        </div>
+    </div>
+
+    <!-- Help Button -->
+    <button class="help-btn" onclick="showTutorial()" title="Show Tutorial">?</button>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Tutorial System
+        let tourStep = 0;
+        const tourSteps = [
+            { element: 'tab-repeaters', message: '🎲 NEW! Click here to see numbers on HOT STREAKS - appearing multiple times in last 7 days!' },
+            { element: 'tab-digitfreq', message: '🔢 NEW! Analyze individual digits (0-9) and see which digits appear most frequently!' },
+            { element: 'tab-accuracy', message: '📈 NEW! This shows which prediction method ACTUALLY works best based on historical testing!' }
+        ];
+
+        function showTutorial() {
+            document.getElementById('tutorialOverlay').classList.add('active');
+        }
+
+        function closeTutorial() {
+            document.getElementById('tutorialOverlay').classList.remove('active');
+            localStorage.setItem('tutorialSeen', 'true');
+        }
+
+        function startTour() {
+            closeTutorial();
+            tourStep = 0;
+            showTourStep();
+        }
+
+        function showTourStep() {
+            if (tourStep >= tourSteps.length) {
+                removeAllTooltips();
+                return;
+            }
+
+            const step = tourSteps[tourStep];
+            const element = document.getElementById(step.element);
+            
+            if (element) {
+                removeAllTooltips();
+                
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip active';
+                tooltip.innerHTML = `
+                    <div style="margin-bottom: 15px;">${step.message}</div>
+                    <button onclick="nextTourStep()" style="background: white; color: #667eea; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Got it! (${tourStep + 1}/${tourSteps.length})</button>
+                `;
+                
+                document.body.appendChild(tooltip);
+                
+                const rect = element.getBoundingClientRect();
+                tooltip.style.position = 'fixed';
+                tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
+                tooltip.style.top = (rect.bottom + 15) + 'px';
+                
+                element.style.boxShadow = '0 0 0 4px rgba(231, 76, 60, 0.5)';
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function nextTourStep() {
+            tourStep++;
+            showTourStep();
+        }
+
+        function removeAllTooltips() {
+            document.querySelectorAll('.tooltip').forEach(t => t.remove());
+            document.querySelectorAll('.tab').forEach(t => t.style.boxShadow = '');
+        }
+
+        // Show tutorial on first visit
+        window.addEventListener('load', function() {
+            if (!localStorage.getItem('tutorialSeen')) {
+                setTimeout(showTutorial, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

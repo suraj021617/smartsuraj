@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>⚡ POWER DASHBOARD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="refresh" content="60">
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-5xl font-bold mb-2">⚡ POWER DASHBOARD ⚡</h1>
+            <p class="text-xl text-gray-300">Advanced ML + Auto-Update + Confidence Scoring</p>
+            <p class="text-sm text-gray-400 mt-2">🔄 Auto-refreshes every 60 seconds</p>
+        </div>
+
+        <!-- Auto-Update Status -->
+        <div class="bg-gradient-to-r from-blue-900 to-purple-900 p-6 rounded-lg mb-6 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-4">🔄 Auto-Update Status</h2>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-black bg-opacity-30 p-4 rounded">
+                    <div class="text-3xl font-bold text-green-400">{{ update_stats.total_updates }}</div>
+                    <div class="text-sm">Total Updates</div>
+                </div>
+                <div class="bg-black bg-opacity-30 p-4 rounded">
+                    <div class="text-lg font-bold text-blue-400">{{ update_stats.last_update or 'Never' }}</div>
+                    <div class="text-sm">Last Update</div>
+                </div>
+                <div class="bg-black bg-opacity-30 p-4 rounded">
+                    <div class="text-3xl font-bold text-yellow-400">{{ update_stats.avg_rows_per_update }}</div>
+                    <div class="text-sm">Avg Rows/Update</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Power ML Predictions with Confidence -->
+        <div class="bg-gradient-to-r from-purple-900 to-pink-900 p-6 rounded-lg mb-6 shadow-2xl">
+            <h2 class="text-3xl font-bold mb-4">🚀 POWER ML PREDICTIONS</h2>
+            <p class="text-sm text-gray-300 mb-4">Using Random Forest + Gradient Boosting + 30+ Features</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                {% for pred in power_predictions[:10] %}
+                <div class="bg-gradient-to-br from-{{ pred.color }}-600 to-{{ pred.color }}-800 p-6 rounded-lg text-center transform hover:scale-105 transition">
+                    <div class="text-sm mb-1">{{ pred.emoji }}</div>
+                    <div class="text-4xl font-bold">{{ pred.number }}</div>
+                    <div class="text-sm mt-2">{{ (pred.confidence * 100)|round(1) }}%</div>
+                    <div class="text-xs mt-1 uppercase">{{ pred.level }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Confidence Breakdown -->
+        <div class="bg-gray-800 p-6 rounded-lg mb-6 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-4">📊 Confidence Breakdown</h2>
+            <div class="space-y-3">
+                {% for pred in power_predictions[:5] %}
+                <div class="bg-gray-700 p-4 rounded">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-2xl font-bold">{{ pred.number }}</span>
+                        <span class="text-xl {{ pred.emoji }}">{{ (pred.confidence * 100)|round(1) }}%</span>
+                    </div>
+                    <div class="text-sm text-gray-300">
+                        {% for reason in pred.reasons %}
+                        <span class="inline-block bg-gray-600 px-2 py-1 rounded mr-2 mb-1">{{ reason }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Adaptive Learning Status -->
+        <div class="bg-gradient-to-r from-green-900 to-teal-900 p-6 rounded-lg mb-6 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-4">🧠 Adaptive Learning Status</h2>
+            <div class="grid grid-cols-4 gap-4">
+                {% for method, weight in adaptive_weights.items() %}
+                <div class="bg-black bg-opacity-30 p-4 rounded text-center">
+                    <div class="text-3xl font-bold text-blue-400">{{ (weight * 100)|round(1) }}%</div>
+                    <div class="text-sm mt-2">{{ method|capitalize }}</div>
+                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style="width: {{ (weight * 100) }}%"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Feature Importance -->
+        {% if feature_importance %}
+        <div class="bg-gray-800 p-6 rounded-lg mb-6 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-4">🎯 Most Important Features</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                {% for feature, importance in feature_importance[:10] %}
+                <div class="bg-gradient-to-br from-indigo-600 to-purple-600 p-4 rounded text-center">
+                    <div class="text-lg font-bold">{{ feature }}</div>
+                    <div class="text-2xl font-bold mt-2">{{ (importance * 100)|round(1) }}%</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Recommendations -->
+        <div class="bg-yellow-900 p-6 rounded-lg mb-6 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-4">💡 AI Recommendations</h2>
+            <div class="space-y-2">
+                <div class="flex items-start">
+                    <span class="text-2xl mr-3">🎯</span>
+                    <span>Focus on predictions with "Very High" or "High" confidence (80%+)</span>
+                </div>
+                <div class="flex items-start">
+                    <span class="text-2xl mr-3">⚠️</span>
+                    <span>Avoid "Low" confidence predictions unless testing strategies</span>
+                </div>
+                <div class="flex items-start">
+                    <span class="text-2xl mr-3">🔄</span>
+                    <span>System auto-updates when new data arrives - no manual refresh needed</span>
+                </div>
+                <div class="flex items-start">
+                    <span class="text-2xl mr-3">📊</span>
+                    <span>Adaptive weights adjust automatically based on recent performance</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Info -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-2xl">
+            <h2 class="text-2xl font-bold mb-4">ℹ️ System Information</h2>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <span class="text-gray-400">ML Models:</span>
+                    <span class="font-bold">Random Forest + Gradient Boosting</span>
+                </div>
+                <div>
+                    <span class="text-gray-400">Features Extracted:</span>
+                    <span class="font-bold">30+ per number</span>
+                </div>
+                <div>
+                    <span class="text-gray-400">Training Data:</span>
+                    <span class="font-bold">{{ training_size }} numbers</span>
+                </div>
+                <div>
+                    <span class="text-gray-400">Last Updated:</span>
+                    <span class="font-bold">{{ last_updated }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="/" class="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700 inline-block">← Back to Home</a>
+            <a href="/adaptive-learning" class="bg-purple-600 px-6 py-3 rounded-lg hover:bg-purple-700 inline-block ml-4">🧠 Learning Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

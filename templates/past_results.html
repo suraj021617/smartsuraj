@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Past Results</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white p-4">
+  
+  <div class="max-w-[1400px] mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-4 text-blue-900">📊 Past Results</h1>
+    
+    <form method="get" class="mb-4 flex justify-center items-center gap-3">
+      <label class="font-semibold text-base">Date:</label>
+      <input type="date" name="selected_date" value="{{ selected_date or '' }}" class="border px-2 py-1 rounded">
+      <button type="submit" class="bg-blue-700 text-white px-4 py-1 rounded hover:bg-blue-900">Show</button>
+      {% if selected_date %}
+      <a href="/past-results" class="text-red-600 underline text-sm">Clear</a>
+      {% endif %}
+    </form>
+
+    {% if cards %}
+    <!-- Magnum Life Section -->
+    {% set magnum_life_data = cards | selectattr('provider', 'equalto', 'magnum') | list | first %}
+    {% if magnum_life_data %}
+    <div style="width: 380px; margin: 0 auto 20px;">
+      <div style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <div style="background-color: #ffdd00; padding: 10px; display: flex; align-items: center;">
+          <div style="height: 40px; width: 40px; margin-right: 10px; background-color: white; padding: 5px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">M</div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.2em; color: #333;">Magnum Life</h3>
+            <p style="margin: 0; font-size: 0.9em; color: #555;">万能天天彩</p>
+          </div>
+        </div>
+        <div style="background-color: #333; color: white; font-size: 0.8em; padding: 8px 10px; display: flex; justify-content: space-between;">
+          <span>Date: {{ magnum_life_data['date_parsed'].strftime('%d-%m-%Y (%a)') }}</span>
+          <span>Draw No: {{ magnum_life_data.get('draw_info', 'N/A') }}</span>
+        </div>
+        <div style="background-color: #f7f7f7; padding: 10px;">
+          <div style="background-color: #007bff; color: white; padding: 5px; text-align: center; font-weight: bold; border-radius: 4px;">Winning Numbers</div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 10px 0;">
+            {% set winning_nums = magnum_life_data.get('special', '').split()[:8] if magnum_life_data.get('special') else [] %}
+            {% for num in winning_nums %}
+            <span style="background-color: white; border: 1px solid #ddd; border-radius: 4px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.1em;">{{ num[:2] }}</span>
+            {% endfor %}
+          </div>
+          <div style="background-color: #28a745; color: white; padding: 5px; text-align: center; font-weight: bold; border-radius: 4px; margin-top: 10px;">Bonus Numbers</div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 10px 0;">
+            {% set bonus_nums = magnum_life_data.get('special', '').split()[8:10] if magnum_life_data.get('special') and magnum_life_data.get('special').split()|length > 8 else [] %}
+            {% for num in bonus_nums %}
+            <span style="background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.1em; color: #e63946;">{{ num[:2] }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div>
+          <div style="padding: 10px; text-align: center; background-color: #555; color: white;">
+            <p style="margin: 4px 0;">Grand Prize</p>
+            <p style="margin: 4px 0; font-weight: bold;">RM 1,000 everyday for 20 years</p>
+          </div>
+          <div style="padding: 10px; text-align: center; background-color: #777; color: white;">
+            <p style="margin: 4px 0;">2nd Prize</p>
+            <p style="margin: 4px 0; font-weight: bold;">RM 1,000 everyday for 100 days</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Magnum Jackpot Gold Section -->
+    {% if magnum_life_data %}
+    <div style="width: 380px; margin: 0 auto 20px;">
+      <div style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <div style="background-color: #ffdd00; padding: 10px; display: flex; align-items: center;">
+          <div style="height: 40px; width: 40px; margin-right: 10px; background-color: white; padding: 5px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">M</div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.2em; color: #333;">Magnum Jackpot Gold</h3>
+            <p style="margin: 0; font-size: 0.9em; color: #555;">黄金万字票积宝</p>
+          </div>
+        </div>
+        <div style="background-color: #333; color: white; font-size: 0.8em; padding: 8px 10px; display: flex; justify-content: space-between;">
+          <span>Date: {{ magnum_life_data['date_parsed'].strftime('%d-%m-%Y (%a)') }}</span>
+          <span>Draw No: {{ magnum_life_data.get('draw_info', 'N/A') }}</span>
+        </div>
+        <div style="padding: 10px; background-color: #333; color: white;">
+          <div style="background-color: #4CAF50; color: white; text-align: center; padding: 6px; font-weight: bold; border-radius: 4px; margin-bottom: 10px;">Jackpot 1</div>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 4px; background-color: #5a5a5a; padding: 8px; border-radius: 4px;">
+            {% set jp1_num = magnum_life_data.get('1st_real', '0000') %}
+            {% set cons_nums = magnum_life_data.get('consolation', '').split()[:2] if magnum_life_data.get('consolation') else ['00', '00'] %}
+            {% for d in jp1_num %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+            {% for d in cons_nums[0][:2] if cons_nums %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+            <span style="color: white; font-weight: bold; font-size: 1.5em; margin: 0 5px;">+</span>
+            {% for d in cons_nums[1][:2] if cons_nums|length > 1 %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+          </div>
+          <div style="background-color: #f0f0f0; color: #333; text-align: center; font-weight: bold; padding: 8px; margin-top: 10px; border-radius: 4px;">Prize : RM 10,788,838.78</div>
+        </div>
+        <div style="padding: 10px; background-color: #333; color: white;">
+          <div style="background-color: #d9534f; color: white; text-align: center; padding: 6px; font-weight: bold; border-radius: 4px; margin-bottom: 10px;">Jackpot 2</div>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 4px; background-color: #5a5a5a; padding: 8px; border-radius: 4px;">
+            {% set jp2_num = magnum_life_data.get('2nd_real', '0000') %}
+            {% for d in jp2_num %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+            {% for d in cons_nums[0][:2] if cons_nums %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+            <span style="color: white; font-weight: bold; font-size: 1.5em; margin: 0 5px;">+</span>
+            {% for d in cons_nums[1][:2] if cons_nums|length > 1 %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+          </div>
+          <div style="text-align: center; font-style: italic; color: #ccc; margin: 4px 0;">or</div>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 4px; background-color: #5a5a5a; padding: 8px; border-radius: 4px;">
+            {% set jp2_alt = magnum_life_data.get('3rd_real', '0000') %}
+            {% for d in jp2_alt %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+            {% for d in cons_nums[0][:2] if cons_nums %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+            <span style="color: white; font-weight: bold; font-size: 1.5em; margin: 0 5px;">+</span>
+            {% for d in cons_nums[1][:2] if cons_nums|length > 1 %}<span style="background-color: white; color: black; font-weight: bold; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 3px;">{{ d }}</span>{% endfor %}
+          </div>
+          <div style="background-color: #fff0f0; color: #d9534f; border: 1px solid #d9534f; text-align: center; font-weight: bold; padding: 8px; margin-top: 10px; border-radius: 4px;">Prize : RM 184,288.02 <span style="background-color: #d9534f; color: white; padding: 2px 5px; border-radius: 3px; font-size: 0.8em; margin-left: 5px;">Won</span></div>
+        </div>
+        <div style="background-color: #5a5a5a; color: white; padding: 10px;">
+          {% set other_prizes = [
+            ('3rd Prize', jp1_num, cons_nums[0][:2] if cons_nums else '00', '', cons_nums[1][:2] if cons_nums|length > 1 else '00'),
+            ('4th Prize', jp1_num, cons_nums[0][:2] if cons_nums else '00', '', cons_nums[1][:2] if cons_nums|length > 1 else '00'),
+            ('5th Prize', jp1_num, cons_nums[0][:2] if cons_nums else '00', '', cons_nums[1][:2] if cons_nums|length > 1 else '00'),
+            ('6th Prize', jp1_num[:3], '', '', ''),
+            ('7th Prize', jp1_num[:2], '', '', '')
+          ] %}
+          {% for label, n1, n2, sep, n3 in other_prizes %}
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 0.9em;">
+            <span>{{ label }}</span>
+            <div style="display: flex; gap: 2px;">
+              {% for d in n1 %}<span style="width: 28px; height: 28px; background-color: white; color: black; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ d }}</span>{% endfor %}
+              {% if n2 %}{% for d in n2 %}<span style="width: 28px; height: 28px; background-color: white; color: black; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ d }}</span>{% endfor %}{% endif %}
+              {% if n3 %}<span style="width: 28px; height: 28px; background-color: #d9534f; border-radius: 50%; color: white; font-size: 1.2em; display: flex; justify-content: center; align-items: center;">+</span>{% for d in n3 %}<span style="width: 28px; height: 28px; background-color: white; color: black; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ d }}</span>{% endfor %}{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Sports Toto 5D/6D/Lotto Section -->
+    {% set toto_data = cards | selectattr('provider', 'equalto', 'toto') | selectattr('draw_info', 'containing', '5D 6D') | list | first %}
+    {% if toto_data %}
+    <div style="width: 380px; margin: 0 auto 20px; background: white; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 14px;">
+      <div style="display: flex; align-items: center; padding: 8px; background-color: #d9272d; color: white; font-weight: bold;">
+        <div style="height: 35px; width: 35px; margin-right: 10px; background: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #d9272d;">ST</div>
+        <div style="flex-grow: 1;">
+          <h3 style="margin: 0; font-size: 1.1em; line-height: 1.2;">Sports Toto 5D, 6D, Lotto</h3>
+          <p style="margin: 0; font-size: 0.8em; font-weight: normal;">多多六合彩</p>
+        </div>
+        <div style="font-size: 0.8em; text-align: right; line-height: 1.4; font-weight: normal;">
+          Date: {{ toto_data['date_parsed'].strftime('%d-%m-%Y (%a)') }}<br>Draw No: {{ toto_data.get('draw_info', 'N/A').split()[0] if toto_data.get('draw_info') else 'N/A' }}
+        </div>
+      </div>
+      {% set toto_text = toto_data.get('1st', '') %}
+      {% if '5D:' in toto_text %}
+      <div style="border-top: 1px solid #ddd;">
+        <div style="background-color: #333; color: white; padding: 6px 10px; font-weight: bold; font-size: 1.1em; text-align: center;">5D</div>
+        <div style="display: grid; grid-template-columns: 1fr 2fr 1fr 2fr; gap: 1px; background-color: #e0e0e0; padding: 1px;">
+          {% set nums_5d = toto_text.split('5D:')[1].split('6D:')[0] if '6D:' in toto_text else toto_text.split('5D:')[1] %}
+          {% set p1 = nums_5d.split('1st')[1].split('|')[0].strip() if '1st' in nums_5d else '00000' %}
+          {% set p2 = nums_5d.split('2nd')[1].split('|')[0].strip() if '2nd' in nums_5d else '00000' %}
+          {% set p3 = nums_5d.split('3rd')[1].split('|')[0].strip() if '3rd' in nums_5d else '00000' %}
+          {% set p4 = nums_5d.split('4th')[1].split('|')[0].strip() if '4th' in nums_5d else '0000' %}
+          {% set p5 = nums_5d.split('5th')[1].split('|')[0].strip() if '5th' in nums_5d else '000' %}
+          {% set p6 = nums_5d.split('6th')[1].strip() if '6th' in nums_5d else '00' %}
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">1st</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1.2em; letter-spacing: 1px;">{{ p1 }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">4th</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1.2em; letter-spacing: 1px;">{{ p4 }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">2nd</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1.2em; letter-spacing: 1px;">{{ p2 }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">5th</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1.2em; letter-spacing: 1px;">{{ p5 }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">3rd</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1.2em; letter-spacing: 1px;">{{ p3 }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">6th</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1.2em; letter-spacing: 1px;">{{ p6 }}</div>
+        </div>
+      </div>
+      {% endif %}
+      {% if '6D:' in toto_text %}
+      <div style="border-top: 1px solid #ddd;">
+        <div style="background-color: #333; color: white; padding: 6px 10px; font-weight: bold; font-size: 1.1em; text-align: center;">6D</div>
+        <div style="display: grid; grid-template-columns: 1fr 3fr; gap: 1px; background-color: #e0e0e0; padding: 1px;">
+          {% set nums_6d = toto_text.split('6D:')[1] %}
+          {% set p1_6d = nums_6d.split('1st')[1].split('|')[0].strip() if '1st' in nums_6d else '000000' %}
+          {% set p2_6d = nums_6d.split('2nd')[1].split('|')[0].strip() if '2nd' in nums_6d else '' %}
+          {% set p3_6d = nums_6d.split('3rd')[1].split('|')[0].strip() if '3rd' in nums_6d else '' %}
+          {% set p4_6d = nums_6d.split('4th')[1].split('|')[0].strip() if '4th' in nums_6d else '' %}
+          {% set p5_6d = nums_6d.split('5th')[1].strip() if '5th' in nums_6d else '' %}
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">1st</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1em;">{{ p1_6d }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">2nd</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1em;">{{ p2_6d|replace('*', '<span style="color: #d9272d;">*</span>')|safe }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">3rd</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1em;">{{ p3_6d|replace('*', '<span style="color: #d9272d;">*</span>')|safe }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">4th</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1em;">{{ p4_6d|replace('*', '<span style="color: #d9272d;">*</span>')|safe }}</div>
+          <div style="background: white; padding: 5px 8px; font-weight: bold; color: #444;">5th</div><div style="background: white; padding: 5px 8px; font-weight: bold; font-size: 1em;">{{ p5_6d|replace('*', '<span style="color: #d9272d;">*</span>')|safe }}</div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Da Ma Cai 3+3D Section -->
+    {% set dmc_data = cards | selectattr('provider', 'equalto', 'damacai') | selectattr('draw_info', 'containing', '3+3D') | list | first %}
+    {% if dmc_data %}
+    <div style="width: 380px; margin: 0 auto 20px; background: white; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 14px;">
+      <div style="display: flex; align-items: center; padding: 8px; background-color: #0058a9; color: white; font-weight: bold;">
+        <div style="height: 35px; width: 35px; margin-right: 10px; background: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #0058a9;">DMC</div>
+        <div style="flex-grow: 1;">
+          <h3 style="margin: 0; font-size: 1.1em; line-height: 1.2;">Da Ma Cai 3+3D 大馬彩</h3>
+        </div>
+        <div style="font-size: 0.8em; text-align: right; line-height: 1.4; font-weight: normal;">
+          Date: {{ dmc_data['date_parsed'].strftime('%d-%m-%Y (%a)') }}<br>Draw No: {{ dmc_data.get('draw_info', 'N/A').split()[0] if dmc_data.get('draw_info') else 'N/A' }}
+        </div>
+      </div>
+      <div style="padding: 2px; background-color: #ddd;">
+        {% set dmc_text = dmc_data.get('1st', '') %}
+        {% set p1_num = dmc_text.split('1st Prize')[1].split()[0] if '1st Prize' in dmc_text else '000000' %}
+        {% set p1_animal = dmc_text.split('1st Prize')[1].split()[1] if '1st Prize' in dmc_text and len(dmc_text.split('1st Prize')[1].split()) > 1 else '' %}
+        {% set p2_num = dmc_text.split('2nd Prize')[1].split()[0] if '2nd Prize' in dmc_text else '000000' %}
+        {% set p2_animal = dmc_text.split('2nd Prize')[1].split()[1] if '2nd Prize' in dmc_text and len(dmc_text.split('2nd Prize')[1].split()) > 1 else '' %}
+        {% set p3_num = dmc_text.split('3rd Prize')[1].split()[0] if '3rd Prize' in dmc_text else '000000' %}
+        {% set p3_animal = dmc_text.split('3rd Prize')[1].split()[1] if '3rd Prize' in dmc_text and len(dmc_text.split('3rd Prize')[1].split()) > 1 else '' %}
+        <div style="display: flex; margin-bottom: 2px;">
+          <div style="background: white; padding: 8px; text-align: center; flex-basis: 60px;"><span style="font-size: 1.1em; font-weight: bold;">1st</span><div style="font-size: 0.8em; color: #555;">首獎</div></div>
+          <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; color: white; font-size: 1.8em; font-weight: bold; letter-spacing: 2px; background-color: #d9272d;"><span>{{ p1_num }}</span><span style="background-color: rgba(0,0,0,0.3); padding: 3px 8px; font-size: 0.5em; border-radius: 4px; letter-spacing: normal;">{{ p1_animal }}</span></div>
+        </div>
+        <div style="display: flex; margin-bottom: 2px;">
+          <div style="background: white; padding: 8px; text-align: center; flex-basis: 60px;"><span style="font-size: 1.1em; font-weight: bold;">2nd</span><div style="font-size: 0.8em; color: #555;">二獎</div></div>
+          <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; color: white; font-size: 1.8em; font-weight: bold; letter-spacing: 2px; background-color: #0058a9;"><span>{{ p2_num }}</span><span style="background-color: rgba(0,0,0,0.3); padding: 3px 8px; font-size: 0.5em; border-radius: 4px; letter-spacing: normal;">{{ p2_animal }}</span></div>
+        </div>
+        <div style="display: flex;">
+          <div style="background: white; padding: 8px; text-align: center; flex-basis: 60px;"><span style="font-size: 1.1em; font-weight: bold;">3rd</span><div style="font-size: 0.8em; color: #555;">三獎</div></div>
+          <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; color: white; font-size: 1.8em; font-weight: bold; letter-spacing: 2px; background-color: #d9272d;"><span>{{ p3_num }}</span><span style="background-color: rgba(0,0,0,0.3); padding: 3px 8px; font-size: 0.5em; border-radius: 4px; letter-spacing: normal;">{{ p3_animal }}</span></div>
+        </div>
+      </div>
+      {% set specials_dmc = dmc_data.get('special', '').split() if dmc_data.get('special') else [] %}
+      {% if specials_dmc %}
+      <div style="border-top: 1px solid #ddd;">
+        <div style="background-color: #555; color: white; padding: 6px 10px; font-weight: bold; font-size: 1em; text-align: center;">Special 特別獎</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 5px; padding: 10px; text-align: center; font-weight: bold; font-size: 1.2em;">
+          {% for num in specials_dmc[:10] %}<span>{{ num }}</span>{% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% set cons_dmc = dmc_data.get('consolation', '').split() if dmc_data.get('consolation') else [] %}
+      {% if cons_dmc %}
+      <div style="border-top: 1px solid #ddd;">
+        <div style="background-color: #555; color: white; padding: 6px 10px; font-weight: bold; font-size: 1em; text-align: center;">Consolation 安慰獎</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 5px; padding: 10px; text-align: center; font-weight: bold; font-size: 1.2em;">
+          {% for num in cons_dmc[:10] %}<span>{{ num }}</span>{% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="flex flex-wrap gap-4 justify-center">
+      {% for card in cards %}
+      {% set provider = card.get('provider', '').lower() %}
+      
+      <div class="border border-gray-300 rounded-md w-full md:w-[380px]">
+        <div class="flex items-center {% if 'magnum' in provider %}bg-yellow-400{% elif 'damacai' in provider %}bg-blue-900{% elif 'toto' in provider %}bg-red-900{% else %}bg-gray-700{% endif %} rounded-t-md px-3 py-2">
+          <h2 class="font-bold {% if 'magnum' in provider %}text-black{% else %}text-white{% endif %} text-lg">
+            {% if 'magnum' in provider %}Magnum
+            {% elif 'damacai' in provider %}Da Ma Cai
+            {% elif 'toto' in provider %}SportsToto
+            {% else %}{{ provider|capitalize }}
+            {% endif %}
+          </h2>
+        </div>
+
+        <div class="flex justify-between text-sm px-3 py-1">
+          <div>Date: {{ card['date_parsed'].strftime('%d-%m-%Y (%a)') }}</div>
+          <div>{{ card.get('draw_info', '') }}</div>
+        </div>
+
+        <table class="w-full border-collapse text-sm">
+          <tbody>
+            <tr>
+              <td class="bg-gray-900 text-white font-bold px-3 py-1 w-[120px] border border-gray-300">1st Prize</td>
+              <td class="font-extrabold text-xl px-3 py-1 border border-gray-300 text-right">{{ card.get('1st_real', '') }}</td>
+            </tr>
+            <tr>
+              <td class="bg-gray-900 text-white font-bold px-3 py-1 border border-gray-300">2nd Prize</td>
+              <td class="font-extrabold text-xl px-3 py-1 border border-gray-300 text-right">{{ card.get('2nd_real', '') }}</td>
+            </tr>
+            <tr>
+              <td class="bg-gray-900 text-white font-bold px-3 py-1 border border-gray-300">3rd Prize</td>
+              <td class="font-extrabold text-xl px-3 py-1 border border-gray-300 text-right">{{ card.get('3rd_real', '') }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        {% set specials = card['special'].split() if card['special'] and card['special']|string != 'nan' else [] %}
+        {% if specials %}
+        <div class="bg-gray-900 text-white font-bold text-center text-sm py-1 border border-gray-300">Special</div>
+        <div class="grid grid-cols-5 text-center text-lg font-normal border border-t-0 border-gray-300">
+          {% for num in specials[:10] %}
+          <div class="border-r border-b border-gray-300 py-1">{{ num }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% set cons = card['consolation'].split() if card['consolation'] and card['consolation']|string != 'nan' and 'Jackpot' not in card['consolation']|string else [] %}
+        {% if cons %}
+        <div class="bg-gray-900 text-white font-bold text-center text-sm py-1 border border-gray-300 border-t-0">Consolation</div>
+        <div class="grid grid-cols-5 text-center text-lg font-normal border border-t-0 border-gray-300">
+          {% for num in cons[:10] %}
+          <div class="border-r border-b border-gray-300 py-1">{{ num }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-gray-500 text-lg mt-6">No results for this date.</p>
+    {% endif %}
+
+    <div class="text-center mt-6">
+      <a href="/" class="text-blue-600 hover:text-blue-800 font-medium">← Back to Dashboard</a>
+    </div>
+  </div>
+
+</body>
+</html>

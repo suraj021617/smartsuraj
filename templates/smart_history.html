@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Learning History - 4D Predictor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .message {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2em;
+            color: #666;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .history-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .history-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .history-table tr:hover {
+            background: #f8f9ff;
+        }
+        .weight-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #e3f2fd;
+            color: #1976d2;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .accuracy-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .accuracy-high {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+        .accuracy-medium {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+        .accuracy-low {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+        .chart-title {
+            font-size: 1.3em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Smart Learning History</h1>
+        <p class="subtitle">Track how the AI learns and improves over time</p>
+
+        <div class="nav-buttons">
+            <a href="/" class="nav-btn">🏠 Home</a>
+            <a href="/smart-predictor" class="nav-btn">🎯 Smart Predictor</a>
+            <a href="/ultimate-predictor" class="nav-btn">🚀 Ultimate Predictor</a>
+            <a href="/learning-insights" class="nav-btn">📊 Learning Insights</a>
+        </div>
+
+        {% if message %}
+            <div class="message">{{ message }}</div>
+        {% else %}
+            <div class="chart-container">
+                <div class="chart-title">📈 Weight Evolution Over Time</div>
+                <p style="color: #666; margin-bottom: 15px;">
+                    The system automatically adjusts these weights to find the optimal prediction formula.
+                </p>
+            </div>
+
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>🔥 Hot Weight</th>
+                        <th>🧩 Pair Weight</th>
+                        <th>🔄 Trans Weight</th>
+                        <th>Accuracy Index</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in history %}
+                    <tr>
+                        <td>{{ entry.Date }}</td>
+                        <td><span class="weight-badge">{{ entry.HotWeight }}</span></td>
+                        <td><span class="weight-badge">{{ entry.PairWeight }}</span></td>
+                        <td><span class="weight-badge">{{ entry.TransWeight }}</span></td>
+                        <td>
+                            {% set acc = entry.Accuracy * 100 %}
+                            {% if acc >= 0.7 %}
+                                <span class="accuracy-badge accuracy-high">{{ "%.2f"|format(acc) }}%</span>
+                            {% elif acc >= 0.4 %}
+                                <span class="accuracy-badge accuracy-medium">{{ "%.2f"|format(acc) }}%</span>
+                            {% else %}
+                                <span class="accuracy-badge accuracy-low">{{ "%.2f"|format(acc) }}%</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 10px; border-left: 4px solid #1976d2;">
+                <h3 style="color: #1976d2; margin-bottom: 10px;">💡 What This Means</h3>
+                <ul style="color: #555; line-height: 1.8; margin-left: 20px;">
+                    <li><strong>Hot Weight:</strong> How much importance given to frequently appearing digits</li>
+                    <li><strong>Pair Weight:</strong> How much importance given to digit pairs that appear together</li>
+                    <li><strong>Trans Weight:</strong> How much importance given to pattern transitions</li>
+                    <li><strong>Accuracy Index:</strong> Performance score of this weight combination</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

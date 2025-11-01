@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction History</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: center; }
+        th { background: #333; color: #fff; }
+        tr:nth-child(even) { background: #f2f2f2; }
+        .hit { color: green; font-weight: bold; }
+        .miss { color: red; font-weight: bold; }
+        .container { max-width: 1200px; margin: auto; }
+        .small { font-size: 0.9rem; color: #555; }
+        .filters { background: white; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .filters select, .filters button { padding: 8px 12px; margin-right: 10px; }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Prediction History</h1>
+    
+    <div class="filters">
+      <form method="get">
+        <label>Provider:</label>
+        <select name="provider">
+          {% for opt in provider_options %}
+          <option value="{{ opt }}" {% if opt == provider %}selected{% endif %}>{{ opt|upper }}</option>
+          {% endfor %}
+        </select>
+        
+        <label>Month:</label>
+        <select name="month">
+          <option value="">All Months</option>
+          {% for m in month_options %}
+          <option value="{{ m }}" {% if m == selected_month %}selected{% endif %}>{{ m }}</option>
+          {% endfor %}
+        </select>
+        
+        <button type="submit">Apply Filters</button>
+      </form>
+    </div>
+
+    <table>
+      <caption class="sr-only">History of predictions and actual winners</caption>
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Provider</th>
+          <th scope="col">Drawn Number</th>
+          <th scope="col">Predictions (Top 5)</th>
+          <th scope="col">Next Day Winners</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in history %}
+        <tr>
+          <td>{{ row.date }}</td>
+          <td>{{ row.provider }}</td>
+          <td><strong>{{ row.drawn_number }}</strong></td>
+          <td>
+            {% if row.predictions %}
+              {% for p in row.predictions %}
+                <div class="small">
+                  {{ p.num }} ({{ '%.2f'|format(p.score * 100) }}%)
+                  {% if p.hit == '✅' %}
+                    <span class="hit">Hit</span>
+                  {% else %}
+                    <span class="miss">Miss</span>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            {% else %}
+              <em class="small">No predictions</em>
+            {% endif %}
+          </td>
+          <td>
+            {% if row.next_winners %}
+              {% for w in row.next_winners %}
+                <div>{{ w }}</div>
+              {% endfor %}
+            {% else %}
+              <em class="small">No winners listed</em>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

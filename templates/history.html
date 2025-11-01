@@ -1,0 +1,42 @@
+<html>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-4">
+  <div class="max-w-[1000px] mx-auto">
+    <form method="POST" class="mb-4">
+      <input type="date" name="date" value="{{ selected_date }}" class="border rounded px-2 py-1">
+      <button class="bg-blue-600 text-white px-3 py-1">Go</button>
+    </form>
+    <div class="flex flex-wrap gap-2 mb-4">
+      {% for d in dates %}
+        <a href="?page={{page}}" class="px-3 py-1 rounded {{ 'bg-blue-500 text-white' if d==selected_date else 'bg-white text-gray-800 ring' }}">{{d}}</a>
+      {% endfor %}
+    </div>
+    <div class="flex justify-between mb-4">
+      <a href="?page={{page-1}}" class="{{'invisible' if page==1 else ''}} bg-white px-3 py-1 ring rounded">Previous</a>
+      <a href="?page={{page+1}}" class="{{'invisible' if page==pages else ''}} bg-white px-3 py-1 ring rounded">Next</a>
+    </div>
+
+    <div class="flex flex-wrap gap-6">
+      {% for d in results %}
+        <!-- Use the earlier card layout: header with bg, logo -->
+        <div class="border rounded shadow max-w-[320px] bg-white">
+          <div class="flex items-center {{d.provider_bg}} px-2 py-1 gap-2">
+            {% if d.provider_logo %}<img src="{{d.provider_logo}}" class="h-8 w-8">{{endif}}
+            <h2 class="font-bold">{{d.provider_name}}</h2>
+          </div>
+          <div class="p-2">
+            <div>{{d.draw_info}}</div>
+          </div>
+          <!-- prizes & lists as before -->
+          {% if d['1st'] %}
+          <table class="..."><tr><td>1st</td><td>{{d['1st']}}</td></tr></table>
+          {% endif %}
+          <!-- add special, consolation using loops -->
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+================================================================================
+CRITICAL: WHICH APP.PY IS RUNNING?
+================================================================================
+
+Please do this:
+
+1. STOP Flask (press Ctrl+C in the terminal)
+
+2. Look at the terminal output BEFORE you stopped it
+   - It should say something like:
+     "Running on http://127.0.0.1:5000"
+   - Check if it says which file is running
+
+3. Check your terminal - what command did you use to start Flask?
+   - Did you run: python app.py
+   - Or: python app_final.py
+   - Or: python main.py
+   - Or: flask run
+
+4. START Flask again with VERBOSE output:
+   python app.py
+
+5. Copy and paste the FIRST 20 LINES of output here
+
+6. While Flask is running, open a NEW terminal and run:
+   python FINAL_TEST.py
+
+7. Then in your browser, press F12 (open DevTools)
+   - Go to Network tab
+   - Visit: http://127.0.0.1:5000/
+   - Look at the request to "/"
+   - Check the Response tab
+   - Search for "2025" in the HTML
+   - Take a screenshot
+
+================================================================================
+POSSIBLE ISSUES:
+================================================================================
+
+1. You're running a DIFFERENT app.py file (app_final.py, main.py, etc.)
+2. You have MULTIPLE Flask instances running
+3. Browser is showing cached data
+4. You're looking at a different port (5001, 8000, etc.)
+
+================================================================================

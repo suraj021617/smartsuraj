@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🧠 Learning Insights - AI Analysis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white min-h-screen p-6">
+
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-extrabold mb-2">🧠 LEARNING INSIGHTS</h1>
+      <p class="text-xl text-yellow-300">AI Analysis of Prediction Patterns vs Actual Results</p>
+    </div>
+
+    {% if message %}
+    <div class="bg-yellow-500/20 border-2 border-yellow-500 rounded-xl p-6 text-center">
+      <p class="text-xl">{{ message }}</p>
+    </div>
+    {% else %}
+
+    <!-- Recommendations -->
+    <div class="bg-gradient-to-r from-yellow-500 to-orange-600 rounded-xl p-6 mb-8">
+      <h2 class="text-3xl font-bold mb-4">💡 AI Recommendations</h2>
+      <div class="space-y-2">
+        {% for rec in insights.recommendations %}
+        <div class="bg-black/30 rounded-lg p-4 text-lg">{{ rec }}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Digit Analysis -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-yellow-300">🔢 Digit Frequency Analysis</h2>
+      <p class="text-sm text-gray-300 mb-4">Comparing your predictions vs actual winning numbers</p>
+      
+      <div class="grid grid-cols-5 md:grid-cols-10 gap-2">
+        {% for item in insights.digit_comparison %}
+        <div class="bg-gray-800/50 rounded-lg p-3 text-center">
+          <div class="text-3xl font-bold mb-1">{{ item.digit }}</div>
+          <div class="text-xs text-gray-400 mb-1">Actual: {{ item.actual_freq }}</div>
+          <div class="text-xs text-gray-400 mb-2">Pred: {{ item.pred_freq }}</div>
+          <div class="text-xs font-bold px-2 py-1 rounded
+                      {% if item.bias == 'balanced' %}bg-green-600
+                      {% elif item.bias == 'over' %}bg-red-600
+                      {% else %}bg-yellow-600{% endif %}">
+            {{ item.bias|upper }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <div class="mt-4 bg-blue-600/20 rounded-lg p-4">
+        <div class="font-bold mb-2">📖 How to Read:</div>
+        <div class="text-sm space-y-1">
+          <div><span class="bg-green-600 px-2 py-1 rounded text-xs">BALANCED</span> = Your predictions match actual trends ✅</div>
+          <div><span class="bg-red-600 px-2 py-1 rounded text-xs">OVER</span> = You're predicting this digit too much ⚠️</div>
+          <div><span class="bg-yellow-600 px-2 py-1 rounded text-xs">UNDER</span> = You're missing this digit 💡</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Provider Performance -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-yellow-300">🏢 Provider-Specific Accuracy</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {% for provider, data in insights.provider_accuracy.items() %}
+        <div class="bg-gray-800/50 rounded-lg p-6">
+          <div class="text-xl font-bold mb-2">{{ provider|upper }}</div>
+          <div class="text-4xl font-bold mb-2
+                      {% if data.accuracy >= 50 %}text-green-400
+                      {% elif data.accuracy >= 30 %}text-yellow-400
+                      {% else %}text-red-400{% endif %}">
+            {{ data.accuracy }}%
+          </div>
+          <div class="text-sm text-gray-400">{{ data.hits }}/{{ data.total }} predictions hit</div>
+          <div class="mt-3 text-xs">
+            {% if data.accuracy >= 50 %}
+            ✅ Excellent! Keep using current strategy
+            {% elif data.accuracy >= 30 %}
+            ⚠️ Moderate. Try adjusting methods
+            {% else %}
+            ❌ Low accuracy. Consider different approach
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-yellow-300">📈 Analysis Summary</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-800/50 rounded-lg p-4">
+          <div class="text-sm text-gray-400">Total Predictions Analyzed</div>
+          <div class="text-3xl font-bold">{{ insights.total_analyzed }}</div>
+        </div>
+        <div class="bg-gray-800/50 rounded-lg p-4">
+          <div class="text-sm text-gray-400">Learning Status</div>
+          <div class="text-xl font-bold text-green-400">
+            {% if insights.total_analyzed >= 20 %}
+            🟢 Strong Learning Data
+            {% elif insights.total_analyzed >= 10 %}
+            🟡 Moderate Learning Data
+            {% else %}
+            🔴 Need More Data
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-4 justify-center">
+      <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white font-bold px-8 py-3 rounded-lg">
+        ← Back to Home
+      </a>
+      <a href="/accuracy-dashboard" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-3 rounded-lg">
+        📊 Accuracy Dashboard
+      </a>
+      <a href="/ultimate-predictor" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold px-8 py-3 rounded-lg">
+        🎯 Make Prediction
+      </a>
+    </div>
+
+    {% endif %}
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🧠 Adaptive Learning System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-6">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-bold mb-6">🧠 Adaptive Learning System</h1>
+        
+        <div class="bg-blue-900 p-4 rounded mb-6">
+            <h2 class="text-xl font-bold mb-2">📖 How It Works:</h2>
+            <ul class="list-disc ml-6 space-y-1">
+                <li>System makes predictions using 4 methods</li>
+                <li>When predictions don't match real results, it analyzes WHY</li>
+                <li>Automatically adjusts weights to trust better-performing methods</li>
+                <li>Learns which digits and patterns are important</li>
+                <li>Gets smarter with every prediction</li>
+            </ul>
+        </div>
+
+        <!-- Current Weights -->
+        <div class="bg-gray-800 p-6 rounded mb-6">
+            <h2 class="text-2xl font-bold mb-4">⚖️ Current Method Weights (Auto-Adjusted)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {% for method, weight in weights.items() %}
+                <div class="bg-gray-700 p-4 rounded text-center">
+                    <div class="text-3xl font-bold text-blue-400">{{ (weight * 100)|round(1) }}%</div>
+                    <div class="text-sm mt-2">{{ method|capitalize }}</div>
+                    <div class="w-full bg-gray-600 rounded-full h-2 mt-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: {{ (weight * 100) }}%"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <p class="text-sm text-gray-400 mt-4">💡 Higher weight = Better recent performance</p>
+        </div>
+
+        <!-- Learning Insights -->
+        <div class="bg-gray-800 p-6 rounded mb-6">
+            <h2 class="text-2xl font-bold mb-4">📊 What System Has Learned</h2>
+            
+            {% for insight in insights %}
+                {% if insight.type == 'method_performance' %}
+                <div class="bg-gray-700 p-4 rounded mb-3">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-lg">{{ insight.method|capitalize }} Method</span>
+                            <span class="text-sm text-gray-400 ml-2">({{ insight.predictions }} predictions)</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold 
+                                {% if insight.accuracy > 30 %}text-green-400
+                                {% elif insight.accuracy > 20 %}text-yellow-400
+                                {% else %}text-red-400{% endif %}">
+                                {{ insight.accuracy }}%
+                            </div>
+                            <div class="text-sm">Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Important Digits Learned -->
+        {% for insight in insights %}
+            {% if insight.type == 'important_digits' %}
+            <div class="bg-gray-800 p-6 rounded mb-6">
+                <h2 class="text-2xl font-bold mb-4">🔢 Important Digits (Learned from Misses)</h2>
+                <div class="flex gap-4">
+                    {% for digit, importance in insight.digits %}
+                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-6 rounded-lg text-center">
+                        <div class="text-4xl font-bold">{{ digit }}</div>
+                        <div class="text-sm mt-2">Importance: {{ importance }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <p class="text-sm text-gray-400 mt-4">💡 These digits appeared in actual winners but were missed in predictions</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Common Miss Patterns -->
+        {% for insight in insights %}
+            {% if insight.type == 'common_miss_patterns' %}
+            <div class="bg-gray-800 p-6 rounded mb-6">
+                <h2 class="text-2xl font-bold mb-4">🎯 Common Miss Patterns</h2>
+                <div class="space-y-2">
+                    {% for pattern, count in insight.patterns %}
+                    <div class="bg-gray-700 p-3 rounded flex justify-between">
+                        <span>{{ pattern }}</span>
+                        <span class="text-yellow-400 font-bold">{{ count }}x</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <p class="text-sm text-gray-400 mt-4">💡 System is learning to avoid these patterns</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Overall Stats -->
+        {% for insight in insights %}
+            {% if insight.type == 'overall_stats' %}
+            <div class="bg-gradient-to-r from-green-900 to-blue-900 p-6 rounded mb-6">
+                <h2 class="text-2xl font-bold mb-4">📈 Overall Performance</h2>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-4xl font-bold">{{ insight.total_predictions }}</div>
+                        <div class="text-sm">Total Predictions</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-green-400">{{ insight.total_hits }}</div>
+                        <div class="text-sm">Hits</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-yellow-400">{{ insight.hit_rate }}%</div>
+                        <div class="text-sm">Hit Rate</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Recommendations -->
+        <div class="bg-yellow-900 p-6 rounded mb-6">
+            <h2 class="text-2xl font-bold mb-4">💡 AI Recommendations</h2>
+            <ul class="space-y-2">
+                {% for rec in recommendations %}
+                <li class="flex items-start">
+                    <span class="mr-2">•</span>
+                    <span>{{ rec }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Adaptive Predictions -->
+        <div class="bg-gray-800 p-6 rounded">
+            <h2 class="text-2xl font-bold mb-4">🎯 Adaptive Predictions (Using Learned Weights)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                {% for num, score, reason in adaptive_predictions[:10] %}
+                <div class="bg-gradient-to-br from-blue-600 to-purple-600 p-4 rounded text-center">
+                    <div class="text-3xl font-bold">{{ num }}</div>
+                    <div class="text-sm mt-2">Score: {{ score|round(3) }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <p class="text-sm text-gray-400 mt-4">💡 These predictions use learned weights from past performance</p>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="/" class="bg-blue-600 px-6 py-3 rounded hover:bg-blue-700">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

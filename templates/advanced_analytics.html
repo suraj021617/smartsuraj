@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Analytics - Deep Insights</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        .header { background: white; padding: 30px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.2); text-align: center; }
+        h1 { color: #1e3c72; margin-bottom: 10px; font-size: 36px; }
+        .subtitle { color: #666; font-size: 18px; }
+        
+        .filters { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .filters select { padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; width: 100%; max-width: 300px; }
+        
+        .section { background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        .section h2 { color: #1e3c72; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #2a5298; }
+        
+        .month-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+        .month-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; color: white; }
+        .month-card h3 { margin-bottom: 10px; font-size: 20px; }
+        .month-stat { margin: 8px 0; font-size: 14px; }
+        .month-numbers { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .num-badge { background: rgba(255,255,255,0.3); padding: 5px 10px; border-radius: 5px; font-weight: bold; }
+        
+        .day-table { width: 100%; border-collapse: collapse; }
+        .day-table th { background: #2a5298; color: white; padding: 12px; text-align: left; }
+        .day-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .day-table tr:hover { background: #f8f9fa; }
+        
+        .prize-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .prize-card { background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid #667eea; }
+        .prize-card h3 { color: #1e3c72; margin-bottom: 15px; }
+        .prize-stat { margin: 8px 0; color: #555; }
+        .prize-numbers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+        .prize-num { background: white; padding: 8px; border-radius: 5px; text-align: center; font-weight: bold; color: #667eea; }
+        
+        .trend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .trend-card { padding: 20px; border-radius: 10px; }
+        .trend-up { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
+        .trend-down { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; }
+        .trend-card h3 { margin-bottom: 15px; font-size: 22px; }
+        .trend-item { background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .trend-number { font-size: 20px; font-weight: bold; }
+        .trend-change { font-size: 16px; }
+        
+        .nav-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-btn { display: inline-block; padding: 12px 24px; background: white; color: #1e3c72; text-decoration: none; border-radius: 8px; font-weight: bold; }
+        .nav-btn:hover { background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Advanced Analytics - Deep Insights</h1>
+            <p class="subtitle">Compare months, days, prize types, and trends - ALL numbers analyzed!</p>
+        </div>
+        
+        <div class="filters">
+            <form method="GET">
+                <label style="display: block; margin-bottom: 10px; font-weight: bold;">Select Provider:</label>
+                <select name="provider" onchange="this.form.submit()">
+                    <option value="all" {% if provider == 'all' %}selected{% endif %}>All Providers</option>
+                    {% for prov in provider_options %}
+                        {% if prov != 'all' %}
+                        <option value="{{ prov }}" {% if provider == prov %}selected{% endif %}>{{ prov|title }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        
+        <!-- NEXT DRAW PREDICTIONS -->
+        <div class="section" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; border: 4px solid #fbbf24;">
+            <h2 style="color: white; border-bottom-color: rgba(255,255,255,0.3); font-size: 32px;">🎯 NEXT DRAW PREDICTIONS</h2>
+            <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">📅 {{ next_draw_day }}, {{ next_draw_date }}</div>
+                <div style="font-size: 16px;">Predictions based on {{ next_draw_day }} historical patterns + trending data</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                {% if next_predictions %}
+                    {% for pred in next_predictions %}
+                    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div style="font-size: 36px; font-weight: bold;">{{ pred.number }}</div>
+                            <div style="background: rgba(255,255,255,0.3); padding: 10px 16px; border-radius: 8px; font-weight: bold; font-size: 18px;">
+                                {{ pred.confidence|int }}%
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-bottom: 8px; font-size: 13px; font-weight: bold;">
+                            📊 {{ pred.strategy }}
+                        </div>
+                        <div style="font-size: 13px; line-height: 1.5;">
+                            {{ pred.reason }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div style="padding: 20px; text-align: center; color: white;">No predictions available - need more historical data</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- MONTHLY COMPARISON -->
+        <div class="section">
+            <h2>📅 Month-by-Month Comparison (Last 6 Months)</h2>
+            <div class="month-grid">
+                {% for month in monthly_stats %}
+                <div class="month-card">
+                    <h3>{{ month.month }}</h3>
+                    <div class="month-stat">📊 Total Draws: {{ month.total_draws }}</div>
+                    <div class="month-stat">🔢 Unique Numbers: {{ month.unique_numbers }}</div>
+                    <div class="month-stat">🏆 Most Common: {{ month.most_common[0] }} ({{ month.most_common[1] }} times)</div>
+                    <div style="margin-top: 10px; font-weight: bold;">Top 5 Numbers:</div>
+                    <div class="month-numbers">
+                        {% for num, count in month.top_numbers %}
+                        <div class="num-badge">{{ num }} ({{ count }}x)</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- DAY OF WEEK ANALYSIS -->
+        <div class="section">
+            <h2>📆 Day of Week Analysis</h2>
+            <table class="day-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Total Draws</th>
+                        <th>Top 3 Numbers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for day in day_stats %}
+                    <tr>
+                        <td><strong>{{ day.day }}</strong></td>
+                        <td>{{ day.draws }}</td>
+                        <td>
+                            {% for num, count in day.top_numbers %}
+                            <span style="background: #667eea; color: white; padding: 4px 8px; border-radius: 4px; margin-right: 5px;">
+                                {{ num }} ({{ count }}x)
+                            </span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- PRIZE TYPE COMPARISON -->
+        <div class="section">
+            <h2>🏆 Prize Type Comparison (1st, 2nd, 3rd, Special, Consolation)</h2>
+            <div class="prize-grid">
+                {% for prize in prize_comparison %}
+                <div class="prize-card">
+                    <h3>{{ prize.type }}</h3>
+                    <div class="prize-stat">📊 Total Numbers: {{ prize.total }}</div>
+                    <div class="prize-stat">🔢 Unique Numbers: {{ prize.unique }}</div>
+                    <div style="margin-top: 10px; font-weight: bold;">Top 10:</div>
+                    <div class="prize-numbers">
+                        {% for num, count in prize.top_numbers[:10] %}
+                        <div class="prize-num">{{ num }}<br><small>({{ count }}x)</small></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- TRENDING NUMBERS -->
+        <div class="section">
+            <h2>📈 Trending Numbers (Last 30 Days vs Previous 30 Days)</h2>
+            <div class="trend-grid">
+                <div class="trend-card trend-up">
+                    <h3>🔥 TRENDING UP (Getting Hotter)</h3>
+                    {% for num, recent_count, change in trending_up %}
+                    <div class="trend-item">
+                        <span class="trend-number">{{ num }}</span>
+                        <span class="trend-change">+{{ change }} more appearances ({{ recent_count }} total)</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="trend-card trend-down">
+                    <h3>❄️ TRENDING DOWN (Getting Colder)</h3>
+                    {% for num, recent_count, change in trending_down %}
+                    <div class="trend-item">
+                        <span class="trend-number">{{ num }}</span>
+                        <span class="trend-change">-{{ change }} fewer appearances ({{ recent_count }} total)</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- SMART PREDICTIONS BY DAY -->
+        <div class="section" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+            <h2 style="color: white; border-bottom-color: rgba(255,255,255,0.3);">🎯 SMART PREDICTIONS FOR EACH DAY</h2>
+            <p style="margin-bottom: 20px; font-size: 16px;">Predictions tailored for each day of the week based on historical patterns!</p>
+            
+            {% for day, preds in day_predictions.items() %}
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                <h3 style="color: white; margin-bottom: 15px; font-size: 24px;">📅 {{ day }}</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
+                    {% if preds %}
+                        {% for pred in preds[:5] %}
+                        <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div style="font-size: 28px; font-weight: bold;">{{ pred.number }}</div>
+                                <div style="background: rgba(255,255,255,0.3); padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 14px;">
+                                    {{ pred.confidence|int }}%
+                                </div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.2); padding: 6px; border-radius: 4px; margin-bottom: 6px; font-size: 12px; font-weight: bold;">
+                                📊 {{ pred.strategy }}
+                            </div>
+                            <div style="font-size: 12px; line-height: 1.4;">
+                                {{ pred.reason }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div style="padding: 20px; text-align: center;">No predictions available</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin-top: 20px;">
+                <strong>🧠 Prediction Logic:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                    <li>50% weight: Hot numbers in last 10 draws</li>
+                    <li>30% weight: Trending Up numbers (getting hotter)</li>
+                    <li>20% weight: Best numbers for that specific day of week</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- INSIGHTS -->
+        <div class="section" style="background: #fef3c7; border-left: 5px solid #f59e0b;">
+            <h2 style="color: #92400e;">💡 How to Use This Data:</h2>
+            <ul style="margin-left: 20px; line-height: 2; color: #78350f;">
+                <li><strong>Monthly Comparison:</strong> See which numbers were hot in each month</li>
+                <li><strong>Day Analysis:</strong> Some numbers appear more on certain days (e.g., Wednesdays)</li>
+                <li><strong>Prize Type:</strong> Compare 1st prize vs Special vs Consolation patterns</li>
+                <li><strong>Trending Up:</strong> Numbers appearing MORE recently = HOT right now</li>
+                <li><strong>Trending Down:</strong> Numbers appearing LESS recently = Getting COLD</li>
+                <li><strong>Strategy:</strong> Bet on TRENDING UP numbers for short-term, or TRENDING DOWN if you think they're "due"</li>
+            </ul>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/" class="nav-btn">← Home</a>
+            <a href="{{ url_for('prediction_details') }}" class="nav-btn">Next Draw Predictions</a>
+            <a href="{{ url_for('pattern_analyzer') }}" class="nav-btn">Pattern Analyzer</a>
+            <a href="{{ url_for('hot_cold') }}" class="nav-btn">Hot/Cold Numbers</a>
+            <a href="{{ url_for('statistics') }}" class="nav-btn">Statistics</a>
+        </div>
+    </div>
+</body>
+</html>

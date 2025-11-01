@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequential Pattern Learning - 4D Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .prediction-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
+        .prediction-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; color: white; }
+        .prediction-card h3 { margin: 0 0 15px 0; font-size: 1.2em; }
+        .number-box { background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin: 10px 0; }
+        .number-large { font-size: 2em; font-weight: bold; letter-spacing: 3px; }
+        .confidence { font-size: 1.1em; color: #ffd700; margin: 5px 0; }
+        .reason { font-size: 0.9em; opacity: 0.9; }
+        .transition-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; }
+        .transition-table th { background: #667eea; color: white; padding: 12px; text-align: left; }
+        .transition-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .transition-arrow { color: #667eea; font-size: 1.5em; }
+        .recent-numbers { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+        .recent-num { background: #f0f0f0; padding: 10px 15px; border-radius: 5px; font-weight: bold; }
+        .stats-box { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .filter-bar { background: white; padding: 15px; border-radius: 8px; margin: 20px 0; display: flex; gap: 15px; align-items: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Sequential Pattern Learning</h1>
+        <p>Learning from {{ total_draws }} historical draws | {{ total_patterns }} unique patterns discovered</p>
+        
+        <div class="filter-bar">
+            <label>Provider:</label>
+            <select onchange="window.location.href='?provider=' + this.value">
+                {% for p in provider_options %}
+                <option value="{{ p }}" {% if p == provider %}selected{% endif %}>{{ p.title() }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="stats-box">
+            <h3>📊 Recent Number Sequence</h3>
+            <div class="recent-numbers">
+                {% for num in recent_numbers %}
+                <div class="recent-num">{{ num }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h2>🎯 Combined AI Predictions (Top 15)</h2>
+        <div class="prediction-grid">
+            {% for pred in combined_predictions %}
+            <div class="prediction-card">
+                <div class="number-box">
+                    <div class="number-large">{{ pred.number }}</div>
+                    <div class="confidence">{{ pred.confidence }}% Confidence</div>
+                    <div class="reason">{{ pred.reason }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>🔄 Sequence-Based Predictions</h2>
+        <p>Based on "Number A → Number B" historical patterns</p>
+        <div class="prediction-grid">
+            {% for pred in sequence_predictions %}
+            <div class="prediction-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="number-box">
+                    <div class="number-large">{{ pred.number }}</div>
+                    <div class="confidence">{{ pred.confidence }}% Confidence</div>
+                    <div class="reason">Score: {{ pred.score }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>📍 Position-Based Predictions</h2>
+        <p>Based on digit transitions per position</p>
+        <div class="prediction-grid">
+            {% for pred in position_predictions %}
+            <div class="prediction-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="number-box">
+                    <div class="number-large">{{ pred.number }}</div>
+                    <div class="confidence">{{ pred.confidence }}% Confidence</div>
+                    <div class="reason">{{ pred.reason }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>⏰ Overdue Numbers (Cycle Analysis)</h2>
+        <p>Numbers that haven't appeared for longer than their average cycle</p>
+        <table class="transition-table">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Confidence</th>
+                    <th>Expected Gap</th>
+                    <th>Actual Gap</th>
+                    <th>Overdue By</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pred in overdue_predictions %}
+                <tr>
+                    <td style="font-weight: bold; font-size: 1.2em;">{{ pred.number }}</td>
+                    <td style="color: #f5576c; font-weight: bold;">{{ pred.confidence }}%</td>
+                    <td>{{ pred.expected_gap }} draws</td>
+                    <td>{{ pred.actual_gap }} draws</td>
+                    <td style="color: #ff6b6b;">+{{ pred.overdue_by }} draws</td>
+                    <td>{{ pred.reason }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>🔗 Recent Transition Patterns</h2>
+        <p>What typically follows the last 5 numbers</p>
+        <table class="transition-table">
+            <thead>
+                <tr>
+                    <th>From Number</th>
+                    <th></th>
+                    <th>Top 5 Next Numbers (Probability)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trans in recent_transitions %}
+                <tr>
+                    <td style="font-weight: bold; font-size: 1.2em;">{{ trans.from }}</td>
+                    <td class="transition-arrow">→</td>
+                    <td>
+                        {% for next_num, prob, count in trans.to %}
+                        <span style="background: #e3f2fd; padding: 5px 10px; margin: 2px; display: inline-block; border-radius: 5px;">
+                            {{ next_num }} <small>({{ (prob * 100)|round(1) }}% - {{ count }}x)</small>
+                        </span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin: 30px 0; padding: 20px; background: #fff3cd; border-radius: 8px;">
+            <h3>💡 How This Works</h3>
+            <ul>
+                <li><strong>Sequence Learning:</strong> Analyzes which numbers historically follow other numbers</li>
+                <li><strong>Position Analysis:</strong> Tracks how each digit position transitions (e.g., "8 in pos 1 → 7 in pos 1")</li>
+                <li><strong>Cycle Detection:</strong> Finds numbers that appear in regular intervals and identifies overdue ones</li>
+                <li><strong>Combined AI:</strong> Merges all methods for highest confidence predictions</li>
+            </ul>
+        </div>
+
+        <p style="text-align: center; color: #666; margin-top: 30px;">
+            Last Updated: {{ last_updated }} | <a href="/">Back to Home</a>
+        </p>
+    </div>
+</body>
+</html>

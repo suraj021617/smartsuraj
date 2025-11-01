@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Number Generator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: #333; margin-bottom: 10px; font-size: 32px; }
+        
+        .form-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+        button { width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        button:hover { opacity: 0.9; }
+        
+        .results-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .results-card h2 { text-align: center; margin-bottom: 20px; color: #667eea; }
+        .lucky-numbers { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; }
+        .lucky-number { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 20px; border-radius: 10px; text-align: center; font-size: 28px; font-weight: bold; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        .info { background: #e0f2fe; padding: 15px; border-radius: 8px; margin-top: 20px; color: #0369a1; }
+        
+        .nav-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-btn { display: inline-block; padding: 10px 20px; background: white; color: #667eea; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .nav-btn:hover { background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍀 Lucky Number Generator</h1>
+            <p>Generate your personalized lucky 4D numbers</p>
+        </div>
+        
+        <div class="form-card">
+            <form method="GET">
+                <div class="form-group">
+                    <label for="provider">Select Provider:</label>
+                    <select name="provider" id="provider">
+                        <option value="all" {% if provider == 'all' %}selected{% endif %}>All Providers</option>
+                        {% for prov in provider_options %}
+                            {% if prov != 'all' %}
+                            <option value="{{ prov }}" {% if provider == prov %}selected{% endif %}>{{ prov|title }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="month">Select Month:</label>
+                    <select name="month" id="month">
+                        <option value="" {% if not selected_month %}selected{% endif %}>All Months</option>
+                        {% for m in month_options %}
+                        <option value="{{ m }}" {% if m == selected_month %}selected{% endif %}>{{ m }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Lucky Date (affects number generation):</label>
+                    <select name="date" id="date">
+                        {% for d in date_options %}
+                        <option value="{{ d }}" {% if d == selected_date %}selected{% endif %}>{{ d }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit">✨ Generate Lucky Numbers</button>
+            </form>
+            
+            <div class="info">
+                💡 <strong>Tip:</strong> Numbers stay the same for each date/provider combination. Change the date to get different lucky numbers!
+            </div>
+        </div>
+        
+        {% if lucky_numbers %}
+        <div class="results-card">
+            <h2>🎯 Your Lucky Numbers</h2>
+            <div class="lucky-numbers">
+                {% for num in lucky_numbers %}
+                <div class="lucky-number">{{ num }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="nav-links">
+            <a href="/" class="nav-btn">← Home</a>
+            <a href="{{ url_for('pattern_analyzer') }}" class="nav-btn">Pattern Analyzer</a>
+            <a href="{{ url_for('hot_cold') }}" class="nav-btn">Hot/Cold Numbers</a>
+            <a href="{{ url_for('accuracy_dashboard') }}" class="nav-btn">Accuracy Tracker</a>
+            <a href="{{ url_for('statistics') }}" class="nav-btn">Statistics</a>
+        </div>
+    </div>
+</body>
+</html>

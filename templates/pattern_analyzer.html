@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>4D Pattern Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+</head>
+
+<body class="bg-white dark:bg-gray-900 text-black dark:text-white">
+  <div class="container mx-auto p-4">
+    <div class="flex justify-between items-center">
+      <h1 class="text-3xl font-bold mb-4">4D Pattern Analyzer</h1>
+      <div class="flex gap-2">
+        <a href="{{ url_for('pattern_analyzer') }}" class="px-4 py-2 bg-blue-600 text-white rounded shadow">Pattern
+          Analyzer</a>
+        <a href="{{ url_for('advanced_predictions') }}"
+          class="px-4 py-2 bg-purple-600 text-white rounded shadow">Advanced Predictions</a>
+        <button onclick="toggleDarkMode()" class="px-4 py-2 bg-indigo-600 text-white rounded shadow">Toggle Dark
+          Mode</button>
+      </div>
+    </div>
+    <a href="{{ url_for('ultimate_predictor') }}"
+      class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white px-6 py-4 rounded-lg hover:from-yellow-500 hover:via-orange-600 hover:to-red-700 transition mb-4 block text-center w-full max-w-md text-xl font-bold shadow-lg animate-pulse">
+      🎯 WHAT SHOULD I PLAY?
+    </a>
+
+    <a href="{{ url_for('smart_predictor_page') }}"
+      class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-800 transition mb-4 block text-center w-full max-w-xs">
+      ⚙️ Smart Auto Weight Predictor
+    </a>
+
+    <a href="{{ url_for('ml_predictor_page') }}"
+      class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800 transition mb-6 block text-center w-full max-w-xs">
+      🤖 AI Machine Learning Predictor
+    </a>
+
+    {% if best_module %}
+    <div class="p-4 bg-green-100 dark:bg-green-700 rounded mb-4">
+      🏆 Best Module this Month:
+      <strong>{{ best_module[0] }}</strong>
+      ({{ best_module[3] }}% hit rate, {{ best_module[1] }}/{{ best_module[2] }} hits)
+    </div>
+    {% endif %}
+
+    <form method="get" action="{{ url_for('pattern_analyzer') }}"
+      class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 sticky top-0 z-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur p-3 rounded">
+      <div>
+        <label class="block mb-1">Provider</label>
+        <select name="provider" class="w-full p-2 rounded text-black">
+          {% for p in provider_options %}
+          <option value="{{ p }}" {% if p==selected_provider %}selected{% endif %}>{{ p }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="block mb-1">Month</label>
+        <select name="month" class="w-full p-2 rounded text-black">
+          {% for m in month_options %}
+          <option value="{{ m }}" {% if m==selected_month %}selected{% endif %}>{{ m }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="block mb-1">AI Mode</label>
+        <select name="aimode" class="w-full p-2 rounded text-black">
+          <option value="pattern" {% if selected_aimode=="pattern" %}selected{% endif %}>Pattern</option>
+          <option value="frequency" {% if selected_aimode=="frequency" %}selected{% endif %}>Frequency</option>
+          <option value="extended" {% if selected_aimode=="extended" %}selected{% endif %}>Extended</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded shadow">Apply Filters</button>
+      </div>
+    </form>
+
+    <form method="POST" action="{{ url_for('pattern_analyzer') }}" class="mb-6">
+      <input type="text" name="search_pattern" value="{{ search_pattern or '' }}"
+        placeholder="Search Pattern (4 digits)" class="w-full p-2 rounded text-black mb-4" />
+      <button type="submit" class="w-full p-2 bg-blue-600 text-white rounded">Search</button>
+    </form>
+
+    <div class="mb-4 p-4 border-2 border-green-600 rounded-lg bg-green-50 dark:bg-green-900">
+      <h3 class="text-xl font-bold text-green-800 dark:text-green-200 mb-2">🎯 HOW TO CHOOSE THE RIGHT PREDICTIONS:</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+        <div class="bg-white dark:bg-gray-800 p-3 rounded">
+          <p class="font-bold text-green-700 dark:text-green-300 mb-1">✅ BEST CHOICE (Highest Accuracy):</p>
+          <p>➡️ Look at <strong>"BEST CONSENSUS PICKS"</strong> (Green box below)</p>
+          <p>➡️ Numbers with <strong>"Pattern+Frequency"</strong> = Strongest!</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">These appear in multiple analyses = Most reliable</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-3 rounded">
+          <p class="font-bold text-blue-700 dark:text-blue-300 mb-1">📊 ALTERNATIVE STRATEGIES:</p>
+          <p>➡️ <strong>Conservative:</strong> Pick from "Frequency" (hot numbers)</p>
+          <p>➡️ <strong>Aggressive:</strong> Pick from "Cold Numbers" (overdue)</p>
+          <p>➡️ <strong>Balanced:</strong> Mix hot + pattern predictions</p>
+        </div>
+      </div>
+      <div class="mt-2 p-2 bg-yellow-100 dark:bg-yellow-800 rounded text-center">
+        <p class="font-bold text-yellow-900 dark:text-yellow-100">👉 RECOMMENDATION: Play 2-3 numbers from CONSENSUS + 1-2 from HOT NUMBERS</p>
+      </div>
+    </div>
+
+    <div class="mb-6 p-4 border-4 border-yellow-500 rounded-lg bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900 dark:to-orange-900">
+      <h2 class="text-2xl font-bold text-center mb-4">🎯 COMBINED PREDICTIONS (Pattern + Frequency Logic)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-500">
+          <h3 class="font-bold text-blue-700 dark:text-blue-300 mb-2">📊 From Pattern Analysis:</h3>
+          <ul class="space-y-1">
+            {% for pred, conf, reason in top_5_predictions[:5] %}
+            <li class="bg-blue-50 dark:bg-blue-900 px-3 py-2 rounded font-semibold">
+              {{ pred }} <span class="text-sm text-gray-600 dark:text-gray-300">({{ '%.1f'|format(conf * 100) }}%)</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-red-500">
+          <h3 class="font-bold text-red-700 dark:text-red-300 mb-2">🔥 From Frequency Analysis:</h3>
+          <ul class="space-y-1">
+            {% for num, freq in frequency_predictions[:5] %}
+            <li class="bg-red-50 dark:bg-red-900 px-3 py-2 rounded font-semibold">
+              {{ num }} <span class="text-sm text-gray-600 dark:text-gray-300">({{ freq }}x)</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="bg-green-600 text-white p-4 rounded-lg text-center">
+        <h3 class="font-bold text-xl mb-2">✅ BEST CONSENSUS PICKS:</h3>
+        <div class="flex flex-wrap justify-center gap-3">
+          {% for num, score, sources in consensus_predictions[:5] %}
+          <div class="bg-white text-green-800 px-4 py-3 rounded-lg font-bold text-xl">
+            {{ num }}
+            <div class="text-xs text-gray-600">{{ sources }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-500">
+          <h3 class="font-bold text-purple-700 dark:text-purple-300 mb-2">🎯 From Digit Position Analysis:</h3>
+          <ul class="space-y-1">
+            {% for num in digit_position_predictions[:5] %}
+            <li class="bg-purple-50 dark:bg-purple-900 px-3 py-2 rounded font-semibold">{{ num }}</li>
+            {% endfor %}
+          </ul>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">Built from most frequent digits in each position</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-orange-500">
+          <h3 class="font-bold text-orange-700 dark:text-orange-300 mb-2">📊 From Pattern Distribution:</h3>
+          <ul class="space-y-1">
+            {% for num in pattern_predictions[:5] %}
+            <li class="bg-orange-50 dark:bg-orange-900 px-3 py-2 rounded font-semibold">{{ num }}</li>
+            {% endfor %}
+          </ul>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">
+            Pattern: {{ pattern_distribution[0][0] if pattern_distribution else 'N/A' }} 
+            ({{ pattern_distribution[0][2] if pattern_distribution else 0 }}%)
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6 p-4 border border-gray-400 rounded bg-gray-100 dark:bg-gray-800">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-xl font-semibold">🎯 AI Top 5 Predictions (Pattern Only)</h2>
+        <div class="text-xs text-gray-600 dark:text-gray-300">Mode: {{ prediction_mode|capitalize }} | Updated: {{
+          last_updated }}</div>
+      </div>
+
+      {% if top_5_predictions %}
+      <h3 class="font-medium mb-2">List View</h3>
+      <ul class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
+        {% for pred, conf, reason in top_5_predictions %}
+        <li class="bg-green-100 dark:bg-green-700 px-2 py-1 rounded text-center font-semibold">
+          {{ pred }}
+          {% if draws and draws[-1].next_targets and (pred in draws[-1].next_targets) %} ✅{% endif %}
+          ({{ '%.2f'|format(conf * 100) }}%)<br>
+          <span class="text-sm text-gray-800 dark:text-gray-200">{{ reason }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <h3 class="font-medium mb-2">Table View</h3>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full border-collapse border border-gray-400 dark:border-gray-600" role="table">
+          <caption class="sr-only">AI Predictions with Confidence and Reasons</caption>
+          <thead class="bg-gray-200 dark:bg-gray-700">
+            <tr>
+              <th class="px-2 py-1 border">Prediction</th>
+              <th class="px-2 py-1 border">Confidence</th>
+              <th class="px-2 py-1 border">Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pred, conf, reason in top_5_predictions %}
+            <tr class="text-center">
+              <td class="border px-2 py-1">{{ pred }}</td>
+              <td class="border px-2 py-1">{{ '%.2f'|format(conf * 100) }}%</td>
+              <td class="border px-2 py-1">{{ reason }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-red-400">No predictions available.</p>
+      {% endif %}
+    </div>
+
+    {% for draw in draws %}
+    <details class="mb-6 p-4 border border-gray-300 rounded-lg dark:border-gray-600">
+      <summary class="cursor-pointer text-lg font-semibold">
+        {{ draw.date }} — {{ draw.provider }} — {{ draw.prize_type|capitalize }} Prize
+      </summary>
+      <div class="mt-3">
+        <div class="mb-2">
+          <span class="font-semibold">{{ draw.prize_type|capitalize }}:</span> {{ draw.number }}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+          <div>
+            <p class="font-medium mb-1">Main Grid:</p>
+            <div class="grid grid-cols-4 gap-1">
+              {% for i in range(draw.grid|length) %}
+              {% set row = draw.grid[i] %}
+              {% for j in range(row|length) %}
+              <div class="text-center p-2 border rounded
+                    {% if draw.highlight and (i,j) in draw.highlight %} bg-green-400
+                    {% elif manual_search_results and (draw.date, draw.prize_type, 'normal') in manual_search_results and (i,j) in manual_search_results[(draw.date, draw.prize_type, 'normal')] %} bg-yellow-400
+                    {% endif %}">
+                {{ row[j] }}
+              </div>
+              {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
+
+          <div>
+            <p class="font-medium mb-1">Reverse Grid:</p>
+            <div class="grid grid-cols-4 gap-1">
+              {% for i in range(draw.reverse_grid|length) %}
+              {% set row = draw.reverse_grid[i] %}
+              {% for j in range(row|length) %}
+              <div class="text-center p-2 border rounded
+                    {% if draw.reverse_highlight and (i,j) in draw.reverse_highlight %} bg-green-400
+                    {% elif manual_search_results and (draw.date, draw.prize_type, 'reverse') in manual_search_results and (i,j) in manual_search_results[(draw.date, draw.prize_type, 'reverse')] %} bg-yellow-400
+                    {% endif %}">
+                {{ row[j] }}
+              </div>
+              {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="text-sm mt-2 text-gray-500">
+          Missing in grid: {{ draw.missing_digits | join(', ') }}<br>
+          Missing in reverse: {{ draw.missing_digits_reverse | join(', ') }}
+        </div>
+
+        {% if draw.past_2_predictions %}
+        <div class="mt-4 p-3 border rounded bg-blue-100 dark:bg-blue-800">
+          <h4 class="font-semibold mb-2">📅 Past 2 Days Predictions</h4>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {% for day_preds in draw.past_2_predictions %}
+            {% for pred, conf, reason in day_preds %}
+            <div class="bg-white dark:bg-gray-700 border border-blue-600 rounded p-2 text-center font-bold">
+              {{ pred }} <br>
+              <span class="text-sm text-gray-800 dark:text-gray-200">({{ '%.2f'|format(conf * 100) }}%)</span><br>
+              <span class="text-sm italic text-gray-700 dark:text-gray-300">{{ reason }}</span>
+            </div>
+            {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if draw.provider_predictions %}
+        <div class="mt-4 p-3 border rounded bg-gray-100 dark:bg-gray-800">
+          <h4 class="font-semibold mb-2">📦 Predictions by Provider</h4>
+          {% for provider, preds in draw.provider_predictions.items() %}
+          <div class="mb-3">
+            <h5 class="font-semibold text-indigo-600 dark:text-indigo-300">{{ provider }}</h5>
+            {% if preds %}
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-1">
+              {% for pred, score, reason in preds %}
+              <div class="bg-white dark:bg-gray-700 border border-indigo-600 rounded p-2 text-center font-bold">
+                {{ pred }} <br>
+                <span class="text-sm text-gray-800 dark:text-gray-200">({{ '%.2f'|format(score * 100) }}%)</span><br>
+                <span class="text-sm italic text-gray-700 dark:text-gray-300">{{ reason }}</span>
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-sm text-red-400">No predictions for {{ provider }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if draw.three_digit_hits %}
+        <div class="mt-4 p-3 border rounded bg-purple-100 dark:bg-purple-800">
+          <h4 class="font-semibold mb-2">🔍 3-Digit Hits</h4>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {% for pred, score, reason in draw.three_digit_hits %}
+            <div class="bg-white dark:bg-gray-700 border border-purple-600 rounded p-2 text-center font-bold">
+              {{ pred }} <br>
+              <span class="text-sm text-gray-800 dark:text-gray-200">({{ '%.2f'|format(score * 100) }}%)</span><br>
+              <span class="text-sm italic text-gray-700 dark:text-gray-300">{{ reason }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </details>
+    {% endfor %}
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">🔥 TOP 30 HOT NUMBERS (Most Frequent)</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full table-auto border-collapse border border-gray-400">
+          <thead class="bg-red-600 text-white">
+            <tr>
+              <th class="px-2 py-1 border">Rank</th>
+              <th class="px-2 py-1 border">Number</th>
+              <th class="px-2 py-1 border">Frequency</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for num, freq in hot_numbers[:30] %}
+            <tr class="text-center bg-red-100 dark:bg-red-900">
+              <td class="border px-2 py-1">{{ loop.index }}</td>
+              <td class="border px-2 py-1 font-bold">{{ num }}</td>
+              <td class="border px-2 py-1">{{ freq }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">❄️ TOP 30 COLD NUMBERS (Overdue/Least Frequent)</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full table-auto border-collapse border border-gray-400">
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              <th class="px-2 py-1 border">Rank</th>
+              <th class="px-2 py-1 border">Number</th>
+              <th class="px-2 py-1 border">Frequency</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for num, freq in cold_numbers[:30] %}
+            <tr class="text-center bg-blue-100 dark:bg-blue-900">
+              <td class="border px-2 py-1">{{ loop.index }}</td>
+              <td class="border px-2 py-1 font-bold">{{ num }}</td>
+              <td class="border px-2 py-1">{{ freq }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">🎯 DIGIT FREQUENCY BY POSITION</h2>
+      {% for pos in [1, 2, 3, 4] %}
+      <div class="mb-4">
+        <h3 class="font-semibold mb-2">Position {{ pos }}:</h3>
+        <div class="grid grid-cols-5 md:grid-cols-10 gap-2">
+          {% for digit, count in digit_frequency_by_pos.get(pos, [])[:10] %}
+          <div class="bg-blue-500 text-white p-3 rounded text-center">
+            <div class="text-2xl font-bold">{{ digit }}</div>
+            <div class="text-xs">{{ count }}x</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">📊 Pattern Frequency</h2>
+      <table class="w-full table-auto border-collapse" role="table">
+        <caption class="sr-only">Pattern types and their monthly frequencies</caption>
+        <thead>
+          <tr class="bg-gray-200 dark:bg-gray-700">
+            <th class="px-4 py-2 border">Pattern Type</th>
+            <th class="px-4 py-2 border">Frequency</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for kind, count in freq_list %}
+          <tr>
+            <td class="px-4 py-1 border">{{ kind }}</td>
+            <td class="px-4 py-1 border text-center">{{ count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">🔥 Grid Cell Heatmap (Highlight Frequency)</h2>
+      <div class="inline-block border">
+        <table class="table-fixed border-collapse">
+          <tbody>
+            {% set max_val = 0 %}
+            {% for row in cell_heatmap %}
+            {% for val in row %}
+            {% if val > max_val %}
+            {% set max_val = val %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% for i in range(4) %}
+            <tr>
+              {% for j in range(4) %}
+              {% set v = cell_heatmap[i][j] %}
+              {% set pct = (v / max_val * 100) if max_val else 0 %}
+              <td class="w-12 h-12 text-center align-middle border
+                  {% if pct > 60 %}
+                    bg-red-600 text-white
+                  {% elif pct > 30 %}
+                    bg-orange-400 text-white
+                  {% elif pct > 0 %}
+                    bg-yellow-200
+                  {% else %}
+                    bg-gray-200 dark:bg-gray-700
+                  {% endif %}">
+                <div>{{ v }}</div>
+              </td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-2 text-sm text-gray-500">
+        Darker cells = appeared more often in pattern highlights this month.
+      </div>
+    </div>
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">📊 Module Accuracy Summary</h2>
+      <table class="w-full table-auto border-collapse border border-gray-400" role="table">
+        <caption class="sr-only">Module-level hit and attempt counts with hit rates</caption>
+        <thead class="bg-gray-200 dark:bg-gray-700">
+          <tr>
+            <th class="px-2 py-1 border">Module</th>
+            <th class="px-2 py-1 border">Hits</th>
+            <th class="px-2 py-1 border">Attempts</th>
+            <th class="px-2 py-1 border">Hit Rate (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for mod, hits, attempts, rate in module_accuracy %}
+          <tr class="text-center">
+            <td class="border px-2 py-1">{{ mod }}</td>
+            <td class="border px-2 py-1">{{ hits }}</td>
+            <td class="border px-2 py-1">{{ attempts }}</td>
+            <td class="border px-2 py-1">{{ rate }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">🏢 Accuracy by Provider</h2>
+      <table class="w-full table-auto border-collapse border border-gray-400" role="table">
+        <caption class="sr-only">Per-provider module hit rates</caption>
+        <thead class="bg-gray-200 dark:bg-gray-700">
+          <tr>
+            <th class="px-2 py-1 border">Provider</th>
+            <th class="px-2 py-1 border">Module</th>
+            <th class="px-2 py-1 border">Hits</th>
+            <th class="px-2 py-1 border">Attempts</th>
+            <th class="px-2 py-1 border">Hit Rate (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for provider, mod, hits, attempts, rate in provider_accuracy %}
+          <tr class="text-center">
+            <td class="border px-2 py-1">{{ provider }}</td>
+            <td class="border px-2 py-1">{{ mod }}</td>
+            <td class="border px-2 py-1">{{ hits }}</td>
+            <td class="border px-2 py-1">{{ attempts }}</td>
+            <td class="border px-2 py-1">{{ rate }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 p-4 border rounded bg-white dark:bg-gray-800">
+      <h2 class="text-lg font-bold mb-2">📈 Module Accuracy Over Time</h2>
+      <canvas id="accuracyChart" height="100"></canvas>
+    </div>
+
+    {% if learning_summary %}
+    <div class="mt-6 p-4 border rounded bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900 dark:to-blue-900">
+      <h2 class="text-lg font-bold mb-3">🧠 AI Learning Insights</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h3 class="font-semibold mb-2">🏆 Top Performing Methods:</h3>
+          <ul class="space-y-1">
+            {% for method in learning_summary.best_methods %}
+            <li class="bg-white dark:bg-gray-800 p-2 rounded">
+              <span class="font-bold">{{ method.method }}</span>: 
+              <span class="text-green-600 dark:text-green-400">{{ method.accuracy|round(1) }}%</span>
+              <span class="text-sm text-gray-600 dark:text-gray-400">({{ method.total_predictions }} predictions)</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-2">📊 Learning Stats:</h3>
+          <div class="bg-white dark:bg-gray-800 p-3 rounded space-y-2">
+            <p>✅ Total Analyzed: <strong>{{ learning_summary.total_analyzed }}</strong> draws</p>
+            <p>🎯 System is learning from every prediction</p>
+            <p>💡 Best methods get higher weight automatically</p>
+            <a href="{{ url_for('learning_dashboard') }}" class="inline-block mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
+              View Full Learning Dashboard →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const chartData = JSON.parse('{{ chart_data | tojson | safe }}');
+      const hasData = Array.isArray(chartData) && chartData.length > 0;
+      const labels = hasData ? chartData.map(d => d.date) : [];
+      const datasets = [];
+
+      if (hasData) {
+        // fallback: create one dataset per recorded key (skip 'date')
+        const keys = Object.keys(chartData[0]).filter(k => k !== 'date');
+        keys.forEach((k, idx) => {
+          datasets.push({
+            label: k,
+            data: chartData.map(d => d[k] || 0),
+            borderColor: `hsl(${(idx * 57) % 360},70%,50%)`,
+            fill: false
+          });
+        });
+      }
+
+      new Chart(document.getElementById('accuracyChart'), {
+        type: 'line',
+        data: { labels: labels, datasets: datasets },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: 'bottom' } },
+          scales: { y: { min: 0, max: 100 } }
+        }
+      });
+    </script>
+  </div>
+</body>
+
+</html>

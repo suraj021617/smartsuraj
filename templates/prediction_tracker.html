@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Tracker - Smart 4D</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        h1 { color: #2c3e50; }
+        .stats { display: flex; gap: 20px; margin: 20px 0; }
+        .stat-card { flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; text-align: center; }
+        .stat-card h3 { margin: 0; font-size: 36px; }
+        .stat-card p { margin: 5px 0 0 0; opacity: 0.9; }
+        .result-card { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid #667eea; }
+        .exact-match { background: #d4edda; border-left-color: #28a745; }
+        .partial-match { background: #fff3cd; border-left-color: #ffc107; }
+        .no-match { background: #f8d7da; border-left-color: #dc3545; }
+        .number { display: inline-block; background: #667eea; color: white; padding: 5px 10px; margin: 2px; border-radius: 5px; font-weight: bold; }
+        .actual { background: #28a745; }
+        .match { background: #ffc107; color: #000; }
+        .btn { background: #667eea; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #5568d3; }
+        .filter { margin: 20px 0; }
+        select { padding: 8px; border-radius: 5px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Prediction Tracker</h1>
+        <p>Track prediction accuracy when you add new results!</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>{{ results|length }}</h3>
+                <p>Checked Predictions</p>
+            </div>
+            <div class="stat-card">
+                <h3>{{ total_exact }}</h3>
+                <p>Exact Matches</p>
+            </div>
+            <div class="stat-card">
+                <h3>{{ accuracy }}%</h3>
+                <p>Overall Accuracy</p>
+            </div>
+        </div>
+
+        <div class="filter">
+            <a href="/save-prediction" class="btn">💾 Save Today's Predictions</a>
+            <a href="/prediction-tracker" class="btn">🔄 Refresh & Check</a>
+            <a href="/" class="btn">🏠 Home</a>
+        </div>
+
+        <h2>📊 Prediction Results</h2>
+        {% if results %}
+            {% for result in results %}
+            <div class="result-card {% if result.exact_matches %}exact-match{% elif result.partial_matches %}partial-match{% else %}no-match{% endif %}">
+                <h3>{{ result.target_date }} - {{ result.provider|upper }}</h3>
+                <p><small>Predicted on: {{ result.prediction_date }}</small></p>
+                
+                <div style="margin: 10px 0;">
+                    <strong>Predictions:</strong><br>
+                    {% for pred in result.predictions[:10] %}
+                        {% if pred.number in result.exact_matches %}
+                            <span class="number actual">{{ pred.number }} ✓</span>
+                        {% else %}
+                            <span class="number">{{ pred.number }}</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <div style="margin: 10px 0;">
+                    <strong>Actual Results:</strong><br>
+                    {% for actual in result.actuals %}
+                        <span class="number actual">{{ actual }}</span>
+                    {% endfor %}
+                </div>
+                
+                {% if result.exact_matches %}
+                <div style="margin: 10px 0; color: #28a745; font-weight: bold;">
+                    ✅ {{ result.exact_matches|length }} EXACT MATCH(ES): {{ result.exact_matches|join(', ') }}
+                </div>
+                {% endif %}
+                
+                {% if result.partial_matches %}
+                <div style="margin: 10px 0; color: #ffc107; font-weight: bold;">
+                    ⚠️ {{ result.partial_matches|length }} Partial Match(es)
+                </div>
+                {% endif %}
+                
+                <div style="margin: 10px 0;">
+                    <strong>Accuracy:</strong> {{ "%.1f"|format(result.accuracy) }}%
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No predictions checked yet. Save predictions first, then add actual results to CSV!</p>
+        {% endif %}
+    </div>
+</body>
+</html>

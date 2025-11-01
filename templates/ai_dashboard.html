@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI-Powered Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { color: white; text-align: center; margin-bottom: 30px; font-size: 2.5em; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .card h2 { color: #667eea; margin-bottom: 15px; font-size: 1.3em; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        .number { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 15px; margin: 5px; border-radius: 8px; font-weight: bold; }
+        .hot { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .cold { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .sequence { background: #f0f0f0; padding: 10px; margin: 5px 0; border-radius: 5px; font-family: monospace; }
+        .weight { display: flex; justify-content: space-between; padding: 8px; background: #f8f9fa; margin: 5px 0; border-radius: 5px; }
+        .export-btn { background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin: 10px 5px; }
+        .export-btn:hover { background: #218838; }
+        .timestamp { text-align: center; color: white; margin-top: 20px; font-size: 0.9em; }
+        .pair { background: #e9ecef; padding: 8px; margin: 5px 0; border-radius: 5px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI-Powered Lottery Dashboard</h1>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button class="export-btn" onclick="window.location.href='/export/dashboard'">📥 Export Dashboard CSV</button>
+            <button class="export-btn" onclick="window.location.href='/export/predictions'">📥 Export Predictions</button>
+            <button class="export-btn" onclick="window.location.href='/export/statistics'">📥 Export Statistics</button>
+        </div>
+
+        <div class="grid">
+            <!-- Best Predictions -->
+            <div class="card">
+                <h2>🎯 Best AI Predictions</h2>
+                {% for num, score, reason in best_predictions %}
+                <div class="number">{{ num }} <small>({{ "%.2f"|format(score) }})</small></div>
+                {% endfor %}
+                <p style="margin-top: 10px; font-size: 0.85em; color: #666;">Using adaptive learning weights</p>
+            </div>
+
+            <!-- Adaptive Weights -->
+            <div class="card">
+                <h2>⚙️ Auto-Adjusted Weights</h2>
+                <div class="weight">
+                    <span>Frequency Method:</span>
+                    <strong>{{ "%.1f"|format(adaptive_weights.frequency * 100) }}%</strong>
+                </div>
+                <div class="weight">
+                    <span>Pattern Method:</span>
+                    <strong>{{ "%.1f"|format(adaptive_weights.pattern * 100) }}%</strong>
+                </div>
+                <div class="weight">
+                    <span>ML Method:</span>
+                    <strong>{{ "%.1f"|format(adaptive_weights.ml * 100) }}%</strong>
+                </div>
+            </div>
+
+            <!-- Recurring Sequences -->
+            <div class="card">
+                <h2>🔍 Recurring Sequences</h2>
+                {% for seq, count in sequences[:8] %}
+                <div class="sequence">{{ seq }} <strong>({{ count }}x)</strong></div>
+                {% endfor %}
+            </div>
+
+            <!-- Hot Numbers -->
+            <div class="card">
+                <h2>🔥 Hot Numbers (Trending)</h2>
+                {% for item in hot_numbers[:10] %}
+                <div class="number hot">{{ item.number }} {{ item.trend }} <small>({{ item.count }})</small></div>
+                {% endfor %}
+            </div>
+
+            <!-- Cold Numbers -->
+            <div class="card">
+                <h2>❄️ Cold Numbers (Rare)</h2>
+                {% for item in cold_numbers[:10] %}
+                <div class="number cold">{{ item.number }} {{ item.trend }} <small>({{ item.count }})</small></div>
+                {% endfor %}
+            </div>
+
+            <!-- Overdue Numbers -->
+            <div class="card">
+                <h2>⏰ Overdue Numbers</h2>
+                {% for num in overdue_numbers %}
+                <div class="number" style="background: #ffc107; color: #000;">{{ num }}</div>
+                {% endfor %}
+            </div>
+
+            <!-- Number Pairs -->
+            <div class="card">
+                <h2>🔗 Frequent Number Pairs</h2>
+                {% for pair, count in number_pairs[:10] %}
+                <div class="pair">
+                    <span>{{ pair }}</span>
+                    <strong>{{ count }}x</strong>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Real-time Predictions -->
+            <div class="card">
+                <h2>⚡ Real-time Predictions</h2>
+                {% for num in realtime_predictions %}
+                <div class="number" style="background: linear-gradient(135deg, #fa709a, #fee140);">{{ num }}</div>
+                {% endfor %}
+                <p style="margin-top: 10px; font-size: 0.85em; color: #666;">Updated: {{ last_updated }}</p>
+            </div>
+        </div>
+
+        <div class="timestamp">
+            Last Updated: {{ last_updated }} | Auto-refresh every 5 minutes
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh every 5 minutes
+        setTimeout(() => location.reload(), 300000);
+    </script>
+</body>
+</html>

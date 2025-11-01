@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🎯 Consensus Predictor - Best Predictions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white min-h-screen p-6">
+
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-extrabold mb-2">🎯 CONSENSUS PREDICTOR</h1>
+      <p class="text-xl text-yellow-300">Numbers picked by MULTIPLE methods = Higher confidence!</p>
+      <p class="text-sm text-gray-300 mt-2">Last updated: {{ last_updated }}</p>
+    </div>
+
+    <!-- Provider Filter -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 mb-6">
+      <form method="get" class="flex items-center gap-4 justify-center">
+        <label class="font-semibold">Provider:</label>
+        <select name="provider" class="bg-gray-800 text-white px-4 py-2 rounded-lg">
+          {% for prov in provider_options %}
+          <option value="{{ prov }}" {% if prov == provider %}selected{% endif %}>
+            {{ prov|capitalize }}
+          </option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-2 rounded-lg">
+          Update
+        </button>
+      </form>
+    </div>
+
+    <!-- Overall Consensus (Top Picks) -->
+    <div class="bg-gradient-to-r from-yellow-500 to-orange-600 rounded-2xl p-8 mb-8 shadow-2xl">
+      <h2 class="text-3xl font-bold mb-4 text-center">⭐ TOP CONSENSUS PREDICTIONS</h2>
+      <p class="text-center mb-6 text-black">These numbers appear in MULTIPLE prediction methods</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for pred in overall_consensus[:9] %}
+        <div class="bg-white/20 backdrop-blur-lg rounded-xl p-6 text-center border-2 border-yellow-300">
+          <div class="text-6xl font-extrabold mb-2 text-white">{{ pred.number }}</div>
+          <div class="text-2xl font-bold text-yellow-200 mb-2">{{ pred.confidence }}% Confidence</div>
+          <div class="text-sm bg-black/30 rounded-lg p-2 mb-2">
+            <span class="font-semibold">Consensus: {{ pred.consensus }}</span>
+          </div>
+          <div class="text-xs text-gray-200">
+            {{ pred.reason }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Provider-Specific Predictions -->
+    {% if provider == 'all' %}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {% for prov, predictions in provider_predictions.items() %}
+      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+        <h3 class="text-2xl font-bold mb-4 text-yellow-300">{{ prov|capitalize }}</h3>
+        
+        <div class="space-y-3">
+          {% for pred in predictions %}
+          <div class="bg-gray-800/50 rounded-lg p-4 flex items-center justify-between">
+            <div>
+              <div class="text-3xl font-bold">{{ pred.number }}</div>
+              <div class="text-xs text-gray-400">{{ pred.reason }}</div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-bold text-green-400">{{ pred.confidence }}%</div>
+              <div class="text-xs text-gray-400">Consensus: {{ pred.consensus }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Single Provider Detail -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8">
+      <h3 class="text-3xl font-bold mb-6 text-center text-yellow-300">{{ provider|capitalize }} - Detailed Predictions</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for pred in provider_predictions[provider] %}
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-5xl font-extrabold">{{ pred.number }}</div>
+            <div class="text-right">
+              <div class="text-3xl font-bold text-yellow-300">{{ pred.confidence }}%</div>
+              <div class="text-sm text-gray-200">Consensus: {{ pred.consensus }}</div>
+            </div>
+          </div>
+          
+          <div class="bg-black/30 rounded-lg p-3">
+            <div class="text-sm font-semibold mb-2">Methods:</div>
+            <div class="flex flex-wrap gap-2">
+              {% for method in pred.methods %}
+              <span class="bg-yellow-500 text-black text-xs font-bold px-3 py-1 rounded-full">
+                {{ method }}
+              </span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- How It Works -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mt-8">
+      <h3 class="text-2xl font-bold mb-4">📊 How Consensus Works</h3>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+        <div class="bg-blue-600/30 rounded-lg p-4">
+          <div class="font-bold mb-2">🔥 Hot Numbers</div>
+          <div class="text-gray-300">Most frequent in last 20 draws</div>
+        </div>
+        <div class="bg-green-600/30 rounded-lg p-4">
+          <div class="font-bold mb-2">📈 Trending</div>
+          <div class="text-gray-300">Increasing frequency recently</div>
+        </div>
+        <div class="bg-yellow-600/30 rounded-lg p-4">
+          <div class="font-bold mb-2">🎲 Hot Digits</div>
+          <div class="text-gray-300">Numbers with popular digits</div>
+        </div>
+        <div class="bg-purple-600/30 rounded-lg p-4">
+          <div class="font-bold mb-2">🧩 Hot Pairs</div>
+          <div class="text-gray-300">Numbers with common digit pairs</div>
+        </div>
+      </div>
+      
+      <div class="mt-4 bg-yellow-500/20 border-2 border-yellow-500 rounded-lg p-4">
+        <div class="font-bold text-yellow-300 mb-2">💡 How to Use:</div>
+        <ul class="text-sm space-y-1 text-gray-200">
+          <li>✅ Higher Consensus = More methods agree = More reliable</li>
+          <li>✅ Pick numbers with Confidence > 70%</li>
+          <li>✅ Focus on top 5-7 predictions</li>
+          <li>✅ Check provider-specific predictions for targeted play</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center mt-8">
+      <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white font-bold px-8 py-3 rounded-lg inline-block">
+        ← Back to Home
+      </a>
+    </div>
+
+  </div>
+
+</body>
+</html>

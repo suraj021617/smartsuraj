@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🎲 Quick Pick - Instant 5 Numbers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-900 via-teal-900 to-blue-900 text-white min-h-screen p-6">
+
+  <div class="max-w-4xl mx-auto">
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-6xl font-extrabold mb-4">🎲 QUICK PICK</h1>
+    <div class="filters" style="background: white; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+      <form method="get" style="display: flex; gap: 10px; align-items: center;">
+        <label>Provider:</label>
+        <select name="provider" style="padding: 8px;">
+          {% for opt in provider_options %}
+          <option value="{{ opt }}" {% if opt == provider %}selected{% endif %}>{{ opt|upper }}</option>
+          {% endfor %}
+        </select>
+        
+        <label>Month:</label>
+        <select name="month" style="padding: 8px;">
+          <option value="">All Months</option>
+          {% for m in month_options %}
+          <option value="{{ m }}" {% if m == selected_month %}selected{% endif %}>{{ m }}</option>
+          {% endfor %}
+        </select>
+        
+        <button type="submit" style="padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Apply Filters</button>
+      </form>
+    </div>
+
+      <p class="text-2xl text-yellow-300">Your 5 Best Numbers - Instant!</p>
+    </div>
+
+    {% if error %}
+    <div class="bg-red-500/20 border-2 border-red-500 rounded-xl p-6 text-center">
+      <p class="text-xl">{{ error }}</p>
+    </div>
+    {% else %}
+
+    <!-- Next Draw Info -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 mb-8 text-center">
+      <div class="text-sm text-gray-300">Predicting For</div>
+      <div class="text-2xl font-bold text-yellow-300">{{ next_draw_date }}</div>
+    </div>
+
+    <!-- THE 5 NUMBERS - BIG AND SIMPLE -->
+    <div class="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-3xl p-12 mb-8 shadow-2xl">
+      <h2 class="text-3xl font-bold text-center mb-8 text-white">YOUR 5 LUCKY NUMBERS</h2>
+      
+      <div class="grid grid-cols-5 gap-4 mb-8">
+        {% for item in numbers_with_confidence %}
+        <div class="bg-white rounded-2xl p-6 text-center shadow-xl transform hover:scale-110 transition">
+          <div class="text-6xl font-extrabold text-black mb-2">{{ item.number }}</div>
+          <div class="text-sm font-bold text-green-600">{{ item.confidence }}% Confidence</div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="text-center">
+        <button onclick="copyNumbers()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-4 rounded-xl text-xl shadow-lg">
+          📋 Copy Numbers
+        </button>
+        <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-xl shadow-lg ml-4">
+          🔄 Get New Numbers
+        </button>
+      </div>
+    </div>
+
+    <!-- Advanced Analysis -->
+    {% if analysis %}
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h3 class="text-2xl font-bold mb-4 text-center">🔬 Advanced Analysis</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="bg-blue-500/20 rounded-lg p-4">
+          <div class="text-3xl font-bold">{{ analysis.total_algorithms }}</div>
+          <div class="text-sm">AI Algorithms</div>
+        </div>
+        <div class="bg-green-500/20 rounded-lg p-4">
+          <div class="text-3xl font-bold">{{ analysis.numbers_analyzed }}</div>
+          <div class="text-sm">Numbers Analyzed</div>
+        </div>
+        <div class="bg-purple-500/20 rounded-lg p-4">
+          <div class="text-3xl font-bold">{{ analysis.consensus_strength }}</div>
+          <div class="text-sm">Consensus</div>
+        </div>
+        <div class="bg-orange-500/20 rounded-lg p-4">
+          <div class="text-3xl font-bold">5</div>
+          <div class="text-sm">Top Picks</div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Hot Numbers Reference -->
+    {% if analysis and analysis.hot_numbers %}
+    <div class="bg-red-500/20 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h3 class="text-xl font-bold mb-3 text-center">🔥 Currently Hot Numbers</h3>
+      <div class="flex justify-center gap-3">
+        {% for num in analysis.hot_numbers %}
+        <div class="bg-red-600 rounded-lg px-4 py-2 font-bold">{{ num }}</div>
+        {% endfor %}
+      </div>
+      <p class="text-center text-sm mt-2 text-gray-300">Most frequent in last 50 draws</p>
+    </div>
+    {% endif %}
+
+    <!-- Simple Explanation -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h3 class="text-2xl font-bold mb-4 text-center">💡 How It Works</h3>
+      <div class="text-lg space-y-3 text-center">
+        <p>✅ Runs 3 AI prediction algorithms</p>
+        <p>✅ Weighted scoring (not just counting)</p>
+        <p>✅ Frequency boost for hot numbers</p>
+        <p>✅ Pattern-based enhancement</p>
+        <p>✅ Confidence score for each number</p>
+        <p class="text-yellow-300 font-bold mt-4">Advanced Multi-Algorithm Approach!</p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-4 justify-center">
+      <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white font-bold px-8 py-3 rounded-lg text-xl">
+        ← Home
+      </a>
+      <a href="/accuracy-dashboard" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-8 py-3 rounded-lg text-xl">
+        📊 Check Results
+      </a>
+    </div>
+
+    {% endif %}
+
+  </div>
+
+  <script>
+    function copyNumbers() {
+      const numbers = {{ numbers|tojson }};
+      const text = numbers.join(', ');
+      navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Numbers copied: ' + text);
+      });
+    }
+  </script>
+
+</body>
+</html>

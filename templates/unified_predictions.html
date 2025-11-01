@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎯 Unified Predictions Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen p-4">
+  <div class="container mx-auto max-w-7xl">
+    <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Home</a>
+    
+    <div class="bg-white rounded-lg shadow-2xl p-6 mb-6">
+      <h1 class="text-4xl font-extrabold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        🎯 UNIFIED PREDICTIONS DASHBOARD
+      </h1>
+      <p class="text-center text-gray-600">All 4 AI Methods × All Providers in One Place</p>
+      <p class="text-sm text-center text-gray-500 mt-2">Last Updated: {{ last_updated }}</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-lg shadow-lg p-4 mb-6">
+      <form method="get" class="flex flex-wrap gap-4 items-center">
+        <div>
+          <label class="font-semibold mr-2">Provider:</label>
+          <select name="provider" class="border rounded px-3 py-2">
+            {% for prov in providers %}
+            <option value="{{ prov }}" {% if prov == selected_provider %}selected{% endif %}>{{ prov|upper }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold mr-2">Month:</label>
+          <select name="month" class="border rounded px-3 py-2">
+            <option value="">All Months</option>
+            {% for month in month_options %}
+            <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg hover:from-purple-700 hover:to-pink-700 font-semibold">Apply Filters</button>
+      </form>
+    </div>
+
+    <!-- Predictions Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      
+      <!-- Frequency Analyzer -->
+      <div class="bg-gradient-to-br from-red-50 to-orange-50 rounded-lg shadow-lg p-6 border-l-4 border-red-500">
+        <h2 class="text-2xl font-bold text-red-600 mb-4">🔥 Frequency Analyzer</h2>
+        <div class="space-y-2">
+          {% for num in predictions.frequency %}
+          <div class="bg-white rounded-lg p-3 flex items-center justify-between">
+            <span class="text-2xl font-bold text-red-600">{{ num }}</span>
+            {% if actual_numbers %}
+              {% set match = check_match(num, actual_numbers) %}
+              {% if match.type == '4D_EXACT' %}
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">✓ EXACT MATCH!</span>
+              {% elif match.type == '3D_MATCH' %}
+              <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">3 Digits Match</span>
+              {% elif match.type == '2D_MATCH' %}
+              <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">2 Digits Match</span>
+              {% elif match.type == 'NEAR' %}
+              <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">Near (±{{ match.diff }})</span>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Day-to-Day Pattern -->
+      <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg shadow-lg p-6 border-l-4 border-purple-500">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">📅 Day-to-Day Pattern</h2>
+        <div class="space-y-2">
+          {% for num in predictions.day_to_day %}
+          <div class="bg-white rounded-lg p-3 flex items-center justify-between">
+            <span class="text-2xl font-bold text-purple-600">{{ num }}</span>
+            {% if actual_numbers %}
+              {% set match = check_match(num, actual_numbers) %}
+              {% if match.type == '4D_EXACT' %}
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">✓ EXACT MATCH!</span>
+              {% elif match.type == '3D_MATCH' %}
+              <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">3 Digits Match</span>
+              {% elif match.type == '2D_MATCH' %}
+              <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">2 Digits Match</span>
+              {% elif match.type == 'NEAR' %}
+              <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">Near (±{{ match.diff }})</span>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Smart Auto Weight -->
+      <div class="bg-gradient-to-br from-green-50 to-teal-50 rounded-lg shadow-lg p-6 border-l-4 border-green-500">
+        <h2 class="text-2xl font-bold text-green-600 mb-4">⚙️ Smart Auto Weight</h2>
+        <div class="space-y-2">
+          {% for num in predictions.auto_weight %}
+          <div class="bg-white rounded-lg p-3 flex items-center justify-between">
+            <span class="text-2xl font-bold text-green-600">{{ num }}</span>
+            {% if actual_numbers %}
+              {% set match = check_match(num, actual_numbers) %}
+              {% if match.type == '4D_EXACT' %}
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">✓ EXACT MATCH!</span>
+              {% elif match.type == '3D_MATCH' %}
+              <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">3 Digits Match</span>
+              {% elif match.type == '2D_MATCH' %}
+              <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">2 Digits Match</span>
+              {% elif match.type == 'NEAR' %}
+              <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">Near (±{{ match.diff }})</span>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- AI ML Predictor -->
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">🤖 AI ML Predictor</h2>
+        <div class="space-y-2">
+          {% for num in predictions.ml %}
+          <div class="bg-white rounded-lg p-3 flex items-center justify-between">
+            <span class="text-2xl font-bold text-blue-600">{{ num }}</span>
+            {% if actual_numbers %}
+              {% set match = check_match(num, actual_numbers) %}
+              {% if match.type == '4D_EXACT' %}
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">✓ EXACT MATCH!</span>
+              {% elif match.type == '3D_MATCH' %}
+              <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">3 Digits Match</span>
+              {% elif match.type == '2D_MATCH' %}
+              <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">2 Digits Match</span>
+              {% elif match.type == 'NEAR' %}
+              <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">Near (±{{ match.diff }})</span>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Actual Results (if available) -->
+    {% if actual_numbers %}
+    <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg shadow-2xl p-6 mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">🎲 Actual Results ({{ actual_date }})</h2>
+      <div class="flex gap-4 flex-wrap">
+        {% for num in actual_numbers %}
+        <div class="bg-white rounded-lg px-6 py-4 text-3xl font-extrabold text-gray-900">{{ num }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Match Summary -->
+    {% if actual_numbers %}
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">📊 Match Summary</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-green-100 rounded-lg p-4 text-center">
+          <div class="text-3xl font-bold text-green-600">{{ match_stats.exact }}</div>
+          <div class="text-sm text-gray-600">Exact Matches</div>
+        </div>
+        <div class="bg-blue-100 rounded-lg p-4 text-center">
+          <div class="text-3xl font-bold text-blue-600">{{ match_stats.three_digit }}</div>
+          <div class="text-sm text-gray-600">3-Digit Matches</div>
+        </div>
+        <div class="bg-yellow-100 rounded-lg p-4 text-center">
+          <div class="text-3xl font-bold text-yellow-600">{{ match_stats.two_digit }}</div>
+          <div class="text-sm text-gray-600">2-Digit Matches</div>
+        </div>
+        <div class="bg-purple-100 rounded-lg p-4 text-center">
+          <div class="text-3xl font-bold text-purple-600">{{ match_stats.near }}</div>
+          <div class="text-sm text-gray-600">Near Matches</div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- All Unique Predictions -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">🎯 All Unique Predictions (Combined)</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+        {% for num in all_unique_predictions %}
+        <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg p-3 text-center border-2 
+                    {% if actual_numbers and num in actual_numbers %}border-green-500 bg-green-100
+                    {% else %}border-purple-300{% endif %}">
+          <div class="text-xl font-bold 
+                      {% if actual_numbers and num in actual_numbers %}text-green-600
+                      {% else %}text-purple-600{% endif %}">
+            {{ num }}
+          </div>
+          {% if actual_numbers and num in actual_numbers %}
+          <div class="text-xs text-green-600 font-bold mt-1">✓ HIT!</div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <p class="text-sm text-gray-500 mt-4 text-center">Total: {{ all_unique_predictions|length }} unique predictions from all methods</p>
+    </div>
+  </div>
+</body>
+</html>

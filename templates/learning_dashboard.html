@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .method-table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .method-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        .method-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .accuracy-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .accuracy-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+            transition: width 0.3s ease;
+        }
+        .recent-predictions {
+            margin-top: 30px;
+        }
+        .prediction-card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .match-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .match-exact { background: #4caf50; color: white; }
+        .match-3digit { background: #ff9800; color: white; }
+        .match-2digit { background: #2196f3; color: white; }
+        .match-miss { background: #f44336; color: white; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>🧠 AI Learning Dashboard</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Predictions</div>
+                <div class="stat-value">{{ stats.total_predictions }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Exact Matches</div>
+                <div class="stat-value">{{ stats.exact_matches }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">3-Digit Matches</div>
+                <div class="stat-value">{{ stats.three_digit_matches }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Overall Accuracy</div>
+                <div class="stat-value">{{ "%.1f"|format(stats.overall_accuracy) }}%</div>
+            </div>
+        </div>
+
+        <h2>🏆 Method Performance</h2>
+        <table class="method-table">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Predictions</th>
+                    <th>Accuracy</th>
+                    <th>Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for method in methods %}
+                <tr>
+                    <td><strong>{{ method.method }}</strong></td>
+                    <td>{{ method.total_predictions }}</td>
+                    <td>{{ "%.1f"|format(method.accuracy) }}%</td>
+                    <td>
+                        <div class="accuracy-bar">
+                            <div class="accuracy-fill" style="width: {{ method.accuracy }}%"></div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="recent-predictions">
+            <h2>📊 Recent Predictions</h2>
+            {% for pred in recent_predictions %}
+            <div class="prediction-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>{{ pred.draw_date }}</strong> - {{ pred.provider }}
+                        <br>
+                        <small>Predicted: {{ pred.predicted_numbers[:3] }}</small>
+                        <br>
+                        <small>Actual: {{ pred.actual_1st }}, {{ pred.actual_2nd }}, {{ pred.actual_3rd }}</small>
+                    </div>
+                    <div>
+                        <span class="match-badge match-{{ pred.hit_status.lower() }}">
+                            {{ pred.hit_status }}
+                        </span>
+                        <br>
+                        <small>Score: {{ pred.accuracy_score }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button onclick="location.href='/evaluate_now'" 
+                    style="padding: 15px 30px; font-size: 1.1em; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                🔄 Evaluate Pending Predictions
+            </button>
+        </div>
+    </div>
+</body>
+</html>

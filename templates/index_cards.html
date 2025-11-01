@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>4D Results</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .font-magnum { font-family: Arial, sans-serif; font-weight: 700; }
+  </style>
+</head>
+<body class="bg-white p-4">
+  <div class="max-w-[1400px] mx-auto flex flex-col gap-6 justify-center">
+    <form method="POST" class="mb-8 flex justify-center items-center gap-3">
+      <label class="font-bold text-lg" for="date">Select date:</label>
+      <input type="date" name="date" id="date" value="{{ selected_date or '' }}" class="border rounded px-3 py-2 text-lg">
+      <button class="bg-blue-600 text-white px-4 py-2 rounded text-lg" type="submit">Show Results</button>
+    </form>
+    {% if results %}
+    <div class="flex flex-wrap gap-6 justify-center">
+      {% for d in results %}
+      <div class="border border-gray-300 rounded-md shadow-sm w-full max-w-[320px] mb-3">
+        <div class="flex items-center {{ d.provider.bg }} rounded-t-md px-2 py-1 gap-2">
+          <img alt="Provider logo" class="h-10 w-10 object-contain" src="{{ d.provider.logo }}"/>
+          <h2 class="font-magnum text-lg">{{ d.provider.name }}</h2>
+        </div>
+        <div class="flex justify-between text-sm px-3 py-1 font-sans text-gray-900">
+          <div>{{ d.draw_info.split("Draw No:")[0] }}</div>
+          <div>Draw No: {{ d.draw_info.split("Draw No:")[1] if "Draw No:" in d.draw_info else "" }}</div>
+        </div>
+        <table class="w-full border border-gray-300 text-gray-900 text-sm font-sans">
+          <tbody>
+            <tr>
+              <td class="bg-gray-900 text-white font-semibold px-3 py-1 w-[40%] text-right">1st Prize 首獎</td>
+              <td class="border-l border-gray-300 font-extrabold text-xl px-3 py-1 text-center">{{ d.prize1 or '-' }}</td>
+            </tr>
+            <tr>
+              <td class="bg-gray-900 text-white font-semibold px-3 py-1 text-right">2nd Prize 二獎</td>
+              <td class="border-l border-gray-300 font-extrabold text-xl px-3 py-1 text-center">{{ d.prize2 or '-' }}</td>
+            </tr>
+            <tr>
+              <td class="bg-gray-900 text-white font-semibold px-3 py-1 text-right">3rd Prize 三獎</td>
+              <td class="border-l border-gray-300 font-extrabold text-xl px-3 py-1 text-center">{{ d.prize3 or '-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="w-full border border-t-0 border-gray-300 text-gray-900 text-sm font-sans">
+          <thead>
+            <tr>
+              <th class="bg-gray-900 text-white font-semibold text-center text-xs px-1 py-1" colspan="5">Special 特別獎</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in d.special %}
+            <tr>
+              {% for cell in row %}
+              <td class="border-r border-gray-300 text-center px-2 py-1">{{ cell if cell else '----' }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <table class="w-full border border-t-0 border-gray-300 text-gray-900 text-sm font-sans">
+          <thead>
+            <tr>
+              <th class="bg-gray-900 text-white font-semibold text-center text-xs px-1 py-1" colspan="5">Consolation 安慰獎</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in d.consolation %}
+            <tr>
+              {% for cell in row %}
+              <td class="border-r border-gray-300 text-center px-2 py-1">{{ cell if cell else '----' }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endfor %}
+    </div>
+    {% elif selected_date %}
+      <div class="text-center text-lg font-bold text-red-600">No results found for this date.</div>
+    {% endif %}
+  </div>
+</body>
+</html>

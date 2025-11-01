@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequency Analyzer - Hot/Cold Numbers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+  
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Home</a>
+    
+    <h1 class="text-4xl font-bold mb-6 text-center">📊 Frequency Analysis & Prediction Tool</h1>
+    
+    <!-- Filters -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
+      <form method="get" class="flex flex-wrap items-center gap-3">
+        <div>
+          <label class="font-semibold">Provider:</label>
+          <select name="provider" class="border rounded px-3 py-2 dark:bg-gray-700 ml-2">
+            {% for opt in provider_options %}
+            <option value="{{ opt }}" {% if opt == provider %}selected{% endif %}>{{ opt|upper }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold">Month:</label>
+          <select name="month" class="border rounded px-3 py-2 dark:bg-gray-700 ml-2">
+            <option value="">All Months</option>
+            {% for month in month_options %}
+            <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Apply Filters</button>
+      </form>
+    </div>
+    
+    <!-- Hot Numbers -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4 text-red-600">🔥 Top 10 Hot Numbers (Most Frequent)</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+        {% for num, count in hot_numbers %}
+        <div class="bg-red-100 dark:bg-red-900 border-2 border-red-500 rounded-lg p-4 text-center">
+          <div class="text-3xl font-bold text-red-700 dark:text-red-300">{{ num }}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">{{ count }} times</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <!-- Cold Numbers -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4 text-blue-600">❄️ Top 10 Cold Numbers (Least Frequent)</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+        {% for num, count in cold_numbers %}
+        <div class="bg-blue-100 dark:bg-blue-900 border-2 border-blue-500 rounded-lg p-4 text-center">
+          <div class="text-3xl font-bold text-blue-700 dark:text-blue-300">{{ num }}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">{{ count }} times</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <!-- Odd/Even Analysis -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4">📈 Odd vs Even Analysis</h2>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="text-center">
+          <div class="text-6xl font-bold text-purple-600">{{ odd_pct }}%</div>
+          <div class="text-xl font-semibold mt-2">ODD Numbers</div>
+        </div>
+        <div class="text-center">
+          <div class="text-6xl font-bold text-green-600">{{ even_pct }}%</div>
+          <div class="text-xl font-semibold mt-2">EVEN Numbers</div>
+        </div>
+      </div>
+      <p class="text-center text-gray-600 dark:text-gray-400 mt-4">Based on {{ total_draws }} total draws</p>
+    </div>
+    
+    <!-- Frequency Chart -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4">📊 Number Frequency Chart (Top 50)</h2>
+      <canvas id="frequencyChart" class="w-full" style="max-height: 400px;"></canvas>
+    </div>
+    
+    <!-- AI PREDICTION -->
+    <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg shadow-2xl p-8 mb-6 text-center">
+      <h2 class="text-4xl font-extrabold mb-4 text-gray-900">--- AI PREDICTION ---</h2>
+      <p class="text-xl mb-6 text-gray-800">Based on the most frequent numbers in historical data</p>
+      <div class="bg-white rounded-lg p-6 inline-block">
+        <div class="text-2xl font-semibold mb-3 text-gray-700">Predicted Numbers for Next Draw:</div>
+        <div class="flex justify-center gap-4">
+          {% for num in top_4_prediction %}
+          <div class="bg-gradient-to-br from-green-400 to-blue-500 text-white text-5xl font-extrabold rounded-lg p-6 shadow-lg">
+            {{ num }}
+          </div>
+          {% endfor %}
+        </div>
+        <p class="text-sm text-gray-600 mt-4">(Sorted in ascending order)</p>
+      </div>
+    </div>
+    
+    <div class="text-center text-gray-500 text-sm">
+      Last Updated: {{ last_updated }}
+    </div>
+  </div>
+  
+  <script>
+    const ctx = document.getElementById('frequencyChart').getContext('2d');
+    const chartData = {{ chart_data | tojson }};
+    
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: chartData.map(item => item[0]),
+        datasets: [{
+          label: 'Frequency',
+          data: chartData.map(item => item[1]),
+          backgroundColor: 'rgba(59, 130, 246, 0.6)',
+          borderColor: 'rgba(59, 130, 246, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Frequency Count'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: '4D Numbers'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Drawing Frequency of Every Number'
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

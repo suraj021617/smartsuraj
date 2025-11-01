@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>📊 Accuracy Dashboard - Learning System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 text-white min-h-screen p-6">
+
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-extrabold mb-2">📊 ACCURACY DASHBOARD</h1>
+      <p class="text-xl text-yellow-300">Track Predictions vs Actual Results - AI Learning System</p>
+    </div>
+
+    {% if message %}
+    <div class="bg-yellow-500/20 border-2 border-yellow-500 rounded-xl p-6 text-center mb-6">
+      <p class="text-xl">{{ message }}</p>
+    </div>
+    {% else %}
+
+    <!-- Overall Statistics -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-blue-600/30 rounded-xl p-6 text-center">
+        <div class="text-4xl font-bold">{{ stats.total_predictions }}</div>
+        <div class="text-sm text-gray-300">Total Predictions</div>
+      </div>
+      <div class="bg-green-600/30 rounded-xl p-6 text-center">
+        <div class="text-4xl font-bold text-green-400">{{ stats.total_hits }}</div>
+        <div class="text-sm text-gray-300">Hits</div>
+      </div>
+      <div class="bg-red-600/30 rounded-xl p-6 text-center">
+        <div class="text-4xl font-bold text-red-400">{{ stats.total_misses }}</div>
+        <div class="text-sm text-gray-300">Misses</div>
+      </div>
+      <div class="bg-yellow-600/30 rounded-xl p-6 text-center">
+        <div class="text-4xl font-bold text-yellow-400">{{ stats.hit_rate }}%</div>
+        <div class="text-sm text-gray-300">Hit Rate</div>
+      </div>
+    </div>
+
+    <!-- Learning Insights -->
+    {% if insights %}
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-yellow-300">🧠 AI Learning Insights</h2>
+      <div class="space-y-2">
+        {% for insight in insights %}
+        <div class="bg-gray-800/50 rounded-lg p-3">{{ insight }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Method Performance -->
+    {% if method_stats %}
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-yellow-300">🎯 Method Performance</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {% for method, data in method_stats.items() %}
+        <div class="bg-gray-800/50 rounded-lg p-4">
+          <div class="text-xl font-bold mb-2">{{ method }}</div>
+          <div class="text-3xl font-bold 
+                      {% if data.accuracy >= 50 %}text-green-400
+                      {% elif data.accuracy >= 30 %}text-yellow-400
+                      {% else %}text-red-400{% endif %}">
+            {{ data.accuracy }}%
+          </div>
+          <div class="text-sm text-gray-400">{{ data.hits }}/{{ data.total }} hits</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Recent Predictions -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-yellow-300">📋 Recent Predictions</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-800">
+              <th class="p-2 text-left">Draw Date</th>
+              <th class="p-2 text-left">Provider</th>
+              <th class="p-2 text-left">Predicted</th>
+              <th class="p-2 text-left">Actual</th>
+              <th class="p-2 text-left">Status</th>
+              <th class="p-2 text-left">Accuracy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pred in recent_predictions %}
+            <tr class="border-b border-gray-700">
+              <td class="p-2">{{ pred.draw_date }}</td>
+              <td class="p-2">{{ pred.provider|upper }}</td>
+              <td class="p-2 text-xs">{{ pred.predicted_numbers }}</td>
+              <td class="p-2">
+                {% if pred.actual_1st %}
+                  {{ pred.actual_1st }}, {{ pred.actual_2nd }}, {{ pred.actual_3rd }}
+                {% else %}
+                  <span class="text-gray-500">Pending</span>
+                {% endif %}
+              </td>
+              <td class="p-2">
+                <span class="px-2 py-1 rounded text-xs font-bold
+                      {% if 'HIT' in pred.hit_status %}bg-green-600
+                      {% elif pred.hit_status == 'MISS' %}bg-red-600
+                      {% else %}bg-yellow-600{% endif %}">
+                  {{ pred.hit_status }}
+                </span>
+              </td>
+              <td class="p-2 font-bold">{{ pred.accuracy_score }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-4 justify-center">
+      <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white font-bold px-8 py-3 rounded-lg">
+        ← Back to Home
+      </a>
+      <a href="/learning-insights" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-8 py-3 rounded-lg">
+        🧠 Advanced Learning Insights
+      </a>
+      <a href="/ultimate-predictor" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold px-8 py-3 rounded-lg">
+        🎯 Make New Prediction
+      </a>
+    </div>
+
+    {% endif %}
+
+  </div>
+
+</body>
+</html>

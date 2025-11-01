@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Best Pick - Top Consensus Numbers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-blue-100 min-h-screen p-6">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-xl p-6 mb-6 text-center">
+            <h1 class="text-4xl font-bold text-green-600 mb-2">🎯 BEST PICK</h1>
+            <p class="text-gray-600 text-lg">Stop overthinking! Here are the TOP 5 numbers most methods agree on</p>
+            <p class="text-sm text-gray-500 mt-2">{{ message }}</p>
+        </div>
+
+        {% if top_5 %}
+        <!-- Top 5 Numbers -->
+        <div class="bg-white rounded-lg shadow-xl p-6 mb-6">
+            <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">🏆 YOUR TOP 5 NUMBERS</h2>
+            
+            <div class="space-y-4">
+                {% for item in top_5 %}
+                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-green-100 to-blue-100 rounded-lg border-l-4 border-green-500">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-2xl font-bold text-gray-600">#{{ loop.index }}</span>
+                        <span class="text-4xl font-bold text-green-600">{{ item.number }}</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-lg font-semibold text-gray-800">{{ item.votes }}/{{ total_methods }} methods</p>
+                        <p class="text-sm text-gray-600">{{ item.confidence }}% confidence</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-lg shadow-xl p-6 mb-6">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">🚀 Quick Actions</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="copyNumbers()" class="bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 font-semibold">
+                    📋 Copy Numbers
+                </button>
+                <button onclick="window.print()" class="bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 font-semibold">
+                    🖨️ Print List
+                </button>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="bg-white rounded-lg shadow-xl p-6 mb-6 text-center">
+            <p class="text-gray-500 text-lg">{{ message or "No predictions available" }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Navigation -->
+        <div class="flex gap-3">
+            <a href="/" class="flex-1 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition text-center font-semibold">
+                ← Back to Home
+            </a>
+            <a href="/ultimate-predictor" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition text-center font-semibold">
+                See Details →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function copyNumbers() {
+            const numbers = [
+                {% for item in top_5 %}
+                '{{ item.number }}'{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ];
+            navigator.clipboard.writeText(numbers.join(', ')).then(() => {
+                alert('Numbers copied: ' + numbers.join(', '));
+            });
+        }
+    </script>
+</body>
+</html>

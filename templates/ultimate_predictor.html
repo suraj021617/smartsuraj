@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🏆 Ultimate Predictor - ALL Methods Combined</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white min-h-screen p-6">
+
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-6xl font-extrabold mb-2">🏆 ULTIMATE PREDICTOR</h1>
+      <p class="text-2xl text-yellow-300">ALL Prediction Methods Combined!</p>
+      <p class="text-sm text-gray-300 mt-2">Last updated: {{ last_updated }}</p>
+    </div>
+
+    {% if error %}
+    <div class="bg-red-500/20 border-2 border-red-500 rounded-xl p-6 text-center">
+      <p class="text-xl">{{ error }}</p>
+    </div>
+    {% else %}
+
+    <!-- Filters -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 mb-6">
+      <form method="get" class="flex items-center gap-4 justify-center flex-wrap">
+        <label class="font-semibold text-lg">📍 Provider:</label>
+        <select name="provider" class="bg-gray-800 text-white px-4 py-2 rounded-lg text-lg font-bold">
+          {% for prov in provider_options %}
+          <option value="{{ prov }}" {% if prov == selected_provider %}selected{% endif %}>
+            {{ prov|upper }}
+          </option>
+          {% endfor %}
+        </select>
+        
+        <label class="font-semibold text-lg">📅 Month:</label>
+        <select name="month" class="bg-gray-800 text-white px-4 py-2 rounded-lg text-lg font-bold">
+          <option value="" {% if not selected_month %}selected{% endif %}>All Months</option>
+          {% for month in month_options %}
+          <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>
+            {{ month }}
+          </option>
+          {% endfor %}
+        </select>
+        
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-2 rounded-lg">
+          🔄 Update Predictions
+        </button>
+      </form>
+    </div>
+
+    <!-- Draw Information Box -->
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 mb-6 shadow-xl">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+        <div class="bg-white/10 rounded-lg p-4">
+          <div class="text-sm text-gray-200 mb-1">🏢 Provider</div>
+          <div class="text-3xl font-bold text-yellow-300">{{ provider_name }}</div>
+        </div>
+        <div class="bg-white/10 rounded-lg p-4">
+          <div class="text-sm text-gray-200 mb-1">📅 Last Draw</div>
+          <div class="text-xl font-bold">{{ last_draw_date }}</div>
+          <div class="text-lg text-yellow-300 mt-1">Number: {{ last_draw_number }}</div>
+        </div>
+        <div class="bg-white/10 rounded-lg p-4">
+          <div class="text-sm text-gray-200 mb-1">🎯 Predicting For</div>
+          <div class="text-xl font-bold text-green-300">{{ next_draw_date }}</div>
+          <div class="text-sm text-gray-300 mt-1">(Next Draw)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ULTIMATE TOP 10 - CONSENSUS PREDICTIONS -->
+    <div class="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-2xl p-8 mb-8 shadow-2xl">
+      <h2 class="text-4xl font-bold mb-4 text-center text-white">⭐ TOP 10 FOR {{ provider_name }}</h2>
+      <p class="text-center mb-2 text-black font-bold text-lg">📅 Predicting Next Draw: {{ next_draw_date }}</p>
+      <p class="text-center mb-6 text-white text-sm">Numbers that appear in MULTIPLE predictors = HIGHEST CONFIDENCE!</p>
+      
+      <div class="mb-4 text-center">
+        <button onclick="savePredictions()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-3 rounded-lg text-xl shadow-lg">
+          💾 Save These Predictions for Tracking
+        </button>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {% for pred in ultimate_top_10 %}
+        <div class="bg-white/90 backdrop-blur-lg rounded-xl p-6 text-center border-4 
+                    {% if pred.predictor_count == 4 %}border-yellow-400
+                    {% elif pred.predictor_count == 3 %}border-green-400
+                    {% elif pred.predictor_count == 2 %}border-blue-400
+                    {% else %}border-gray-400{% endif %}">
+          
+          <div class="text-5xl font-extrabold mb-2 text-black">{{ pred.number }}</div>
+          
+          <div class="mb-3">
+            <div class="text-2xl font-bold 
+                        {% if pred.predictor_count == 4 %}text-yellow-600
+                        {% elif pred.predictor_count == 3 %}text-green-600
+                        {% elif pred.predictor_count == 2 %}text-blue-600
+                        {% else %}text-gray-600{% endif %}">
+              {{ pred.confidence }}%
+            </div>
+            <div class="text-xs text-gray-600">Confidence</div>
+          </div>
+          
+          <div class="bg-black/10 rounded-lg p-2 mb-2">
+            <div class="text-sm font-bold text-gray-800">
+              {{ pred.predictor_count }}/4 Predictors
+            </div>
+          </div>
+          
+          <div class="text-xs text-gray-700 font-semibold">
+            {{ pred.sources }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="mt-6 bg-black/20 rounded-xl p-4">
+        <h3 class="font-bold text-center mb-2">🎯 How to Read:</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+          <div class="bg-yellow-400/30 rounded p-2 text-center">
+            <div class="font-bold">4/4 Predictors</div>
+            <div class="text-xs">HIGHEST</div>
+          </div>
+          <div class="bg-green-400/30 rounded p-2 text-center">
+            <div class="font-bold">3/4 Predictors</div>
+            <div class="text-xs">STRONG</div>
+          </div>
+          <div class="bg-blue-400/30 rounded p-2 text-center">
+            <div class="font-bold">2/4 Predictors</div>
+            <div class="text-xs">GOOD</div>
+          </div>
+          <div class="bg-gray-400/30 rounded p-2 text-center">
+            <div class="font-bold">1/4 Predictors</div>
+            <div class="text-xs">MODERATE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Individual Predictor Results -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      
+      <!-- Advanced Predictor -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+        <h3 class="text-2xl font-bold mb-4 text-yellow-300 flex items-center gap-2">
+          <span>🔥</span> Advanced Predictor
+        </h3>
+        <p class="text-xs text-gray-400 mb-4">Hot digits + Pairs + Transitions</p>
+        
+        <div class="space-y-2">
+          {% for num, score, reason in advanced_preds %}
+          <div class="bg-gray-800/50 rounded-lg p-3 flex items-center justify-between">
+            <div class="text-2xl font-bold">{{ num }}</div>
+            <div class="text-right">
+              <div class="text-lg font-bold text-green-400">{{ score }}</div>
+              <div class="text-xs text-gray-400">{{ reason[:30] }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Smart Predictor -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+        <h3 class="text-2xl font-bold mb-4 text-blue-300 flex items-center gap-2">
+          <span>🧠</span> Smart Auto-Weight
+        </h3>
+        <p class="text-xs text-gray-400 mb-4">AI-tuned weight optimization</p>
+        
+        <div class="space-y-2">
+          {% for num, score, reason in smart_preds %}
+          <div class="bg-gray-800/50 rounded-lg p-3 flex items-center justify-between">
+            <div class="text-2xl font-bold">{{ num }}</div>
+            <div class="text-right">
+              <div class="text-lg font-bold text-blue-400">{{ score }}</div>
+              <div class="text-xs text-gray-400">{{ reason[:30] }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- ML Predictor -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+        <h3 class="text-2xl font-bold mb-4 text-purple-300 flex items-center gap-2">
+          <span>🤖</span> Machine Learning
+        </h3>
+        <p class="text-xs text-gray-400 mb-4">Linear regression model</p>
+        
+        <div class="space-y-2">
+          {% for num, score, reason in ml_preds %}
+          <div class="bg-gray-800/50 rounded-lg p-3 flex items-center justify-between">
+            <div class="text-2xl font-bold">{{ num }}</div>
+            <div class="text-right">
+              <div class="text-lg font-bold text-purple-400">{{ score }}</div>
+              <div class="text-xs text-gray-400">{{ reason }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Pattern Predictor -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+        <h3 class="text-2xl font-bold mb-4 text-green-300 flex items-center gap-2">
+          <span>📊</span> Pattern Analyzer
+        </h3>
+        <p class="text-xs text-gray-400 mb-4">Grid-based pattern detection</p>
+        
+        <div class="space-y-2">
+          {% for num, score, reason in pattern_preds %}
+          <div class="bg-gray-800/50 rounded-lg p-3 flex items-center justify-between">
+            <div class="text-2xl font-bold">{{ num }}</div>
+            <div class="text-right">
+              <div class="text-lg font-bold text-green-400">{{ score }}</div>
+              <div class="text-xs text-gray-400">{{ reason[:30] }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- How It Works -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+      <h3 class="text-2xl font-bold mb-4">💡 How Ultimate Predictor Works</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="bg-blue-600/20 rounded-lg p-4">
+          <div class="font-bold mb-2 text-yellow-300">Step 1: Run All Predictors</div>
+          <div class="text-sm text-gray-300">
+            We run 4 different prediction algorithms:
+            <ul class="list-disc ml-5 mt-2">
+              <li>Advanced (hot+pair+transitions)</li>
+              <li>Smart Auto-Weight (AI-tuned)</li>
+              <li>Machine Learning (regression)</li>
+              <li>Pattern Analyzer (grid-based)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="bg-green-600/20 rounded-lg p-4">
+          <div class="font-bold mb-2 text-yellow-300">Step 2: Find Consensus</div>
+          <div class="text-sm text-gray-300">
+            Numbers that appear in multiple predictors get higher confidence:
+            <ul class="list-disc ml-5 mt-2">
+              <li>4/4 methods = 100% confidence</li>
+              <li>3/4 methods = 75% confidence</li>
+              <li>2/4 methods = 50% confidence</li>
+              <li>1/4 methods = 25% confidence</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-yellow-500/20 border-2 border-yellow-500 rounded-lg p-4">
+        <div class="font-bold text-yellow-300 mb-2">🎯 Recommendation:</div>
+        <ul class="text-sm space-y-1 text-gray-200">
+          <li>✅ <strong>BEST BET:</strong> Pick numbers with 75-100% confidence (3-4 predictors agree)</li>
+          <li>✅ <strong>SAFE PLAY:</strong> Focus on top 5 recommendations</li>
+          <li>✅ <strong>DIVERSIFY:</strong> Mix high-confidence with 50% confidence numbers</li>
+          <li>✅ <strong>TRACK:</strong> Monitor which predictor performs best over time</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex gap-4 justify-center">
+      <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white font-bold px-8 py-3 rounded-lg">
+        ← Back to Home
+      </a>
+      <a href="/pattern-analyzer" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-3 rounded-lg">
+        Pattern Analyzer →
+      </a>
+    </div>
+
+    {% endif %}
+
+  </div>
+
+  <script>
+    function savePredictions() {
+      const predictions = {{ ultimate_top_10|tojson }};
+      const topNumbers = predictions.slice(0, 5).map(p => p.number);
+      
+      // Extract only the date part (remove day name)
+      const fullDate = '{{ next_draw_date }}';
+      const dateOnly = fullDate.split('(')[0].trim();
+      
+      fetch('/save-prediction', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          draw_date: dateOnly,
+          provider: '{{ selected_provider }}',
+          predicted_numbers: JSON.stringify(topNumbers),
+          methods: predictions.slice(0, 5).map(p => p.sources).join('; '),
+          confidence: predictions[0].confidence
+        })
+      })
+      .then(r => r.json())
+      .then(data => {
+        alert('✅ Predictions saved! Check Accuracy Dashboard after draw.');
+      })
+      .catch(err => alert('❌ Error saving predictions'));
+    }
+  </script>
+
+</body>
+</html>
