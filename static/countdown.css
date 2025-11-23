@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.countdown-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+    font-size: 3em;
+    color: #fff;
+    margin-bottom: 40px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.countdown-display {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.time-box {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 30px 20px;
+    border-radius: 15px;
+    min-width: 120px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.time-value {
+    display: block;
+    font-size: 3em;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+.time-label {
+    display: block;
+    font-size: 1em;
+    color: #fff;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.draw-info {
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.draw-info p {
+    margin: 10px 0;
+}
+
+.draw-info span {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    transition: transform 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .countdown-display {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .time-box {
+        min-width: 80px;
+        padding: 20px 15px;
+    }
+    .time-value {
+        font-size: 2em;
+    }
+    .title {
+        font-size: 2em;
+    }
+}

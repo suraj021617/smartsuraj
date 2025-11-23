@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard - Smart Suraj</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: #fcb69f;
+        }
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        .rank {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fcb69f;
+            width: 50px;
+        }
+        .name {
+            flex: 1;
+            font-size: 18px;
+        }
+        .score {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .medal {
+            font-size: 30px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 LEADERBOARD</h1>
+        <p style="text-align:center;color:#666;">Top Predictors</p>
+        
+        <div id="leaderboardList"></div>
+        
+        <a href="/dashboard" class="back-btn">← Back</a>
+    </div>
+    <script>
+        function loadLeaderboard() {
+            const streak = JSON.parse(localStorage.getItem('winStreak') || '{"best":0}');
+            const leaderboard = [
+                {name: 'You', score: streak.best || 0},
+                {name: 'AI Master', score: 15},
+                {name: 'Lucky Star', score: 12},
+                {name: 'Number Wizard', score: 10},
+                {name: 'Fortune Seeker', score: 8}
+            ];
+            leaderboard.sort((a, b) => b.score - a.score);
+            
+            const list = document.getElementById('leaderboardList');
+            list.innerHTML = leaderboard.map((item, idx) => `
+                <div class="leaderboard-item">
+                    <div class="rank">#${idx + 1}</div>
+                    ${idx < 3 ? `<div class="medal">${['🥇','🥈','🥉'][idx]}</div>` : ''}
+                    <div class="name">${item.name}</div>
+                    <div class="score">${item.score} wins</div>
+                </div>
+            `).join('');
+        }
+        loadLeaderboard();
+    </script>
+</body>
+</html>

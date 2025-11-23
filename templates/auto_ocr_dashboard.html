@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto OCR Predictor - Next Day Analysis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { color: white; text-align: center; margin-bottom: 30px; font-size: 2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .filters { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .filters select, .filters input { padding: 10px; margin: 5px; border: 2px solid #667eea; border-radius: 8px; font-size: 16px; }
+        .filters button { background: #667eea; color: white; padding: 10px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin: 5px; }
+        .filters button:hover { background: #764ba2; }
+        
+        .ocr-grid { background: white; padding: 30px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .ocr-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .ocr-table th { background: #667eea; color: white; padding: 15px; text-align: center; font-size: 18px; }
+        .ocr-table td { padding: 12px; text-align: center; border: 1px solid #ddd; font-size: 16px; }
+        .ocr-table tr:hover { background: #f0f0f0; }
+        
+        .hot-digit { background: #ff6b6b; color: white; font-weight: bold; padding: 5px 10px; border-radius: 5px; }
+        .warm-digit { background: #ffa500; color: white; font-weight: bold; padding: 5px 10px; border-radius: 5px; }
+        .cold-digit { background: #4ecdc4; color: white; padding: 5px 10px; border-radius: 5px; }
+        
+        .predictions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .pred-card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .pred-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .pred-number { font-size: 48px; font-weight: bold; color: #667eea; text-align: center; margin: 10px 0; letter-spacing: 8px; }
+        .pred-confidence { text-align: center; font-size: 20px; color: #764ba2; margin: 10px 0; }
+        .pred-strategy { text-align: center; background: #f0f0f0; padding: 8px; border-radius: 8px; margin: 10px 0; }
+        
+        .position-breakdown { margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 10px; }
+        .position-item { display: flex; justify-content: space-between; padding: 8px; margin: 5px 0; background: white; border-radius: 5px; }
+        .position-label { font-weight: bold; color: #667eea; }
+        .position-freq { color: #764ba2; font-weight: bold; }
+        
+        .match-results { background: white; padding: 30px; border-radius: 15px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .match-card { background: #e8f5e9; padding: 15px; margin: 10px 0; border-radius: 10px; border-left: 5px solid #4caf50; }
+        .match-exact { background: #c8e6c9; border-left-color: #2e7d32; }
+        .match-partial { background: #fff9c4; border-left-color: #f57f17; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .stat-box { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; text-align: center; }
+        .stat-value { font-size: 36px; font-weight: bold; }
+        .stat-label { font-size: 14px; margin-top: 5px; opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔮 Auto OCR Predictor - Next Day Analysis</h1>
+        
+        <div class="filters">
+            <form method="GET">
+                <select name="provider">
+                    {% for opt in provider_options %}
+                    <option value="{{ opt }}" {% if opt == provider %}selected{% endif %}>{{ opt.upper() }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" name="lookback" value="{{ lookback }}" min="7" max="90" placeholder="Days">
+                <button type="submit">🔍 Analyze</button>
+                <button type="button" onclick="window.location.href='/auto-ocr-check'">✅ Check Results</button>
+            </form>
+        </div>
+        
+        {% if ocr_table %}
+        <div class="ocr-grid">
+            <h2 style="color: #667eea; margin-bottom: 20px;">📊 OCR Position Analysis</h2>
+            <table class="ocr-table">
+                <thead>
+                    <tr>
+                        <th>Digit</th>
+                        <th>Position 1</th>
+                        <th>Position 2</th>
+                        <th>Position 3</th>
+                        <th>Position 4</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for digit in range(10) %}
+                    <tr>
+                        <td><strong>{{ digit }}</strong></td>
+                        {% for pos in range(4) %}
+                        <td>
+                            {% set count = ocr_table[digit][pos] %}
+                            {% if count >= 10 %}
+                            <span class="hot-digit">{{ count }}</span>
+                            {% elif count >= 5 %}
+                            <span class="warm-digit">{{ count }}</span>
+                            {% else %}
+                            <span class="cold-digit">{{ count }}</span>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                        <td><strong>{{ ocr_table[digit]|sum }}</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">{{ predictions|length }}</div>
+                    <div class="stat-label">Predictions Generated</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">{{ lookback }}</div>
+                    <div class="stat-label">Days Analyzed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">{{ hot_digits|length }}</div>
+                    <div class="stat-label">Hot Positions</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if predictions %}
+        <div class="ocr-grid">
+            <h2 style="color: #667eea; margin-bottom: 20px;">🎯 Next Day Predictions</h2>
+            <div class="predictions">
+                {% for pred in predictions %}
+                <div class="pred-card">
+                    <div class="pred-number">{{ pred.number }}</div>
+                    <div class="pred-confidence">{{ pred.confidence }}% Confidence</div>
+                    <div class="pred-strategy">{{ pred.strategy }}</div>
+                    
+                    <div class="position-breakdown">
+                        <strong>Position Analysis:</strong>
+                        {% for pos_key, pos_data in pred.position_analysis.items() %}
+                        <div class="position-item">
+                            <span class="position-label">{{ pos_key.upper() }}: {{ pos_data.digit }}</span>
+                            <span class="position-freq">Freq: {{ pos_data.frequency }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if match_results %}
+        <div class="match-results">
+            <h2 style="color: #667eea; margin-bottom: 20px;">✅ Match Results</h2>
+            {% if match_results.status == 'no_draw' %}
+            <p style="text-align: center; font-size: 18px; color: #666;">No draw data available for selected date</p>
+            {% else %}
+            <p style="margin-bottom: 15px;"><strong>Total Actual Numbers:</strong> {{ match_results.total_actual }}</p>
+            {% if match_results.matches %}
+                {% for match in match_results.matches %}
+                <div class="match-card {% if match.match_type == 'EXACT' %}match-exact{% else %}match-partial{% endif %}">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>{{ match.predicted }}</strong>
+                            {% if match.match_type == 'EXACT' %}
+                            <span style="color: #2e7d32; font-weight: bold;">✅ EXACT MATCH!</span>
+                            {% else %}
+                            <span style="color: #f57f17; font-weight: bold;">{{ match.match_type }} Match</span>
+                            {% if match.actual %}
+                            <span style="color: #666;"> → {{ match.actual }}</span>
+                            {% endif %}
+                            {% if match.positions %}
+                            <span style="color: #666;"> (Positions: {{ match.positions|join(', ') }})</span>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 14px; color: #666;">{{ match.strategy }}</div>
+                            <div style="font-size: 12px; color: #999;">{{ match.confidence }}% confidence</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <p style="text-align: center; font-size: 18px; color: #999;">No matches found</p>
+            {% endif %}
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="/" style="color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 10px; display: inline-block;">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

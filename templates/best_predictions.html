@@ -278,6 +278,50 @@
             </p>
         </div>
 
+        <!-- MAGNUM 4D CARD FORMAT -->
+        <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 30px;">
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="background: black; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold;">BEST PREDICTIONS</div>
+                    <div style="font-size: 1.3em; font-weight: bold; color: white;">POSITIONAL FREQUENCY 萬能</div>
+                </div>
+            </div>
+            
+            <!-- Date Info -->
+            <div style="background: white; padding: 15px; border-bottom: 2px solid #ddd; display: flex; justify-content: space-between; color: #333;">
+                <div>Next Draw: <span style="font-weight: bold;">{{ next_draw_day }}, {{ next_draw_date }}</span></div>
+                <div>Provider: <span style="font-weight: bold;">{{ 'All Providers' if provider == 'all' else provider|title }}</span></div>
+            </div>
+            
+            <!-- Predictions Grid (2x5 format) -->
+            <div style="background: #667eea; color: white; font-weight: bold; padding: 15px; text-align: center;">Top 10 Predictions 預測</div>
+            <div style="background: white; padding: 20px;">
+                <!-- First Row -->
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 10px;">
+                    {% for pred in predictions[:5] %}
+                    <div style="border: 3px solid #ffd700; background: linear-gradient(135deg, #ffd700, #ffed4e); padding: 15px; text-align: center; border-radius: 8px; position: relative;">
+                        <div style="position: absolute; top: 5px; right: 5px; background: #667eea; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: bold;">#{{ loop.index }}</div>
+                        <div style="font-size: 2em; font-weight: bold; color: #333;">{{ pred.number }}</div>
+                        <div style="font-size: 0.75em; color: #667eea; font-weight: bold; margin-top: 5px;">{{ pred.confidence }}%</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Second Row -->
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                    {% for pred in predictions[5:10] %}
+                    <div style="border: 2px solid #667eea; background: #f0f4ff; padding: 15px; text-align: center; border-radius: 8px; position: relative;">
+                        <div style="position: absolute; top: 5px; right: 5px; background: #764ba2; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: bold;">#{{ loop.index + 5 }}</div>
+                        <div style="font-size: 2em; font-weight: bold; color: #667eea;">{{ pred.number }}</div>
+                        <div style="font-size: 0.75em; color: #764ba2; font-weight: bold; margin-top: 5px;">{{ pred.confidence }}%</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Analysis Cards -->
         <div class="predictions-grid">
             {% for pred in predictions %}
             <div class="prediction-card">

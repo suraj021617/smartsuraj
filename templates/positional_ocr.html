@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Positional OCR Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-4">
+    <h1 class="text-4xl font-bold mb-6 text-center text-blue-600">📊 Positional OCR Analyzer</h1>
+    
+    <form method="get" class="mb-6 bg-white p-4 rounded-lg shadow">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+          <label class="block mb-2 font-bold">Provider:</label>
+          <select name="provider" class="w-full p-2 border rounded">
+            {% for p in provider_options %}
+            <option value="{{ p }}" {% if p==selected_provider %}selected{% endif %}>{{ p.upper() }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block mb-2 font-bold">Date:</label>
+          <input type="date" name="date" value="{{ selected_date }}" class="w-full p-2 border rounded">
+        </div>
+        <div class="flex items-end">
+          <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Analyze Date</button>
+        </div>
+        <div class="flex items-end">
+          <button type="submit" name="auto" value="true" onclick="showLoading()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">🔮 Auto Next Day</button>
+        </div>
+      </div>
+      <div id="loading" style="display:none;" class="text-center p-4 bg-yellow-100 rounded-lg mt-4">
+        <div class="text-2xl mb-2">⏳ Learning from historical data...</div>
+        <div class="text-sm">Time elapsed: <span id="timer">0</span>s</div>
+        <div class="text-xs mt-2">First time: 10-30 seconds (learning ALL data) | Next time: Instant (cached)</div>
+      </div>
+    </form>
+    <script>
+    let timerInterval;
+    function showLoading() {
+      document.getElementById('loading').style.display = 'block';
+      let seconds = 0;
+      timerInterval = setInterval(() => {
+        seconds++;
+        document.getElementById('timer').textContent = seconds;
+      }, 1000);
+    }
+    if (timerInterval) clearInterval(timerInterval);
+    </script>
+
+    {% if ocr_table %}
+    <div class="bg-white p-6 rounded-lg shadow mb-6">
+      <h2 class="text-2xl font-bold mb-4 text-center">Occurrence rate analysis of digit position</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="bg-cyan-400">
+              <th class="border px-4 py-2">No.</th>
+              <th class="border px-4 py-2 text-green-600">Pos 1</th>
+              <th class="border px-4 py-2 text-red-600">Pos 2</th>
+              <th class="border px-4 py-2 text-blue-600">Pos 3</th>
+              <th class="border px-4 py-2 text-yellow-600">Pos 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for digit in range(10) %}
+            <tr class="text-center">
+              <td class="border px-4 py-2"><span class="inline-block w-8 h-8 rounded-full border-2 border-orange-500 flex items-center justify-center font-bold">{{ digit }}</span></td>
+              <td class="border px-4 py-2">{{ ocr_table[digit][0] }}</td>
+              <td class="border px-4 py-2">{{ ocr_table[digit][1] }}</td>
+              <td class="border px-4 py-2">{{ ocr_table[digit][2] }}</td>
+              <td class="border px-4 py-2">{{ ocr_table[digit][3] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-r from-green-400 to-blue-500 p-6 rounded-lg shadow text-white">
+      <h2 class="text-2xl font-bold mb-4 text-center">🎯 {% if auto_mode %}AI-Learned Next Day Predictions{% else %}Predicted Numbers{% endif %}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for pred in predictions %}
+        <div class="bg-white text-gray-800 p-4 rounded-lg {% if 'Learned' in pred.strategy %}border-4 border-purple-500{% endif %}">
+          <div class="text-3xl font-bold text-center mb-2">{{ pred.number }}</div>
+          <div class="text-sm text-center font-bold {% if pred.confidence >= 90 %}text-green-600{% elif pred.confidence >= 80 %}text-blue-600{% else %}text-gray-600{% endif %}">
+            {{ pred.confidence }}% Confidence
+          </div>
+          <div class="text-xs text-center font-semibold mt-1 {% if 'Learned' in pred.strategy %}text-purple-600{% else %}text-gray-600{% endif %}">
+            {% if 'Learned' in pred.strategy %}
+            🧠 {{ pred.strategy }}
+            {% elif 'Similar' in pred.strategy %}
+            🔍 {{ pred.strategy }}
+            {% else %}
+            {{ pred.reason if pred.reason else pred.strategy }}
+            {% endif %}
+          </div>
+          {% if pred.position_analysis %}
+          <div class="mt-2 text-xs text-gray-500 border-t pt-2">
+            {% for pos, data in pred.position_analysis.items() %}
+            <div class="flex justify-between">
+              <span>{{ pos.upper() }}: <strong>{{ data.digit }}</strong></span>
+              <span class="text-gray-400">{{ data.frequency }}x</span>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    {% if auto_mode %}
+    <div class="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-lg shadow text-white">
+      <h2 class="text-2xl font-bold mb-4 text-center">🧠 AI Learning Stats</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+        <div class="bg-white/20 p-4 rounded-lg">
+          <div class="text-3xl font-bold">{{ predictions|length }}</div>
+          <div class="text-sm">Predictions Generated</div>
+        </div>
+        <div class="bg-white/20 p-4 rounded-lg">
+          <div class="text-3xl font-bold">
+            {% set learned_count = namespace(value=0) %}
+            {% for p in predictions %}
+              {% if 'Learned' in p.strategy %}{% set learned_count.value = learned_count.value + 1 %}{% endif %}
+            {% endfor %}
+            {{ learned_count.value }}
+          </div>
+          <div class="text-sm">From Historical Patterns</div>
+        </div>
+        <div class="bg-white/20 p-4 rounded-lg">
+          <div class="text-3xl font-bold">{{ predictions[0].confidence if predictions else 0 }}%</div>
+          <div class="text-sm">Top Confidence</div>
+        </div>
+      </div>
+      <div class="mt-4 text-center text-sm">
+        <p>✅ System learned from ALL historical OCR data</p>
+        <p>✅ Predictions based on "Today's OCR → Tomorrow's Numbers" patterns</p>
+      </div>
+    </div>
+    {% endif %}
+    
+    {% if next_day_check and next_day_check.status == 'checked' %}
+    <div class="mt-6 bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold mb-4 text-center text-green-600">✅ Next Day Results Check</h2>
+      <p class="text-center mb-4">Total Actual Numbers: <strong>{{ next_day_check.total_actual }}</strong></p>
+      {% if next_day_check.matches %}
+      <div class="space-y-2">
+        {% for match in next_day_check.matches %}
+        <div class="p-3 rounded {% if match.match_type == 'EXACT' %}bg-green-100 border-l-4 border-green-600{% else %}bg-yellow-100 border-l-4 border-yellow-600{% endif %}">
+          <div class="flex justify-between">
+            <div>
+              <strong>{{ match.predicted }}</strong>
+              {% if match.match_type == 'EXACT' %}
+              <span class="text-green-600 font-bold">✅ EXACT MATCH!</span>
+              {% else %}
+              <span class="text-yellow-600 font-bold">{{ match.match_type }}</span>
+              {% if match.actual %} → {{ match.actual }}{% endif %}
+              {% if match.positions %} (Pos: {{ match.positions|join(', ') }}){% endif %}
+              {% endif %}
+            </div>
+            <div class="text-sm text-gray-600">{{ match.confidence }}%</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-center text-gray-500">No matches found yet</p>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="bg-yellow-100 p-4 rounded text-center">
+      <p>Select a provider and date to see analysis</p>
+    </div>
+    {% endif %}
+
+    <div class="mt-6 text-center">
+      <a href="/" class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>

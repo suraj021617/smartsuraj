@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Smart 4D Dashboard - Organized</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="{{ url_for('static', filename='themes-enhanced.css') }}" rel="stylesheet"/>
+  <link href="{{ url_for('static', filename='dropdown-menu.css') }}" rel="stylesheet"/>
+</head>
+
+<body class="p-4">
+  <div class="max-w-[1400px] mx-auto">
+    
+    <div class="glass rounded-3xl shadow-2xl p-6 mb-6">
+      <h1 class="text-5xl font-black text-center">🎯 Smart 4D Dashboard</h1>
+      <p class="text-center text-gray-300">AI-Powered Prediction & Analysis System</p>
+    </div>
+
+    <!-- QUICK ACCESS -->
+    <div class="quick-access mb-6">
+      <a href="/decision-helper" class="quick-btn">
+        <span class="icon">💡</span>
+        WHAT SHOULD I PLAY?
+      </a>
+      <a href="/auto-validator" class="quick-btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <span class="icon">🚀</span>
+        TEST ALL METHODS
+      </a>
+      <a href="/match-checker" class="quick-btn">
+        <span class="icon">🎯</span>
+        WHICH MATCHED?
+      </a>
+      <a href="/countdown" class="quick-btn">
+        <span class="icon">🎰</span>
+        NEXT DRAW
+      </a>
+    </div>
+
+    <!-- DROPDOWN MENUS -->
+    <div class="dropdown">
+      <button class="dropdown-btn">
+        🎯 PREDICTIONS (17 Methods)
+        <span class="arrow">▼</span>
+      </button>
+      <div class="dropdown-content">
+        <a href="/quick-pick"><span>🎲</span>Quick Pick</a>
+        <a href="/ultimate-ai"><span>🚀</span>Ultimate AI</a>
+        <a href="/ultimate-predictor"><span>🏆</span>Ultimate Predictor</a>
+        <a href="/best-predictions"><span>📊</span>Best Predictions</a>
+        <a href="/pattern-analyzer"><span>🔍</span>Pattern Analyzer</a>
+        <a href="/smart-auto-weight"><span>⚙️</span>Smart Auto Weight</a>
+        <a href="/ml-predictor"><span>🤖</span>ML Predictor</a>
+        <a href="/consensus-predictor"><span>🎯</span>Consensus</a>
+        <a href="/day-to-day-predictor"><span>📅</span>Day-to-Day</a>
+        <a href="/lucky-generator"><span>🧠</span>Lucky Generator</a>
+        <a href="/missing-number-finder"><span>🔍</span>Missing Numbers</a>
+        <a href="/empty-box-predictor"><span>📦</span>Empty Box</a>
+        <a href="/master-analyzer"><span>🔬</span>Master Analyzer</a>
+        <a href="/positional-ocr"><span>📊</span>Positional OCR</a>
+        <a href="/auto-ocr"><span>🤖</span>Auto OCR</a>
+        <a href="/power-simple"><span>⚡</span>Power Simple</a>
+        <a href="/best-pick"><span>🎯</span>Best Pick</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-btn">
+        🎮 NEW FEATURES (10 Features) <span class="badge">NEW</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="dropdown-content">
+        <a href="/countdown"><span>🎰</span>Live Draw Countdown</a>
+        <a href="/my-tracker"><span>📊</span>My Prediction Tracker</a>
+        <a href="/streak"><span>📈</span>Winning Streak</a>
+        <a href="/favorites"><span>💾</span>Favorite Numbers</a>
+        <a href="/community"><span>🤝</span>Community Predictions</a>
+        <a href="/leaderboard"><span>🏆</span>Leaderboard</a>
+        <a href="/notifications"><span>🔔</span>Notifications</a>
+        <a href="/profile"><span>👤</span>My Profile</a>
+        <a href="/pwa-install"><span>📱</span>Install Mobile App</a>
+        <a href="/theme-gallery"><span>🎨</span>More Themes</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-btn">
+        📊 ANALYSIS TOOLS (8 Tools)
+        <span class="arrow">▼</span>
+      </button>
+      <div class="dropdown-content">
+        <a href="/statistics"><span>📊</span>Statistics</a>
+        <a href="/hot-cold"><span>🌶️</span>Hot/Cold Numbers</a>
+        <a href="/frequency-analyzer"><span>📊</span>Frequency Analyzer</a>
+        <a href="/advanced-analytics"><span>📈</span>Advanced Analytics</a>
+        <a href="/learning-dashboard"><span>🧠</span>AI Learning</a>
+        <a href="/accuracy-dashboard"><span>📜</span>Accuracy Dashboard</a>
+        <a href="/learning-insights"><span>💡</span>Learning Insights</a>
+        <a href="/method-performance"><span>🏅</span>Method Performance</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-btn">
+        📜 HISTORY & RESULTS (5 Options)
+        <span class="arrow">▼</span>
+      </button>
+      <div class="dropdown-content">
+        <a href="/past-results"><span>📊</span>Past Results</a>
+        <a href="/prediction-history"><span>📜</span>Prediction History</a>
+        <a href="/smart-history"><span>📈</span>Smart History</a>
+        <a href="/ocr-learning"><span>🧠</span>OCR Learning</a>
+        <a href="/match-checker"><span>🎯</span>Match Checker</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-btn">
+        ⚙️ SETTINGS & MORE (4 Options)
+        <span class="arrow">▼</span>
+      </button>
+      <div class="dropdown-content">
+        <a href="/theme-gallery"><span>🎨</span>Themes Gallery</a>
+        <a href="/"><span>🎠</span>3D Carousel</a>
+        <a href="/ai-dashboard"><span>🤖</span>AI Dashboard</a>
+        <a href="/power-dashboard"><span>⚡</span>Power Dashboard</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='dropdown-menu.js') }}"></script>
+  <script src="{{ url_for('static', filename='theme-switcher-spidey.js') }}"></script>
+</body>
+</html>

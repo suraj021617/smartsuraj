@@ -1,0 +1,58 @@
+/* CUSTOM WALLPAPER LOADER */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+}
+
+/* Load custom wallpapers from static/wallpapers/ */
+[data-wallpaper="custom1"]::before { background-image: url('/static/wallpapers/bg1.jpg'); }
+[data-wallpaper="custom2"]::before { background-image: url('/static/wallpapers/bg2.jpg'); }
+[data-wallpaper="custom3"]::before { background-image: url('/static/wallpapers/bg3.jpg'); }
+[data-wallpaper="custom4"]::before { background-image: url('/static/wallpapers/bg4.jpg'); }
+[data-wallpaper="custom5"]::before { background-image: url('/static/wallpapers/bg5.jpg'); }
+
+/* Wallpaper selector */
+.wallpaper-selector {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9998;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.wallpaper-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-size: cover;
+  background-position: center;
+}
+
+.wallpaper-btn:hover { transform: scale(1.1); }
+.wallpaper-btn.active { border-color: var(--accent); box-shadow: 0 0 15px var(--accent); }
+
+.wallpaper-btn[data-wallpaper="none"] { background: linear-gradient(135deg, #333 0%, #666 100%); }
+.wallpaper-btn[data-wallpaper="custom1"] { background-image: url('/static/wallpapers/bg1.jpg'); }
+.wallpaper-btn[data-wallpaper="custom2"] { background-image: url('/static/wallpapers/bg2.jpg'); }
+.wallpaper-btn[data-wallpaper="custom3"] { background-image: url('/static/wallpapers/bg3.jpg'); }
+.wallpaper-btn[data-wallpaper="custom4"] { background-image: url('/static/wallpapers/bg4.jpg'); }
+.wallpaper-btn[data-wallpaper="custom5"] { background-image: url('/static/wallpapers/bg5.jpg'); }

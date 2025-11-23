@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 Prediction Comparison Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white min-h-screen p-6">
+  <div class="max-w-7xl mx-auto">
+    <a href="/" class="text-blue-300 hover:underline mb-4 inline-block">&larr; Back to Home</a>
+    
+    <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg shadow-2xl p-6 mb-6">
+      <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-2">
+        📊 PREDICTION COMPARISON DASHBOARD
+      </h1>
+      <p class="text-center text-gray-800 font-semibold">Automatic comparison of predictions vs actual results</p>
+      <p class="text-sm text-center text-gray-700 mt-2">Last Run: {{ comparison_data.last_run }}</p>
+    </div>
+
+    <!-- Run Comparison Button -->
+    <div class="text-center mb-6">
+      <button onclick="runComparison()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-4 rounded-lg text-xl shadow-lg">
+        🔄 Run Comparison Now
+      </button>
+      <p class="text-sm text-gray-300 mt-2">Click to compare all pending predictions with actual results</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+      <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 text-center">
+        <div class="text-4xl font-bold text-white">{{ stats.total }}</div>
+        <div class="text-sm text-gray-300 mt-2">Total Compared</div>
+      </div>
+      
+      <div class="bg-green-500/20 backdrop-blur-lg rounded-xl p-6 text-center border-2 border-green-400">
+        <div class="text-4xl font-bold text-green-400">{{ stats['4_digit'] }}</div>
+        <div class="text-sm text-gray-300 mt-2">4-Digit Match</div>
+        <div class="text-xs text-green-300">EXACT!</div>
+      </div>
+      
+      <div class="bg-blue-500/20 backdrop-blur-lg rounded-xl p-6 text-center border-2 border-blue-400">
+        <div class="text-4xl font-bold text-blue-400">{{ stats['3_digit'] }}</div>
+        <div class="text-sm text-gray-300 mt-2">3-Digit Match</div>
+        <div class="text-xs text-blue-300">Great!</div>
+      </div>
+      
+      <div class="bg-yellow-500/20 backdrop-blur-lg rounded-xl p-6 text-center border-2 border-yellow-400">
+        <div class="text-4xl font-bold text-yellow-400">{{ stats['2_digit'] }}</div>
+        <div class="text-sm text-gray-300 mt-2">2-Digit Match</div>
+        <div class="text-xs text-yellow-300">Good</div>
+      </div>
+      
+      <div class="bg-orange-500/20 backdrop-blur-lg rounded-xl p-6 text-center border-2 border-orange-400">
+        <div class="text-4xl font-bold text-orange-400">{{ stats['1_digit'] }}</div>
+        <div class="text-sm text-gray-300 mt-2">1-Digit Match</div>
+        <div class="text-xs text-orange-300">Fair</div>
+      </div>
+      
+      <div class="bg-red-500/20 backdrop-blur-lg rounded-xl p-6 text-center border-2 border-red-400">
+        <div class="text-4xl font-bold text-red-400">{{ stats['0_digit'] }}</div>
+        <div class="text-sm text-gray-300 mt-2">No Match</div>
+        <div class="text-xs text-red-300">Miss</div>
+      </div>
+    </div>
+
+    <!-- Detailed Results -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+      <h2 class="text-2xl font-bold mb-4">📋 Detailed Comparison Results</h2>
+      
+      {% if comparison_data.results %}
+      <div class="space-y-4">
+        {% for result in comparison_data.results %}
+        <div class="bg-gray-800/50 rounded-lg p-4 border-l-4 
+                    {% if result.match == 4 %}border-green-400
+                    {% elif result.match == 3 %}border-blue-400
+                    {% elif result.match == 2 %}border-yellow-400
+                    {% elif result.match == 1 %}border-orange-400
+                    {% else %}border-red-400{% endif %}">
+          <div class="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <div class="text-sm text-gray-400">{{ result.date }} - {{ result.provider|upper }}</div>
+              <div class="text-lg font-bold mt-1">
+                Predicted: 
+                {% for num in result.predicted %}
+                <span class="bg-blue-600 px-2 py-1 rounded mr-1">{{ num }}</span>
+                {% endfor %}
+              </div>
+              <div class="text-lg font-bold mt-1">
+                Actual: 
+                {% for num in result.actual %}
+                <span class="bg-green-600 px-2 py-1 rounded mr-1">{{ num }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-3xl font-bold 
+                          {% if result.match == 4 %}text-green-400
+                          {% elif result.match == 3 %}text-blue-400
+                          {% elif result.match == 2 %}text-yellow-400
+                          {% elif result.match == 1 %}text-orange-400
+                          {% else %}text-red-400{% endif %}">
+                {{ result.match }}/4
+              </div>
+              <div class="text-sm text-gray-300">{{ result.status }}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center text-gray-400 py-8">
+        <p class="text-xl">No comparison results yet</p>
+        <p class="text-sm mt-2">Click "Run Comparison Now" to start</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- How It Works -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mt-6">
+      <h3 class="text-xl font-bold mb-3">🧠 How Auto-Comparison Works</h3>
+      <div class="space-y-2 text-gray-300">
+        <p>✅ <strong>Automatic:</strong> Compares all pending predictions with actual results from CSV</p>
+        <p>✅ <strong>Digit Matching:</strong> Counts how many digits match (1, 2, 3, or 4 digits)</p>
+        <p>✅ <strong>Smart Detection:</strong> Checks exact matches and partial digit matches</p>
+        <p>✅ <strong>Real-time Updates:</strong> Updates prediction tracking automatically</p>
+        <p>✅ <strong>Easy to Use:</strong> Just click "Run Comparison" after adding new CSV data</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function runComparison() {
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = '⏳ Running...';
+      
+      fetch('/run-comparison', {method: 'POST'})
+        .then(r => r.json())
+        .then(data => {
+          alert('✅ Comparison started! Refresh page in a few seconds to see results.');
+          setTimeout(() => location.reload(), 3000);
+        })
+        .catch(err => {
+          alert('❌ Error: ' + err);
+          btn.disabled = false;
+          btn.textContent = '🔄 Run Comparison Now';
+        });
+    }
+  </script>
+</body>
+</html>

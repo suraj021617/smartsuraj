@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Match Checker</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .match-row { border: 1px solid #ddd; margin: 10px 0; padding: 15px; }
+        .predictions { color: blue; font-weight: bold; }
+        .actual { color: green; font-weight: bold; }
+        .stats { background: #f5f5f5; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Match Checker - Predictions vs Actual Results</h1>
+    
+    {% if matches %}
+        {% for match in matches %}
+        <div class="match-row">
+            <h3>{{ match.date }}</h3>
+            <div class="predictions">Predictions: {{ match.predictions|join(', ') }}</div>
+            <div class="actual">All Winners: {{ match.all_winners|join(', ') }}</div>
+            <div class="stats">
+                Exact: {{ match.exact }} | Special: {{ match.special }} | Consolation: {{ match.consolation }} | Accuracy: {{ match.accuracy }}%
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No prediction data found.</p>
+    {% endif %}
+    
+    <a href="/">Back to Home</a>
+</body>
+</html>

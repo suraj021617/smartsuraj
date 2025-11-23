@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decision Helper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-900 to-blue-900 text-white p-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-8">💡 AI Decision Helper</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white/10 rounded-xl p-6">
+                <h2 class="text-2xl font-bold mb-4">🔥 Hot Numbers</h2>
+                {% if hot_numbers %}
+                    {% for num in hot_numbers %}
+                    <div class="bg-red-500 inline-block px-4 py-2 rounded-lg m-1">
+                        <span class="font-bold">{{ num.number }}</span>
+                        <span class="text-sm">({{ num.count }})</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No hot numbers data available</p>
+                {% endif %}
+            </div>
+            
+            <div class="bg-white/10 rounded-xl p-6">
+                <h2 class="text-2xl font-bold mb-4">❄️ Cold Numbers</h2>
+                {% if cold_numbers %}
+                    {% for num in cold_numbers %}
+                    <div class="bg-blue-500 inline-block px-4 py-2 rounded-lg m-1">
+                        <span class="font-bold">{{ num.number }}</span>
+                        <span class="text-sm">({{ num.count }})</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No cold numbers data available</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="bg-white/10 rounded-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">🤖 AI Recommendations</h2>
+            {% if recommendations %}
+                {% for rec in recommendations %}
+                <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-4 mb-2">
+                    <span class="text-2xl font-bold">{{ rec.number }}</span>
+                    <span class="ml-4 text-sm">{{ rec.confidence }}% confidence</span>
+                    <span class="ml-4 text-xs opacity-75">{{ rec.reason }}</span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No recommendations available</p>
+            {% endif %}
+        </div>
+        
+        <div class="text-center">
+            <a href="/dashboard" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

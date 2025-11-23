@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🚀 ULTIMATE AI PREDICTOR</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            text-shadow: 0 0 20px #00ffff;
+            animation: glow 2s infinite;
+        }
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
+            50% { text-shadow: 0 0 30px #ff00ff, 0 0 60px #ff00ff; }
+        }
+        .ai-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        .prediction-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0,255,255,0.3);
+        }
+        .number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+        }
+        .confidence {
+            font-size: 1.5em;
+            color: #ffff00;
+        }
+        .methods {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .method-card {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 ULTIMATE AI PREDICTOR 🚀</h1>
+        
+        <!-- Provider Selector -->
+        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 20px 0;">
+            <form method="get" style="text-align: center;">
+                <label style="font-size: 1.3em; margin-right: 15px;">🎰 SELECT PROVIDER:</label>
+                <select name="provider" style="padding: 10px 20px; font-size: 1.1em; border-radius: 10px; background: #1e3c72; color: white; border: 2px solid #00ffff;" onchange="this.form.submit()">
+                    {% for prov in provider_options %}
+                    <option value="{{ prov }}" {% if prov == selected_provider %}selected{% endif %}>{{ prov|upper }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        <!-- Simple Info Box -->
+        <div style="background: linear-gradient(135deg, #00ff88 0%, #00ffff 100%); padding: 25px; border-radius: 15px; margin: 20px 0; color: black; text-align: center;">
+            <h2 style="margin: 0 0 15px 0; font-size: 2em;">📅 NEXT DRAW: {{ next_draw_date }}</h2>
+            <div style="font-size: 1.3em; margin: 10px 0;">
+                🎰 Provider: <strong>{{ provider_name }}</strong><br>
+                🧠 AI Status: <strong>{{ learning_status }}</strong><br>
+                📊 Learning Period: <strong>{{ learning_period }}</strong><br>
+                📈 Total Draws Learned: <strong>{{ training_size }}</strong>
+            </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 20px 0;">
+            <h3 style="text-align: center; margin-bottom: 15px;">🧠 HOW IT WORKS (Simple Explanation)</h3>
+            <div style="font-size: 1.1em; line-height: 1.8;">
+                ✅ <strong>Step 1:</strong> AI learns from <strong>{{ provider_name }}</strong> draws starting from <strong>2025</strong><br>
+                ✅ <strong>Step 2:</strong> Studied <strong>{{ training_size }}</strong> winning numbers from {{ learning_period }}<br>
+                ✅ <strong>Step 3:</strong> Uses 6 AI methods to find winning patterns<br>
+                ✅ <strong>Step 4:</strong> Predicts next numbers & learns from every new result
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: #00ff88; margin-bottom: 30px;">🎯 TOP 5 ULTIMATE PREDICTIONS</h2>
+        
+        <!-- MAGNUM 4D CARD FORMAT -->
+        <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 0 40px rgba(0,255,255,0.5); margin-bottom: 30px;">
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="background: black; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold;">ULTIMATE AI</div>
+                    <div style="font-size: 1.3em; font-weight: bold; color: white;">MARKOV CHAIN PREDICTIONS 萬能</div>
+                </div>
+            </div>
+            
+            <!-- Date Info -->
+            <div style="background: white; padding: 15px; border-bottom: 2px solid #ddd; display: flex; justify-content: space-between; color: #333;">
+                <div>Next Draw: <span style="font-weight: bold;">{{ next_draw_date }}</span></div>
+                <div>Provider: <span style="font-weight: bold;">{{ provider_name }}</span></div>
+            </div>
+            
+            <!-- Predictions Grid -->
+            <div style="background: #1e3c72; color: white; font-weight: bold; padding: 15px; text-align: center;">AI Predictions 預測</div>
+            <div style="background: white; padding: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                    {% for num, conf, method in predictions[:5] %}
+                    <div style="border: 2px solid #667eea; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 15px; text-align: center; border-radius: 8px;">
+                        <div style="font-size: 2em; font-weight: bold; color: white;">{{ num }}</div>
+                        <div style="font-size: 0.75em; color: #fff; font-weight: bold; margin-top: 5px;">{{ (conf * 100)|round(1) }}%</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Method Details -->
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <div style="font-weight: bold; color: #333; margin-bottom: 10px;">Prediction Methods:</div>
+                    {% for num, conf, method in predictions[:5] %}
+                    <div style="color: #666; font-size: 0.9em; margin: 5px 0;">• {{ num }}: {{ method }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Simple Explanation -->
+        <div style="background: rgba(255,255,0,0.15); padding: 25px; border-radius: 15px; margin: 30px 0; border: 3px solid #ffff00;">
+            <h3 style="color: #ffff00; text-align: center; font-size: 1.8em; margin-bottom: 20px;">💡 WHAT YOU NEED TO KNOW</h3>
+            <div style="font-size: 1.2em; line-height: 2;">
+                <div style="margin: 15px 0;">🎯 <strong>These are the BEST 5 numbers</strong> the AI thinks will win</div>
+                <div style="margin: 15px 0;">📊 <strong>Higher confidence = Better chance</strong> (AI is more sure)</div>
+                <div style="margin: 15px 0;">🧠 <strong>AI gets smarter every day</strong> by learning from results</div>
+                <div style="margin: 15px 0;">⚡ <strong>Updated:</strong> {{ last_updated }}</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/" style="color: #00ffff; text-decoration: none; font-size: 1.2em; background: rgba(0,255,255,0.2); padding: 15px 30px; border-radius: 10px; border: 2px solid #00ffff;">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

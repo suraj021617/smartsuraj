@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Smart Lottery Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/slider.css') }}">
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>🎯 Smart Lottery Dashboard</h1>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-mode="predictions">🔮 Predictions</button>
+            <button class="tab-btn" data-mode="history">📊 History</button>
+            <button class="tab-btn" data-mode="methods">⚙️ Methods</button>
+            <button class="tab-btn" data-mode="learning">🧠 Learning</button>
+        </div>
+    </div>
+
+    <!-- Predictions Mode -->
+    <div class="slider-container" id="predictions-slider">
+        <div class="slider">
+            {% for result in results %}
+            <div class="item prediction-card">
+                <h2>{{ result.method }}</h2>
+                <div class="accuracy-badge {{ 'high' if result.accuracy > 70 else 'medium' if result.accuracy > 40 else 'low' }}">
+                    {{ result.accuracy }}% Accuracy
+                </div>
+                <div class="predictions-grid">
+                    {% for pred in result.predictions[:5] %}
+                    <div class="prediction-number">{{ pred }}</div>
+                    {% endfor %}
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="label">Exact Hits:</span>
+                        <span class="value">{{ result.exact_hits|length }}</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Total Hits:</span>
+                        <span class="value">{{ result.all_hits|length }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="nav-btn" id="pred-next">›</button>
+            <button class="nav-btn" id="pred-prev">‹</button>
+        </div>
+    </div>
+
+    <!-- History Mode -->
+    <div class="slider-container hidden" id="history-slider">
+        <div class="slider">
+            {% for winner in recent_winners %}
+            <div class="item history-card">
+                <h2>{{ winner.date }}</h2>
+                <div class="day-badge">{{ winner.day }}</div>
+                <div class="provider-badge">{{ winner.provider }}</div>
+                <div class="winning-numbers">
+                    {% for digit in winner.number %}
+                    <div class="digit">{{ digit }}</div>
+                    {% endfor %}
+                </div>
+                <div class="draw-info">
+                    <div class="info-item">
+                        <span class="label">Draw #:</span>
+                        <span class="value">{{ loop.index }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="nav-btn" id="hist-next">›</button>
+            <button class="nav-btn" id="hist-prev">‹</button>
+        </div>
+    </div>
+
+    <!-- Methods Comparison Mode -->
+    <div class="slider-container hidden" id="methods-slider">
+        <div class="slider">
+            {% for result in results %}
+            <div class="item method-card">
+                <h2>{{ result.method }}</h2>
+                <div class="method-stats">
+                    <div class="big-stat">
+                        <div class="big-number">{{ result.accuracy }}%</div>
+                        <div class="big-label">Accuracy</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="mini-stat">
+                            <div class="mini-number">{{ result.exact_hits|length }}</div>
+                            <div class="mini-label">Exact</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-number">{{ result.ibox_hits|length }}</div>
+                            <div class="mini-label">iBox</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-number">{{ result.front_hits|length }}</div>
+                            <div class="mini-label">Front 3</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-number">{{ result.back_hits|length }}</div>
+                            <div class="mini-label">Back 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="performance-bar">
+                    <div class="bar-fill" style="width: {{ result.accuracy }}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="nav-btn" id="meth-next">›</button>
+            <button class="nav-btn" id="meth-prev">‹</button>
+        </div>
+    </div>
+
+    <!-- Learning Progress Mode -->
+    <div class="slider-container hidden" id="learning-slider">
+        <div class="slider">
+            {% for progress in learning_progress %}
+            <div class="item learning-card">
+                <h2>Cycle {{ loop.index }}</h2>
+                <div class="learning-stats">
+                    <div class="progress-circle">
+                        <div class="circle-fill" data-progress="{{ progress.accuracy }}">
+                            <span>{{ progress.accuracy }}%</span>
+                        </div>
+                    </div>
+                    <div class="learning-details">
+                        <div class="detail">
+                            <span class="label">Processed:</span>
+                            <span class="value">{{ progress.processed }}</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Matches:</span>
+                            <span class="value">{{ progress.matches }}</span>
+                        </div>
+                        <div class="detail">
+                            <span class="label">Last Update:</span>
+                            <span class="value">{{ progress.last_update }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="nav-btn" id="learn-next">›</button>
+            <button class="nav-btn" id="learn-prev">‹</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+</body>
+</html>

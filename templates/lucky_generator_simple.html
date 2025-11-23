@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lucky Generator - Smart Suraj</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        h1 {
+            color: #19547b;
+            margin-bottom: 30px;
+        }
+        .lucky-number {
+            font-size: 72px;
+            font-weight: bold;
+            color: #ffd89b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 30px 0;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #ffd89b, #19547b);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍀 LUCKY NUMBER GENERATOR</h1>
+        <div class="lucky-number" id="luckyNumber">????</div>
+        <button onclick="generate()">🎲 Generate Lucky Number</button>
+        <button onclick="saveNumber()">💾 Save to Tracker</button>
+        <br>
+        <a href="/dashboard" class="back-btn">← Back</a>
+    </div>
+    <script>
+        function generate() {
+            const num = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            document.getElementById('luckyNumber').textContent = num;
+        }
+        function saveNumber() {
+            const num = document.getElementById('luckyNumber').textContent;
+            if (num === '????') {
+                alert('Generate a number first!');
+                return;
+            }
+            const tracked = JSON.parse(localStorage.getItem('myTracked') || '[]');
+            tracked.push({number: num, note: 'Lucky Generated', date: new Date().toLocaleDateString()});
+            localStorage.setItem('myTracked', JSON.stringify(tracked));
+            alert('Saved to My Tracker!');
+        }
+    </script>
+</body>
+</html>

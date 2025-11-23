@@ -1,0 +1,94 @@
+{% extends "base_theme.html" %}
+
+{% block title %}Theme Demo - Smart 4D{% endblock %}
+
+{% block content %}
+<div class="min-h-screen p-8" style="background: var(--bg-primary);">
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Header -->
+    <div class="card animate-fade mb-8 text-center">
+      <h1 class="text-4xl font-bold mb-2" style="color: var(--text-primary);">🎨 Theme System Demo</h1>
+      <p style="color: var(--text-secondary);">Try switching themes using the buttons in the top-right corner!</p>
+    </div>
+
+    <!-- Theme Info -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="card animate-fade">
+        <div class="text-3xl mb-2">🌙</div>
+        <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">Dark Mode</h3>
+        <p style="color: var(--text-secondary);">Easy on the eyes, perfect for night use</p>
+      </div>
+      
+      <div class="card animate-fade" style="animation-delay: 0.1s;">
+        <div class="text-3xl mb-2">☀️</div>
+        <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">Light Mode</h3>
+        <p style="color: var(--text-secondary);">Clean and bright, great for daytime</p>
+      </div>
+      
+      <div class="card animate-fade" style="animation-delay: 0.2s;">
+        <div class="text-3xl mb-2">⚡</div>
+        <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">Neon Mode</h3>
+        <p style="color: var(--text-secondary);">Futuristic cyberpunk vibes</p>
+      </div>
+    </div>
+
+    <!-- Buttons Demo -->
+    <div class="card animate-fade mb-8">
+      <h2 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">Button Styles</h2>
+      <div class="flex flex-wrap gap-4">
+        <button class="btn">Primary</button>
+        <button class="btn btn-success">Success</button>
+        <button class="btn btn-warning">Warning</button>
+        <button class="btn btn-danger">Danger</button>
+        <button class="btn animate-glow">Glowing</button>
+      </div>
+    </div>
+
+    <!-- Cards Demo -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="card animate-fade">
+        <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">Hover Effect</h3>
+        <p style="color: var(--text-secondary);">Hover over this card to see the lift animation</p>
+      </div>
+      
+      <div class="card animate-fade animate-pulse">
+        <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">Pulse Animation</h3>
+        <p style="color: var(--text-secondary);">This card has a subtle pulse effect</p>
+      </div>
+    </div>
+
+    <!-- Table Demo -->
+    <div class="card animate-fade mb-8">
+      <h2 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">Table Example</h2>
+      <table class="w-full" style="border: 1px solid var(--border);">
+        <thead style="background: var(--bg-secondary);">
+          <tr>
+            <th class="p-3 text-left" style="border: 1px solid var(--border); color: var(--text-primary);">Number</th>
+            <th class="p-3 text-left" style="border: 1px solid var(--border); color: var(--text-primary);">Frequency</th>
+            <th class="p-3 text-left" style="border: 1px solid var(--border); color: var(--text-primary);">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-3" style="border: 1px solid var(--border); color: var(--text-primary);">1234</td>
+            <td class="p-3" style="border: 1px solid var(--border); color: var(--text-primary);">45</td>
+            <td class="p-3" style="border: 1px solid var(--border);"><span class="btn btn-success" style="padding: 0.25rem 0.75rem;">Hot</span></td>
+          </tr>
+          <tr>
+            <td class="p-3" style="border: 1px solid var(--border); color: var(--text-primary);">5678</td>
+            <td class="p-3" style="border: 1px solid var(--border); color: var(--text-primary);">12</td>
+            <td class="p-3" style="border: 1px solid var(--border);"><span class="btn btn-warning" style="padding: 0.25rem 0.75rem;">Cold</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center">
+      <a href="/" class="btn">🏠 Back to Dashboard</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

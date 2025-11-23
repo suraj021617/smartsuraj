@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - Smart Suraj</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin: 0 auto 15px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #a1c4fd;
+        }
+        .stat-card .label {
+            color: #666;
+            font-size: 14px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <div class="avatar">👤</div>
+            <h2>Player Profile</h2>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="value" id="totalPredictions">0</div>
+                <div class="label">Total Predictions</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="accuracy">0%</div>
+                <div class="label">Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="bestStreak">0</div>
+                <div class="label">Best Streak</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="totalWins">0</div>
+                <div class="label">Total Wins</div>
+            </div>
+        </div>
+        
+        <a href="/dashboard" class="back-btn">← Back</a>
+    </div>
+    <script>
+        function loadProfile() {
+            const streak = JSON.parse(localStorage.getItem('winStreak') || '{"best":0,"total":0,"history":[]}');
+            const tracked = JSON.parse(localStorage.getItem('myTracked') || '[]');
+            
+            document.getElementById('totalPredictions').textContent = tracked.length;
+            document.getElementById('bestStreak').textContent = streak.best;
+            document.getElementById('totalWins').textContent = streak.total;
+            
+            const accuracy = streak.history.length > 0 
+                ? Math.round((streak.total / streak.history.length) * 100) 
+                : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+        }
+        loadProfile();
+    </script>
+</body>
+</html>

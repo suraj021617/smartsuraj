@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Community - Smart Suraj</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: #a8edea;
+        }
+        .post-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .post-form input, .post-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .post-form button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .post {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        .post .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #a8edea;
+        }
+        .post .meta {
+            color: #999;
+            font-size: 12px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👥 COMMUNITY PREDICTIONS</h1>
+        
+        <div class="post-form">
+            <h3>Share Your Prediction</h3>
+            <input type="text" id="numberInput" placeholder="4-digit number" maxlength="4">
+            <textarea id="reasonInput" placeholder="Why this number? (optional)" rows="3"></textarea>
+            <button onclick="postPrediction()">📤 Post</button>
+        </div>
+        
+        <div id="postsList"></div>
+        
+        <a href="/dashboard" class="back-btn">← Back</a>
+    </div>
+    <script>
+        function loadPosts() {
+            const posts = JSON.parse(localStorage.getItem('communityPosts') || '[]');
+            const list = document.getElementById('postsList');
+            if (posts.length === 0) {
+                list.innerHTML = '<p style="text-align:center;color:#999;">No predictions yet. Be the first!</p>';
+            } else {
+                list.innerHTML = posts.slice(-20).reverse().map(p => `
+                    <div class="post">
+                        <div class="number">${p.number}</div>
+                        ${p.reason ? `<p>${p.reason}</p>` : ''}
+                        <div class="meta">Posted on ${p.date}</div>
+                    </div>
+                `).join('');
+            }
+        }
+        function postPrediction() {
+            const num = document.getElementById('numberInput').value;
+            const reason = document.getElementById('reasonInput').value;
+            if (!/^\d{4}$/.test(num)) {
+                alert('Please enter a valid 4-digit number');
+                return;
+            }
+            const posts = JSON.parse(localStorage.getItem('communityPosts') || '[]');
+            posts.push({number: num, reason: reason, date: new Date().toLocaleString()});
+            localStorage.setItem('communityPosts', JSON.stringify(posts));
+            document.getElementById('numberInput').value = '';
+            document.getElementById('reasonInput').value = '';
+            loadPosts();
+        }
+        loadPosts();
+    </script>
+</body>
+</html>

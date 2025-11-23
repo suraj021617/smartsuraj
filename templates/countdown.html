@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Draw Countdown - Smart Suraj</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='countdown.css') }}">
+</head>
+<body>
+    <div class="countdown-container">
+        <h1 class="title">🎯 NEXT 4D DRAW</h1>
+        <div class="countdown-display">
+            <div class="time-box">
+                <span class="time-value" id="days">00</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">Minutes</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">Seconds</span>
+            </div>
+        </div>
+        <div class="draw-info">
+            <p>Next Draw: <span id="draw-date">Loading...</span></p>
+            <p>Draw Time: <span id="draw-time">7:00 PM</span></p>
+        </div>
+        <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+    </div>
+    <script src="{{ url_for('static', filename='countdown.js') }}"></script>
+</body>
+</html>

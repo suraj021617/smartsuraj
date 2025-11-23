@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iPhone Setup - Smart Suraj</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 5px solid #ffd700;
+        }
+        .step-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ffd700;
+            float: left;
+            margin-right: 15px;
+        }
+        .step-content {
+            overflow: hidden;
+        }
+        .step h2 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+        }
+        .step p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .tip {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: white;
+            color: #764ba2;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 iPhone Setup Guide</h1>
+        <p style="text-align:center;font-size:18px;">Access SmartSuraj from your iPhone in 3 easy steps!</p>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h2>Start the Server</h2>
+                <p>On your computer, run:</p>
+                <div class="code">python app.py</div>
+                <p>Keep this running while using on iPhone</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h2>Connect to Same WiFi</h2>
+                <p>✅ iPhone and Computer must be on SAME WiFi network</p>
+                <p>✅ Check WiFi name on both devices</p>
+                <p>✅ They must match exactly!</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h2>Open on iPhone</h2>
+                <p>1. Open Safari on your iPhone</p>
+                <p>2. Type in address bar:</p>
+                <div class="code">http://172.20.10.3:5000</div>
+                <p>3. Press Go</p>
+                <p>4. Enjoy! 🎉</p>
+            </div>
+        </div>
+        
+        <div class="tip">
+            <h3>💡 Pro Tip: Add to Home Screen</h3>
+            <p>1. Tap Share button (square with arrow)</p>
+            <p>2. Tap "Add to Home Screen"</p>
+            <p>3. Name it "SmartSuraj"</p>
+            <p>4. Now it's an app on your iPhone! 📱</p>
+        </div>
+        
+        <div class="tip">
+            <h3>🚀 All Features Work on iPhone:</h3>
+            <p>✅ Countdown Timer</p>
+            <p>✅ My Tracker (saves locally)</p>
+            <p>✅ Streak Tracker</p>
+            <p>✅ Lucky Generator</p>
+            <p>✅ Community Predictions</p>
+            <p>✅ Leaderboard</p>
+            <p>✅ Notifications</p>
+            <p>✅ Profile Stats</p>
+            <p>✅ 6 Themes</p>
+            <p>✅ Works Offline (PWA)</p>
+        </div>
+        
+        <div style="text-align:center;">
+            <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

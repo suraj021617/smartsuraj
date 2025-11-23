@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Gallery - Smart 4D</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="{{ url_for('static', filename='themes-enhanced.css') }}" rel="stylesheet"/>
+  <style>
+    .theme-preview { cursor: pointer; transition: all 0.3s; }
+    .theme-preview:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen p-8">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="card mb-8 text-center">
+        <h1 class="text-5xl font-bold mb-3" style="color: var(--text-primary);">🎨 Theme Gallery</h1>
+        <p style="color: var(--text-secondary);">Click any theme to apply instantly • Auto-saved</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        
+        <div class="theme-preview card" onclick="applyTheme('dark')">
+          <div class="h-32 rounded-lg mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);"></div>
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">🌙 Dark</h3>
+          <p style="color: var(--text-secondary);">Classic dark mode, easy on eyes</p>
+        </div>
+
+        <div class="theme-preview card" onclick="applyTheme('light')">
+          <div class="h-32 rounded-lg mb-4" style="background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);"></div>
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">☀️ Light</h3>
+          <p style="color: var(--text-secondary);">Clean and bright for daytime</p>
+        </div>
+
+        <div class="theme-preview card" onclick="applyTheme('neon')">
+          <div class="h-32 rounded-lg mb-4" style="background: linear-gradient(135deg, #0a0e27 0%, #2d3561 100%); border: 2px solid #00ffff;"></div>
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">⚡ Neon</h3>
+          <p style="color: var(--text-secondary);">Futuristic cyberpunk vibes</p>
+        </div>
+
+        <div class="theme-preview card" onclick="applyTheme('ocean')">
+          <div class="h-32 rounded-lg mb-4" style="background: linear-gradient(135deg, #0d1b2a 0%, #415a77 100%);"></div>
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">🌊 Ocean</h3>
+          <p style="color: var(--text-secondary);">Deep blue calming waters</p>
+        </div>
+
+        <div class="theme-preview card" onclick="applyTheme('sunset')">
+          <div class="h-32 rounded-lg mb-4" style="background: linear-gradient(135deg, #2d1b2e 0%, #5d4e60 100%);"></div>
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">🌅 Sunset</h3>
+          <p style="color: var(--text-secondary);">Warm evening colors</p>
+        </div>
+
+        <div class="theme-preview card" onclick="applyTheme('forest')">
+          <div class="h-32 rounded-lg mb-4" style="background: linear-gradient(135deg, #1a2f1a 0%, #3d5a3d 100%);"></div>
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">🌲 Forest</h3>
+          <p style="color: var(--text-secondary);">Natural green serenity</p>
+        </div>
+
+      </div>
+
+      <div class="card mb-8">
+        <h2 class="text-3xl font-bold mb-4" style="color: var(--text-primary);">✨ Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg" style="background: var(--bg-secondary);">
+            <div class="text-3xl mb-2">💾</div>
+            <h3 class="font-bold mb-1" style="color: var(--text-primary);">Auto-Save</h3>
+            <p style="color: var(--text-secondary);">Your choice is remembered</p>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--bg-secondary);">
+            <div class="text-3xl mb-2">🎭</div>
+            <h3 class="font-bold mb-1" style="color: var(--text-primary);">6 Themes</h3>
+            <p style="color: var(--text-secondary);">Dark, Light, Neon, Ocean, Sunset, Forest</p>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--bg-secondary);">
+            <div class="text-3xl mb-2">🖼️</div>
+            <h3 class="font-bold mb-1" style="color: var(--text-primary);">Wallpapers</h3>
+            <p style="color: var(--text-secondary);">Subtle animated backgrounds</p>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--bg-secondary);">
+            <div class="text-3xl mb-2">⚡</div>
+            <h3 class="font-bold mb-1" style="color: var(--text-primary);">Instant Switch</h3>
+            <p style="color: var(--text-secondary);">One-click theme change</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a href="/" class="btn" style="background: var(--accent);">🏠 Back to Dashboard</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='theme-switcher-enhanced.js') }}"></script>
+  <script>
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === theme);
+      });
+    }
+  </script>
+</body>
+</html>

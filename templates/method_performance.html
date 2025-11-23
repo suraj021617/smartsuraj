@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🏆 Method Performance Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-blue-900 text-white p-6">
+  
+  <div class="max-w-6xl mx-auto">
+    
+    <h1 class="text-5xl font-bold text-center mb-8">🏆 Which Button Works Best?</h1>
+    
+    <div class="bg-white/10 rounded-xl p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4">📊 Method Rankings</h2>
+      
+      {% if rankings %}
+      <div class="space-y-4">
+        {% for rank in rankings %}
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 
+                    {% if loop.index == 1 %}border-4 border-yellow-400{% endif %}">
+          
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-3">
+              <div class="text-3xl font-bold">
+                {% if loop.index == 1 %}🥇
+                {% elif loop.index == 2 %}🥈
+                {% elif loop.index == 3 %}🥉
+                {% else %}{{ loop.index }}{% endif %}
+              </div>
+              <div>
+                <div class="text-xl font-bold">{{ rank.method|upper|replace('_', ' ') }}</div>
+                <div class="text-sm text-gray-300">Score: {{ rank.score }} | Accuracy: {{ rank.accuracy_rate }}%</div>
+              </div>
+            </div>
+            
+            <div class="text-right">
+              <div class="text-3xl font-bold text-yellow-300">{{ rank.exact }}</div>
+              <div class="text-xs">Exact Matches</div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-4 gap-2 text-center text-sm">
+            <div class="bg-black/20 rounded p-2">
+              <div class="font-bold text-green-300">{{ rank.exact }}</div>
+              <div class="text-xs">4-Digit</div>
+            </div>
+            <div class="bg-black/20 rounded p-2">
+              <div class="font-bold text-blue-300">{{ rank['3_digit'] }}</div>
+              <div class="text-xs">3-Digit</div>
+            </div>
+            <div class="bg-black/20 rounded p-2">
+              <div class="font-bold text-purple-300">{{ rank['2_digit'] }}</div>
+              <div class="text-xs">2-Digit</div>
+            </div>
+            <div class="bg-black/20 rounded p-2">
+              <div class="font-bold text-gray-300">{{ rank['1_digit'] }}</div>
+              <div class="text-xs">1-Digit</div>
+            </div>
+          </div>
+          
+          <div class="mt-2 text-xs text-gray-300">
+            Total Predictions: {{ rank.total }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-center text-gray-400">No data yet. Start making predictions!</p>
+      {% endif %}
+    </div>
+    
+    <div class="bg-yellow-500/20 border-2 border-yellow-500 rounded-xl p-6 mb-6">
+      <h3 class="text-2xl font-bold mb-3">💡 Recommendation</h3>
+      {% if best_method %}
+      <p class="text-xl">
+        Use <strong class="text-yellow-300">{{ best_method.method|upper|replace('_', ' ') }}</strong> 
+        - it has {{ best_method.accuracy_rate }}% accuracy with {{ best_method.exact }} exact matches!
+      </p>
+      {% else %}
+      <p>Make some predictions first to see which method works best.</p>
+      {% endif %}
+    </div>
+    
+    <div class="bg-white/10 rounded-xl p-6">
+      <h3 class="text-xl font-bold mb-4">📝 How to Use This</h3>
+      <ol class="list-decimal ml-6 space-y-2">
+        <li>Make predictions using different buttons (Quick Pick, Ultimate AI, etc.)</li>
+        <li>After draw results come out, update your CSV</li>
+        <li>Click "Track Results" to compare predictions vs actual</li>
+        <li>System learns which button gives best results</li>
+        <li>Use the top-ranked method for future predictions!</li>
+      </ol>
+    </div>
+    
+    <div class="mt-6 text-center">
+      <a href="/" class="bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-lg font-bold">
+        ← Back to Dashboard
+      </a>
+    </div>
+    
+  </div>
+  
+</body>
+</html>

@@ -1,9 +1,9 @@
 {
   "pattern": {
-    "total_predictions": 333,
-    "exact_matches": 3,
-    "three_digit_matches": 99,
-    "two_digit_matches": 192,
+    "total_predictions": 477,
+    "exact_matches": 4,
+    "three_digit_matches": 129,
+    "two_digit_matches": 241,
     "success_patterns": [
       {
         "predicted_numbers": [
@@ -40,6 +40,18 @@
         "predictor_methods": "pattern",
         "confidence": 50.0,
         "draw_date": "2025-09-06"
+      },
+      {
+        "predicted_numbers": [
+          "0544",
+          "4450",
+          "8541",
+          "5104",
+          "0449"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 85.0,
+        "draw_date": "2025-09-21"
       }
     ],
     "failed_patterns": [
@@ -510,6 +522,477 @@
         "predictor_methods": "pattern",
         "confidence": 85.0,
         "draw_date": "2025-09-20"
+      },
+      {
+        "predicted_numbers": [
+          "5433",
+          "3345",
+          "0543",
+          "4345",
+          "5434"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 85.0,
+        "draw_date": "2025-09-20"
+      },
+      {
+        "predicted_numbers": [
+          "0545",
+          "3454",
+          "4543",
+          "4505",
+          "0543"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 85.0,
+        "draw_date": "2025-09-20"
+      },
+      {
+        "predicted_numbers": [
+          "0505",
+          "0055",
+          "5500",
+          "5050",
+          "0550"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 75.0,
+        "draw_date": "2025-09-24"
+      },
+      {
+        "predicted_numbers": [
+          "0050",
+          "0500",
+          "0005",
+          "5055",
+          "0505"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 85.0,
+        "draw_date": "2025-09-06"
+      },
+      {
+        "predicted_numbers": [
+          "3450",
+          "5434",
+          "0543",
+          "5433",
+          "3345"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 85.0,
+        "draw_date": "2025-09-20"
+      },
+      {
+        "predicted_numbers": [
+          "0545",
+          "3450",
+          "5434",
+          "4545",
+          "3454"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 85.0,
+        "draw_date": "2025-09-20"
+      },
+      {
+        "predicted_numbers": [
+          "0505",
+          "0550",
+          "5500",
+          "5005",
+          "5050"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 75.0,
+        "draw_date": "2025-09-24"
+      },
+      {
+        "predicted_numbers": [
+          "0050",
+          "0500",
+          "0005",
+          "5055",
+          "0505"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 85.0,
+        "draw_date": "2025-09-13"
+      },
+      {
+        "predicted_numbers": [
+          "3434",
+          "3445",
+          "5434",
+          "4334",
+          "3454"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 75.0,
+        "draw_date": "2025-09-24"
+      },
+      {
+        "predicted_numbers": [
+          "0545",
+          "3434",
+          "4450",
+          "3445",
+          "3450"
+        ],
+        "predictor_methods": "pattern",
+        "confidence": 75.0,
+        "draw_date": "2025-09-24"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-04"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "pattern",
+        "confidence": 0,
+        "draw_date": "2025-10-05"
+      }
+    ]
+  },
+  "history": {
+    "total_predictions": 3,
+    "exact_matches": 0,
+    "three_digit_matches": 0,
+    "two_digit_matches": 0,
+    "success_patterns": [],
+    "failed_patterns": [
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "history",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "history",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
+      },
+      {
+        "predicted_numbers": [],
+        "predictor_methods": "history",
+        "confidence": 0,
+        "draw_date": "2025-10-01"
       }
     ]
   }

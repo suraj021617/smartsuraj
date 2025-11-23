@@ -11,6 +11,30 @@
     <h1 class="text-5xl font-extrabold text-center mb-4">🤖 Machine Learning Predictor</h1>
     <p class="text-center text-gray-300 mb-8">Last updated: {{ last_updated }}</p>
     
+    <!-- Filters -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 mb-6">
+      <form method="get" class="flex flex-wrap gap-4 items-center justify-center">
+        <div>
+          <label class="font-semibold mr-2">📍 Provider:</label>
+          <select name="provider" class="bg-gray-800 text-white px-4 py-2 rounded-lg font-semibold border-2 border-blue-400">
+            {% for opt in provider_options %}
+            <option value="{{ opt }}" {% if opt == provider %}selected{% endif %}>{{ opt|upper }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold mr-2">📅 Month:</label>
+          <select name="month" class="bg-gray-800 text-white px-4 py-2 rounded-lg font-semibold border-2 border-green-400">
+            <option value="">All Months</option>
+            {% for m in month_options %}
+            <option value="{{ m }}" {% if m == selected_month %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-2 rounded-lg">🔄 Apply Filters</button>
+      </form>
+    </div>
+    
     <div class="bg-white/10 backdrop-blur-lg rounded-xl p-8">
       <h2 class="text-3xl font-bold mb-6 text-yellow-300">Top 5 ML Predictions</h2>
       

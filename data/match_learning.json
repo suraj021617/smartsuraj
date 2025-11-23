@@ -1,0 +1,4633 @@
+{
+  "method_accuracy": {
+    "advanced": {
+      "hits": 1228,
+      "total": 2750
+    },
+    "smart": {
+      "hits": 1080,
+      "total": 2750
+    },
+    "ml": {
+      "hits": 1106,
+      "total": 2750
+    }
+  },
+  "match_history": [
+    {
+      "date": "2025-10-19",
+      "provider": "SABAH88",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "SANDAKAN",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "SINGAPORE",
+      "accuracy": 213.3,
+      "matches": 32,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "DAMACAI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "MAGNUM",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "PERDANA",
+      "accuracy": 73.3,
+      "matches": 11,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "HARIHARI",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15
+    },
+    {
+      "date": "2025-09-28",
+      "provider": "TOTO",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-01",
+      "provider": "TOTO",
+      "accuracy": 153.3,
+      "matches": 23,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-04",
+      "provider": "TOTO",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-05",
+      "provider": "TOTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-08",
+      "provider": "TOTO",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-11",
+      "provider": "TOTO",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-12",
+      "provider": "TOTO",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-15",
+      "provider": "TOTO",
+      "accuracy": 193.3,
+      "matches": 29,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-18",
+      "provider": "TOTO",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-01",
+      "provider": "TOTO",
+      "accuracy": 153.3,
+      "matches": 23,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-04",
+      "provider": "TOTO",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-05",
+      "provider": "TOTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-08",
+      "provider": "TOTO",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-11",
+      "provider": "TOTO",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-12",
+      "provider": "TOTO",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-15",
+      "provider": "TOTO",
+      "accuracy": 193.3,
+      "matches": 29,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-18",
+      "provider": "TOTO",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-19",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "TOTO",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-10-22",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "2025-10"
+    },
+    {
+      "date": "2025-09-27",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "2025-09"
+    },
+    {
+      "date": "2025-09-28",
+      "provider": "TOTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "2025-09"
+    },
+    {
+      "date": "2025-09-27",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "2025-09"
+    },
+    {
+      "date": "2025-09-28",
+      "provider": "TOTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "2025-09"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "27-09-2025 (Sat)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "27-09-2"
+    },
+    {
+      "date": "28-09-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "28-09-2"
+    },
+    {
+      "date": "30-08-2025 (Sat)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "30-08-2"
+    },
+    {
+      "date": "31-08-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "31-08-2"
+    },
+    {
+      "date": "30-08-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "30-08-2"
+    },
+    {
+      "date": "31-08-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "31-08-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "14-09-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 20.0,
+      "matches": 3,
+      "predictions": 15,
+      "month": "14-09-2"
+    },
+    {
+      "date": "14-09-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "14-09-2"
+    },
+    {
+      "date": "17-09-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 20.0,
+      "matches": 3,
+      "predictions": 15,
+      "month": "17-09-2"
+    },
+    {
+      "date": "17-09-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "17-09-2"
+    },
+    {
+      "date": "20-09-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "20-09-2"
+    },
+    {
+      "date": "20-09-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 153.3,
+      "matches": 23,
+      "predictions": 15,
+      "month": "20-09-2"
+    },
+    {
+      "date": "21-09-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 33.3,
+      "matches": 5,
+      "predictions": 15,
+      "month": "21-09-2"
+    },
+    {
+      "date": "21-09-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "21-09-2"
+    },
+    {
+      "date": "24-09-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 33.3,
+      "matches": 5,
+      "predictions": 15,
+      "month": "24-09-2"
+    },
+    {
+      "date": "24-09-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "24-09-2"
+    },
+    {
+      "date": "27-09-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 26.7,
+      "matches": 4,
+      "predictions": 15,
+      "month": "27-09-2"
+    },
+    {
+      "date": "27-09-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "27-09-2"
+    },
+    {
+      "date": "28-09-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 26.7,
+      "matches": 4,
+      "predictions": 15,
+      "month": "28-09-2"
+    },
+    {
+      "date": "28-09-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "28-09-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "27-09-2025 (Sat)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "27-09-2"
+    },
+    {
+      "date": "28-09-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "28-09-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "12-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 73.3,
+      "matches": 11,
+      "predictions": 15,
+      "month": "12-10-2"
+    },
+    {
+      "date": "12-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 26.7,
+      "matches": 4,
+      "predictions": 15,
+      "month": "12-10-2"
+    },
+    {
+      "date": "15-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 0.0,
+      "matches": 0,
+      "predictions": 15,
+      "month": "15-10-2"
+    },
+    {
+      "date": "15-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "15-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 20.0,
+      "matches": 3,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 0.0,
+      "matches": 0,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 153.3,
+      "matches": 23,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "27-09-2025 (Sat)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "27-09-2"
+    },
+    {
+      "date": "28-09-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "28-09-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "12-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 73.3,
+      "matches": 11,
+      "predictions": 15,
+      "month": "12-10-2"
+    },
+    {
+      "date": "12-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 26.7,
+      "matches": 4,
+      "predictions": 15,
+      "month": "12-10-2"
+    },
+    {
+      "date": "15-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 0.0,
+      "matches": 0,
+      "predictions": 15,
+      "month": "15-10-2"
+    },
+    {
+      "date": "15-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "15-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 20.0,
+      "matches": 3,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 0.0,
+      "matches": 0,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 153.3,
+      "matches": 23,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "12-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 73.3,
+      "matches": 11,
+      "predictions": 15,
+      "month": "12-10-2"
+    },
+    {
+      "date": "12-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 20.0,
+      "matches": 3,
+      "predictions": 15,
+      "month": "12-10-2"
+    },
+    {
+      "date": "15-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 0.0,
+      "matches": 0,
+      "predictions": 15,
+      "month": "15-10-2"
+    },
+    {
+      "date": "15-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "15-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 20.0,
+      "matches": 3,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 0.0,
+      "matches": 0,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 146.7,
+      "matches": 22,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 153.3,
+      "matches": 23,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "30-08-2025 (Sat)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "30-08-2"
+    },
+    {
+      "date": "31-08-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "31-08-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "18-10-2025 (Sat)",
+      "provider": "MAGNUM",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "18-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "PERDANA",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SABAH88",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "CASHSWEEP",
+      "accuracy": 120.0,
+      "matches": 18,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SANDAKAN",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "SINGAPORE",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "HARIHARI",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 13.3,
+      "matches": 2,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "TOTO",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "DAMACAI",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "19-10-2025 (Sun)",
+      "provider": "MAGNUM",
+      "accuracy": 140.0,
+      "matches": 21,
+      "predictions": 15,
+      "month": "19-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "HARIHARI",
+      "accuracy": 126.7,
+      "matches": 19,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "20-10-2025 (Mon)",
+      "provider": "GDLOTTO",
+      "accuracy": 100.0,
+      "matches": 15,
+      "predictions": 15,
+      "month": "20-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "GDLOTTO",
+      "accuracy": 66.7,
+      "matches": 10,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "PERDANA",
+      "accuracy": 113.3,
+      "matches": 17,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "21-10-2025 (Tue)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "21-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SANDAKAN",
+      "accuracy": 166.7,
+      "matches": 25,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "GDLOTTO",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SABAH88",
+      "accuracy": 160.0,
+      "matches": 24,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "CASHSWEEP",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "SINGAPORE",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "MAGNUM",
+      "accuracy": 106.7,
+      "matches": 16,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 6.7,
+      "matches": 1,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "TOTO",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "DAMACAI",
+      "accuracy": 86.7,
+      "matches": 13,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "PERDANA",
+      "accuracy": 133.3,
+      "matches": 20,
+      "predictions": 15,
+      "month": "22-10-2"
+    },
+    {
+      "date": "22-10-2025 (Wed)",
+      "provider": "HARIHARI",
+      "accuracy": 93.3,
+      "matches": 14,
+      "predictions": 15,
+      "month": "22-10-2"
+    }
+  ],
+  "last_updated": "2025-11-14 20:35:30",
+  "monthly_accuracy": {
+    "2025-10": {
+      "advanced": {
+        "hits": 20,
+        "total": 50
+      },
+      "smart": {
+        "hits": 18,
+        "total": 50
+      },
+      "ml": {
+        "hits": 21,
+        "total": 50
+      }
+    },
+    "2025-09": {
+      "advanced": {
+        "hits": 14,
+        "total": 20
+      },
+      "smart": {
+        "hits": 8,
+        "total": 20
+      },
+      "ml": {
+        "hits": 4,
+        "total": 20
+      }
+    },
+    "22-10-2": {
+      "advanced": {
+        "hits": 371,
+        "total": 900
+      },
+      "smart": {
+        "hits": 330,
+        "total": 900
+      },
+      "ml": {
+        "hits": 409,
+        "total": 900
+      }
+    },
+    "27-09-2": {
+      "advanced": {
+        "hits": 21,
+        "total": 25
+      },
+      "smart": {
+        "hits": 9,
+        "total": 25
+      },
+      "ml": {
+        "hits": 6,
+        "total": 25
+      }
+    },
+    "28-09-2": {
+      "advanced": {
+        "hits": 11,
+        "total": 25
+      },
+      "smart": {
+        "hits": 10,
+        "total": 25
+      },
+      "ml": {
+        "hits": 5,
+        "total": 25
+      }
+    },
+    "30-08-2": {
+      "advanced": {
+        "hits": 6,
+        "total": 15
+      },
+      "smart": {
+        "hits": 9,
+        "total": 15
+      },
+      "ml": {
+        "hits": 14,
+        "total": 15
+      }
+    },
+    "31-08-2": {
+      "advanced": {
+        "hits": 4,
+        "total": 15
+      },
+      "smart": {
+        "hits": 7,
+        "total": 15
+      },
+      "ml": {
+        "hits": 9,
+        "total": 15
+      }
+    },
+    "18-10-2": {
+      "advanced": {
+        "hits": 105,
+        "total": 170
+      },
+      "smart": {
+        "hits": 48,
+        "total": 170
+      },
+      "ml": {
+        "hits": 87,
+        "total": 170
+      }
+    },
+    "19-10-2": {
+      "advanced": {
+        "hits": 365,
+        "total": 800
+      },
+      "smart": {
+        "hits": 342,
+        "total": 800
+      },
+      "ml": {
+        "hits": 314,
+        "total": 800
+      }
+    },
+    "20-10-2": {
+      "advanced": {
+        "hits": 112,
+        "total": 210
+      },
+      "smart": {
+        "hits": 84,
+        "total": 210
+      },
+      "ml": {
+        "hits": 28,
+        "total": 210
+      }
+    },
+    "21-10-2": {
+      "advanced": {
+        "hits": 70,
+        "total": 210
+      },
+      "smart": {
+        "hits": 42,
+        "total": 210
+      },
+      "ml": {
+        "hits": 84,
+        "total": 210
+      }
+    },
+    "14-09-2": {
+      "advanced": {
+        "hits": 0,
+        "total": 10
+      },
+      "smart": {
+        "hits": 3,
+        "total": 10
+      },
+      "ml": {
+        "hits": 0,
+        "total": 10
+      }
+    },
+    "17-09-2": {
+      "advanced": {
+        "hits": 2,
+        "total": 10
+      },
+      "smart": {
+        "hits": 2,
+        "total": 10
+      },
+      "ml": {
+        "hits": 3,
+        "total": 10
+      }
+    },
+    "20-09-2": {
+      "advanced": {
+        "hits": 2,
+        "total": 10
+      },
+      "smart": {
+        "hits": 4,
+        "total": 10
+      },
+      "ml": {
+        "hits": 3,
+        "total": 10
+      }
+    },
+    "21-09-2": {
+      "advanced": {
+        "hits": 1,
+        "total": 10
+      },
+      "smart": {
+        "hits": 6,
+        "total": 10
+      },
+      "ml": {
+        "hits": 2,
+        "total": 10
+      }
+    },
+    "24-09-2": {
+      "advanced": {
+        "hits": 8,
+        "total": 10
+      },
+      "smart": {
+        "hits": 2,
+        "total": 10
+      },
+      "ml": {
+        "hits": 5,
+        "total": 10
+      }
+    },
+    "12-10-2": {
+      "advanced": {
+        "hits": 15,
+        "total": 30
+      },
+      "smart": {
+        "hits": 10,
+        "total": 30
+      },
+      "ml": {
+        "hits": 0,
+        "total": 30
+      }
+    },
+    "15-10-2": {
+      "advanced": {
+        "hits": 9,
+        "total": 30
+      },
+      "smart": {
+        "hits": 15,
+        "total": 30
+      },
+      "ml": {
+        "hits": 9,
+        "total": 30
+      }
+    }
+  }
+}

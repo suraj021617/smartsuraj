@@ -5,14 +5,17 @@ from collections import defaultdict, Counter
 
 def learn_day_to_day_patterns(draws):
     """
-    Learn day-to-day patterns from historical draws
+    FAST OPTIMIZED - Learn patterns from recent draws only
     """
     if not draws or len(draws) < 2:
         return {}
 
+    # Use only last 500 for speed
+    draws = draws[-500:] if len(draws) > 500 else draws
+
     patterns = {
         'digit_transitions': defaultdict(lambda: defaultdict(lambda: defaultdict(int))),
-        'sequence_patterns': defaultdict(lambda: defaultdict(int))
+        'sequence_patterns': {}
     }
 
     for i in range(len(draws) - 1):
@@ -20,14 +23,16 @@ def learn_day_to_day_patterns(draws):
         next_num = str(draws[i + 1].get('number', ''))
 
         if len(current_num) == 4 and len(next_num) == 4:
-            # Learn digit transitions
+            # Digit transitions only
             for pos in range(4):
-                current_digit = current_num[pos]
-                next_digit = next_num[pos]
-                patterns['digit_transitions'][current_digit][pos][next_digit] += 1
-
-            # Learn sequence patterns
-            patterns['sequence_patterns'][current_num][next_num] += 1
+                patterns['digit_transitions'][current_num[pos]][pos][next_num[pos]] += 1
+            
+            # Limited sequence storage
+            if len(patterns['sequence_patterns']) < 1000:
+                if current_num not in patterns['sequence_patterns']:
+                    patterns['sequence_patterns'][current_num] = {}
+                patterns['sequence_patterns'][current_num][next_num] = \
+                    patterns['sequence_patterns'][current_num].get(next_num, 0) + 1
 
     return patterns
 
@@ -80,37 +85,24 @@ def predict_tomorrow(today_nums, patterns, recent_nums):
     for candidate, confidence in transition_predictions.items():
         predictions.append((candidate, confidence * 0.8, "digit_transition"))  # Slightly lower confidence
 
-    # Method 3: Pattern-based variations
+    # Method 3: Pattern-based variations (SIMPLIFIED)
     pattern_predictions = []
+    recent_set = set(str(x) for x in recent_nums[-20:])
 
-    # Common transformations
-    transformations = [
-        lambda x: x,  # Original
-        lambda x: str(int(x) + 1).zfill(4),  # +1
-        lambda x: str(int(x) - 1).zfill(4),  # -1
-        lambda x: x[::-1],  # Reverse
-        lambda x: x[1:] + x[0],  # Rotate left
-        lambda x: x[-1] + x[:-1],  # Rotate right
-    ]
-
-    for transform in transformations:
-        try:
-            candidate = transform(today_num)
-            if len(candidate) == 4 and candidate.isdigit():
-                # Check if this transformation occurred in history
-                transform_freq = 0
-                for recent in recent_nums[-20:]:  # Check last 20 numbers
-                    try:
-                        if transform(str(recent)) == candidate:
-                            transform_freq += 1
-                    except:
-                        continue
-
-                if transform_freq > 0:
-                    confidence = min(transform_freq / 10, 0.6)  # Cap at 60%
-                    pattern_predictions.append((candidate, confidence, "pattern_transform"))
-        except:
-            continue
+    # Quick transformations
+    try:
+        candidates = [
+            (today_num, 0.3, "original"),
+            (str(int(today_num) + 1).zfill(4), 0.25, "plus_one"),
+            (str(int(today_num) - 1).zfill(4), 0.25, "minus_one"),
+            (today_num[::-1], 0.2, "reverse")
+        ]
+        
+        for cand, conf, reason in candidates:
+            if len(cand) == 4 and cand.isdigit() and cand in recent_set:
+                pattern_predictions.append((cand, conf, reason))
+    except:
+        pass
 
     predictions.extend(pattern_predictions)
 

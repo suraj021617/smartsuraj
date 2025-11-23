@@ -71,72 +71,111 @@
       </div>
     </div>
 
-    <!-- ULTIMATE TOP 10 - CONSENSUS PREDICTIONS -->
-    <div class="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-2xl p-8 mb-8 shadow-2xl">
-      <h2 class="text-4xl font-bold mb-4 text-center text-white">⭐ TOP 10 FOR {{ provider_name }}</h2>
-      <p class="text-center mb-2 text-black font-bold text-lg">📅 Predicting Next Draw: {{ next_draw_date }}</p>
-      <p class="text-center mb-6 text-white text-sm">Numbers that appear in MULTIPLE predictors = HIGHEST CONFIDENCE!</p>
-      
-      <div class="mb-4 text-center">
-        <button onclick="savePredictions()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-3 rounded-lg text-xl shadow-lg">
-          💾 Save These Predictions for Tracking
-        </button>
+    <!-- MAGNUM 4D CARD FORMAT -->
+    <div class="bg-white rounded-lg shadow-2xl overflow-hidden mb-8">
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="bg-black text-white px-3 py-1 rounded font-bold">ULTIMATE</div>
+          <div class="text-xl font-bold text-gray-900">GAP ANALYSIS PREDICTIONS 萬能</div>
+        </div>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        {% for pred in ultimate_top_10 %}
-        <div class="bg-white/90 backdrop-blur-lg rounded-xl p-6 text-center border-4 
-                    {% if pred.predictor_count == 4 %}border-yellow-400
-                    {% elif pred.predictor_count == 3 %}border-green-400
-                    {% elif pred.predictor_count == 2 %}border-blue-400
-                    {% else %}border-gray-400{% endif %}">
-          
-          <div class="text-5xl font-extrabold mb-2 text-black">{{ pred.number }}</div>
-          
-          <div class="mb-3">
-            <div class="text-2xl font-bold 
+      <!-- Date Info -->
+      <div class="bg-white p-3 border-b-2 border-gray-300 flex justify-between text-sm text-gray-800">
+        <div>Next Draw: <span class="font-semibold">{{ next_draw_date }}</span></div>
+        <div>Provider: <span class="font-semibold">{{ provider_name }}</span></div>
+      </div>
+      
+      <!-- Predictions Grid (2x5 format) -->
+      <div class="bg-gray-800 text-white font-bold p-3 text-center">Top 10 Consensus Predictions 預測</div>
+      <div class="bg-white p-4">
+        <!-- First Row (Top 5) -->
+        <div class="grid grid-cols-5 gap-2 mb-2">
+          {% for pred in ultimate_top_10[:5] %}
+          <div class="border-4 
+                      {% if pred.predictor_count == 4 %}border-yellow-400 bg-yellow-50
+                      {% elif pred.predictor_count == 3 %}border-green-400 bg-green-50
+                      {% elif pred.predictor_count == 2 %}border-blue-400 bg-blue-50
+                      {% else %}border-gray-400 bg-gray-50{% endif %}
+                      p-3 text-center rounded relative">
+            <div class="absolute top-1 right-1 bg-black text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">#{{ loop.index }}</div>
+            <div class="text-2xl font-extrabold 
+                        {% if pred.predictor_count == 4 %}text-yellow-600
+                        {% elif pred.predictor_count == 3 %}text-green-600
+                        {% elif pred.predictor_count == 2 %}text-blue-600
+                        {% else %}text-gray-600{% endif %}">
+              {{ pred.number }}
+            </div>
+            <div class="text-xs font-bold mt-1
                         {% if pred.predictor_count == 4 %}text-yellow-600
                         {% elif pred.predictor_count == 3 %}text-green-600
                         {% elif pred.predictor_count == 2 %}text-blue-600
                         {% else %}text-gray-600{% endif %}">
               {{ pred.confidence }}%
             </div>
-            <div class="text-xs text-gray-600">Confidence</div>
+            <div class="text-xs text-gray-600 mt-1">{{ pred.predictor_count }}/4</div>
           </div>
-          
-          <div class="bg-black/10 rounded-lg p-2 mb-2">
-            <div class="text-sm font-bold text-gray-800">
-              {{ pred.predictor_count }}/4 Predictors
+          {% endfor %}
+        </div>
+        
+        <!-- Second Row (6-10) -->
+        <div class="grid grid-cols-5 gap-2">
+          {% for pred in ultimate_top_10[5:10] %}
+          <div class="border-2 
+                      {% if pred.predictor_count == 4 %}border-yellow-400 bg-yellow-50
+                      {% elif pred.predictor_count == 3 %}border-green-400 bg-green-50
+                      {% elif pred.predictor_count == 2 %}border-blue-400 bg-blue-50
+                      {% else %}border-gray-400 bg-gray-50{% endif %}
+                      p-3 text-center rounded relative">
+            <div class="absolute top-1 right-1 bg-gray-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">#{{ loop.index + 5 }}</div>
+            <div class="text-2xl font-extrabold 
+                        {% if pred.predictor_count == 4 %}text-yellow-600
+                        {% elif pred.predictor_count == 3 %}text-green-600
+                        {% elif pred.predictor_count == 2 %}text-blue-600
+                        {% else %}text-gray-600{% endif %}">
+              {{ pred.number }}
             </div>
+            <div class="text-xs font-bold mt-1
+                        {% if pred.predictor_count == 4 %}text-yellow-600
+                        {% elif pred.predictor_count == 3 %}text-green-600
+                        {% elif pred.predictor_count == 2 %}text-blue-600
+                        {% else %}text-gray-600{% endif %}">
+              {{ pred.confidence }}%
+            </div>
+            <div class="text-xs text-gray-600 mt-1">{{ pred.predictor_count }}/4</div>
           </div>
-          
-          <div class="text-xs text-gray-700 font-semibold">
-            {{ pred.sources }}
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
-
-      <div class="mt-6 bg-black/20 rounded-xl p-4">
-        <h3 class="font-bold text-center mb-2">🎯 How to Read:</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-          <div class="bg-yellow-400/30 rounded p-2 text-center">
-            <div class="font-bold">4/4 Predictors</div>
-            <div class="text-xs">HIGHEST</div>
+      
+      <!-- Legend -->
+      <div class="bg-gray-100 p-4 border-t-2 border-gray-300">
+        <div class="text-center font-bold text-gray-800 mb-2">🎯 Confidence Legend:</div>
+        <div class="grid grid-cols-4 gap-2 text-xs">
+          <div class="bg-yellow-100 border-2 border-yellow-400 rounded p-2 text-center">
+            <div class="font-bold text-yellow-600">4/4 Methods</div>
+            <div class="text-gray-600">HIGHEST</div>
           </div>
-          <div class="bg-green-400/30 rounded p-2 text-center">
-            <div class="font-bold">3/4 Predictors</div>
-            <div class="text-xs">STRONG</div>
+          <div class="bg-green-100 border-2 border-green-400 rounded p-2 text-center">
+            <div class="font-bold text-green-600">3/4 Methods</div>
+            <div class="text-gray-600">STRONG</div>
           </div>
-          <div class="bg-blue-400/30 rounded p-2 text-center">
-            <div class="font-bold">2/4 Predictors</div>
-            <div class="text-xs">GOOD</div>
+          <div class="bg-blue-100 border-2 border-blue-400 rounded p-2 text-center">
+            <div class="font-bold text-blue-600">2/4 Methods</div>
+            <div class="text-gray-600">GOOD</div>
           </div>
-          <div class="bg-gray-400/30 rounded p-2 text-center">
-            <div class="font-bold">1/4 Predictors</div>
-            <div class="text-xs">MODERATE</div>
+          <div class="bg-gray-100 border-2 border-gray-400 rounded p-2 text-center">
+            <div class="font-bold text-gray-600">1/4 Methods</div>
+            <div class="text-gray-600">MODERATE</div>
           </div>
         </div>
+      </div>
+      
+      <div class="bg-white p-4 text-center border-t-2 border-gray-300">
+        <button onclick="savePredictions()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-6 py-3 rounded-lg text-lg shadow-lg">
+          💾 Save These Predictions for Tracking
+        </button>
       </div>
     </div>
 

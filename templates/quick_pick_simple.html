@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Pick</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-900 to-blue-900 text-white p-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-8">🎲 Quick Pick</h1>
+        
+        <div class="bg-white/10 rounded-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Your 5 Best Numbers</h2>
+            {% if numbers_with_confidence %}
+                <div class="grid grid-cols-5 gap-4">
+                    {% for item in numbers_with_confidence %}
+                    <div class="bg-blue-600 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold">{{ item.number }}</div>
+                        <div class="text-sm">{{ item.confidence }}%</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No predictions available</p>
+            {% endif %}
+        </div>
+        
+        {% if analysis %}
+        <div class="bg-white/10 rounded-xl p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">Analysis</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold">{{ analysis.total_algorithms }}</div>
+                    <div class="text-sm">Algorithms</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold">{{ analysis.numbers_analyzed }}</div>
+                    <div class="text-sm">Numbers Analyzed</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold">{{ analysis.consensus_strength }}</div>
+                    <div class="text-sm">Consensus</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold">5</div>
+                    <div class="text-sm">Top Picks</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="text-center">
+            <button onclick="location.reload()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 mr-4">🔄 New Numbers</button>
+            <a href="/dashboard" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">← Back</a>
+        </div>
+    </div>
+</body>
+</html>

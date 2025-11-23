@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Tracker - Smart Suraj</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='my_tracker.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📌 MY TRACKER</h1>
+        <p class="subtitle">Save & track your favorite predictions</p>
+        
+        <div class="add-section">
+            <input type="text" id="numberInput" placeholder="Enter 4-digit number" maxlength="4">
+            <input type="text" id="noteInput" placeholder="Add note (optional)">
+            <button onclick="addNumber()">➕ Add</button>
+        </div>
+        
+        <div id="trackedList"></div>
+        
+        <a href="/dashboard" class="back-btn">← Back</a>
+    </div>
+    <script src="{{ url_for('static', filename='my_tracker.js') }}"></script>
+</body>
+</html>

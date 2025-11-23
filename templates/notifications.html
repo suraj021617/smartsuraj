@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notifications - Smart Suraj</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: #ff9a9e;
+        }
+        .notification {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #ff9a9e;
+        }
+        .notification.unread {
+            background: #fff3cd;
+        }
+        .notification .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .notification .time {
+            color: #999;
+            font-size: 12px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔔 NOTIFICATIONS</h1>
+        
+        <div id="notificationsList"></div>
+        
+        <a href="/dashboard" class="back-btn">← Back</a>
+    </div>
+    <script>
+        function loadNotifications() {
+            const notifications = [
+                {title: '🎯 New Draw Results', message: 'Check the latest results now!', time: '2 hours ago', unread: true},
+                {title: '🔥 Hot Number Alert', message: 'Number 1234 appeared 3 times this week', time: '5 hours ago', unread: true},
+                {title: '📊 Weekly Report', message: 'Your prediction accuracy: 25%', time: '1 day ago', unread: false},
+                {title: '🎉 Streak Milestone', message: 'You reached a 5-day streak!', time: '2 days ago', unread: false}
+            ];
+            
+            const list = document.getElementById('notificationsList');
+            list.innerHTML = notifications.map(n => `
+                <div class="notification ${n.unread ? 'unread' : ''}">
+                    <div class="title">${n.title}</div>
+                    <div>${n.message}</div>
+                    <div class="time">${n.time}</div>
+                </div>
+            `).join('');
+        }
+        loadNotifications();
+    </script>
+</body>
+</html>
