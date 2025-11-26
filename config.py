@@ -8,8 +8,8 @@ class Config:
     """Base configuration"""
     
     # Application Settings
-    DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production-12345678'
+    DEBUG = True
+    SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(24).hex()
     
     # Paths
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))

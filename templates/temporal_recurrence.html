@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>⏰ Temporal Recurrence Mapping</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        h1 { color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #8e44ad; color: white; }
+        tr:hover { background: #f1f1f1; }
+        .badge { padding: 5px 10px; border-radius: 5px; font-size: 12px; background: #3498db; color: white; }
+        .next { background: #e74c3c; color: white; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏰ Temporal Recurrence Mapping</h1>
+        <p>Track when specific patterns tend to recur</p>
+        <p><strong>Last Updated:</strong> {{ last_updated }}</p>
+        
+        {% if message %}
+        <p style="color: red;">{{ message }}</p>
+        {% endif %}
+        
+        <table>
+            <tr>
+                <th>Pattern</th>
+                <th>Frequency</th>
+                <th>Avg Interval (draws)</th>
+                <th>Last Seen</th>
+                <th>Next Expected Draw</th>
+                <th>Recent Draw IDs</th>
+            </tr>
+            {% for rec in recurrences %}
+            <tr>
+                <td><span class="badge">{{ rec.pattern }}</span></td>
+                <td>{{ rec.frequency }}x</td>
+                <td>{{ rec.avg_interval }} ± {{ rec.std_interval }}</td>
+                <td>{{ rec.last_seen }}</td>
+                <td><span class="next">Draw #{{ rec.next_expected_draw }}</span></td>
+                <td>{{ rec.draw_ids|join(', ') }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <p><a href="/">🏠 Back to Home</a></p>
+    </div>
+</body>
+</html>

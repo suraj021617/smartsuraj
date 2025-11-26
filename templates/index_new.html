@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 4D Results - Smart Predictions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        
+        * { font-family: 'Poppins', sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .lottery-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lottery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .lottery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .lottery-card:hover::before {
+            left: 100%;
+        }
+        
+        .prize-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .special-number, .consolation-number {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .special-number:hover, .consolation-number:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            color: white !important;
+        }
+        
+        .prediction-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .magnum-header { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        .damacai-header { background: linear-gradient(135deg, #3b82f6, #1e40af); }
+        .toto-header { background: linear-gradient(135deg, #ef4444, #991b1b); }
+        .singapore-header { background: linear-gradient(135deg, #10b981, #047857); }
+        .gdlotto-header { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
+        .sandakan-header { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+        .cashsweep-header { background: linear-gradient(135deg, #ec4899, #be185d); }
+        .sabah88-header { background: linear-gradient(135deg, #f97316, #c2410c); }
+        .perdana-header { background: linear-gradient(135deg, #06b6d4, #0e7490); }
+        .harihari-header { background: linear-gradient(135deg, #84cc16, #4d7c0f); }
+        
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .number-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="p-4">
+    <!-- Header Section -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <div class="glass-card rounded-3xl p-8 text-center floating">
+            <h1 class="text-5xl font-extrabold mb-3">
+                <span class="gradient-text">🎰 4D LOTTERY RESULTS</span>
+            </h1>
+            <p class="text-gray-600 text-lg mb-6">Smart Predictions • Real-time Results • Advanced Analytics</p>
+            
+            <!-- Date Filter -->
+            <form method="GET" class="flex justify-center items-center gap-4 mb-6">
+                <div class="flex items-center gap-3 bg-white rounded-full px-6 py-3 shadow-lg">
+                    <i class="fas fa-calendar-alt text-purple-600"></i>
+                    <input type="date" name="selected_date" value="{{ selected_date or '' }}" 
+                           class="border-0 focus:outline-none text-gray-700 font-semibold">
+                    <button type="submit" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold btn-glow">
+                        <i class="fas fa-search mr-2"></i>Show
+                    </button>
+                    {% if selected_date %}
+                    <a href="/" class="text-red-500 hover:text-red-700 font-bold">
+                        <i class="fas fa-times-circle"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </form>
+            
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <a href="{{ url_for('best_predictions') }}" class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-4 rounded-2xl font-bold text-center hover:shadow-2xl transition transform hover:scale-105">
+                    <i class="fas fa-trophy text-2xl mb-2"></i>
+                    <div>BEST PICKS</div>
+                </a>
+                <a href="{{ url_for('advanced_analytics') }}" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-4 rounded-2xl font-bold text-center hover:shadow-2xl transition transform hover:scale-105">
+                    <i class="fas fa-chart-line text-2xl mb-2"></i>
+                    <div>Analytics</div>
+                </a>
+                <a href="{{ url_for('pattern_analyzer') }}" class="bg-gradient-to-r from-green-500 to-teal-600 text-white px-6 py-4 rounded-2xl font-bold text-center hover:shadow-2xl transition transform hover:scale-105">
+                    <i class="fas fa-brain text-2xl mb-2"></i>
+                    <div>Patterns</div>
+                </a>
+                <a href="{{ url_for('accuracy_dashboard') }}" class="bg-gradient-to-r from-pink-500 to-red-600 text-white px-6 py-4 rounded-2xl font-bold text-center hover:shadow-2xl transition transform hover:scale-105">
+                    <i class="fas fa-bullseye text-2xl mb-2"></i>
+                    <div>Accuracy</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Grid -->
+    <div class="max-w-7xl mx-auto">
+        {% if selected_date and not cards %}
+        <div class="glass-card rounded-3xl p-12 text-center">
+            <i class="fas fa-inbox text-6xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600 text-xl font-semibold">No results found for this date</p>
+        </div>
+        {% endif %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for card in cards %}
+            {% set provider = card.get('provider', '').lower() %}
+            
+            <div class="lottery-card glass-card rounded-2xl overflow-hidden">
+                <!-- Header -->
+                <div class="{% if 'magnum' in provider %}magnum-header
+                           {% elif 'damacai' in provider %}damacai-header
+                           {% elif 'toto' in provider %}toto-header
+                           {% elif 'singapore' in provider %}singapore-header
+                           {% elif 'gdlotto' in provider or 'dragon' in provider %}gdlotto-header
+                           {% elif 'sandakan' in provider %}sandakan-header
+                           {% elif 'cashsweep' in provider %}cashsweep-header
+                           {% elif 'sabah' in provider %}sabah88-header
+                           {% elif 'perdana' in provider %}perdana-header
+                           {% elif 'harihari' in provider or 'hari' in provider %}harihari-header
+                           {% else %}bg-gradient-to-r from-gray-600 to-gray-800{% endif %} 
+                           text-white px-4 py-3 flex items-center justify-between">
+                    <div>
+                        <h2 class="font-bold text-lg">{{ provider|title }}</h2>
+                        <p class="text-xs opacity-90">{{ card['date_parsed'].strftime('%d %b %Y (%a)') if card['date_parsed'] else '' }}</p>
+                    </div>
+                    <div class="text-right text-xs opacity-90">
+                        Draw No:<br>
+                        <span class="font-bold">
+                            {%- if card.get('draw_info') -%}
+                                {%- if 'Draw No:' in card['draw_info'] -%}
+                                    {{ card['draw_info'].split('Draw No:')[-1].split()[0] }}
+                                {%- else -%}
+                                    {{ card['draw_info'] }}
+                                {%- endif -%}
+                            {%- else -%}
+                                N/A
+                            {%- endif -%}
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Prize Numbers -->
+                <div class="p-4">
+                    <div class="space-y-3 mb-4">
+                        <div class="flex items-center justify-between bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-3 border-l-4 border-yellow-500">
+                            <span class="font-bold text-gray-700">🥇 1st Prize</span>
+                            <span class="prize-number">{{ card['1st_real'] or card['1st'] }}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-3 border-l-4 border-gray-400">
+                            <span class="font-bold text-gray-700">🥈 2nd Prize</span>
+                            <span class="prize-number">{{ card['2nd_real'] or card['2nd'] }}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-3 border-l-4 border-orange-400">
+                            <span class="font-bold text-gray-700">🥉 3rd Prize</span>
+                            <span class="prize-number">{{ card['3rd_real'] or card['3rd'] }}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Special Numbers -->
+                    {% set specials = card['special'].split() if card['special'] else [] %}
+                    {% if specials %}
+                    <div class="mb-4">
+                        <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-center font-bold py-2 rounded-t-xl">
+                            ⭐ SPECIAL
+                        </div>
+                        <div class="number-grid bg-purple-50 p-3 rounded-b-xl">
+                            {% for num in specials[:15] %}
+                            <div class="special-number bg-white text-center py-2 rounded-lg font-bold text-purple-700 shadow-sm">
+                                {{ num }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Consolation Numbers -->
+                    {% set cons = card['consolation'].split() if card['consolation'] else [] %}
+                    {% if cons %}
+                    <div>
+                        <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center font-bold py-2 rounded-t-xl">
+                            🎁 CONSOLATION
+                        </div>
+                        <div class="number-grid bg-blue-50 p-3 rounded-b-xl">
+                            {% for num in cons[:15] %}
+                            <div class="consolation-number bg-white text-center py-2 rounded-lg font-bold text-blue-700 shadow-sm">
+                                {{ num }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Jackpot Info -->
+                    {% if card.get('jackpot') %}
+                    <div class="mt-4 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-3 border-2 border-yellow-400">
+                        <div class="text-center">
+                            <div class="font-bold text-yellow-800 mb-2">💰 JACKPOT</div>
+                            <div class="text-xs text-yellow-900 space-y-1">
+                                {% for line in card['jackpot'].split('|') %}
+                                <div>{{ line.strip() }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- 5D/6D Results (for Toto) -->
+                    {% if '5D' in card.get('1st', '') or '6D' in card.get('1st', '') %}
+                    <div class="mt-4 space-y-3">
+                        <!-- Parse and display 5D/6D numbers -->
+                        {% set prize_text = card.get('1st', '') %}
+                        {% if '5D:' in prize_text %}
+                        <div class="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-xl p-3">
+                            <div class="font-bold text-blue-800 text-center mb-2">🎲 5D RESULTS</div>
+                            <div class="text-xs text-blue-900 text-center">
+                                {{ prize_text.split('5D:')[1].split('6D:')[0].strip() if '6D:' in prize_text else prize_text.split('5D:')[1].strip() }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if '6D:' in prize_text %}
+                        <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-3">
+                            <div class="font-bold text-purple-800 text-center mb-2">🎲 6D RESULTS</div>
+                            <div class="text-xs text-purple-900 text-center">
+                                {{ prize_text.split('6D:')[1].strip() }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Toto/Lotto Numbers (Star Toto, Power Toto, Supreme Toto) -->
+                    {% if 'Star Toto' in card.get('1st', '') or 'Power Toto' in card.get('1st', '') or 'Supreme Toto' in card.get('1st', '') %}
+                    <div class="mt-4 space-y-2">
+                        {% set lotto_text = card.get('1st', '') %}
+                        {% if 'Star Toto' in lotto_text %}
+                        <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-3">
+                            <div class="font-bold text-yellow-800 text-xs mb-1">⭐ Star Toto 6/50</div>
+                            <div class="text-xs text-yellow-900">
+                                {{ lotto_text.split('Star Toto 6/50:')[1].split('Power Toto')[0].strip() if 'Power Toto' in lotto_text else lotto_text.split('Star Toto 6/50:')[1].strip() }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if 'Power Toto' in lotto_text %}
+                        <div class="bg-gradient-to-r from-red-100 to-pink-100 rounded-xl p-3">
+                            <div class="font-bold text-red-800 text-xs mb-1">⚡ Power Toto 6/55</div>
+                            <div class="text-xs text-red-900">
+                                {{ lotto_text.split('Power Toto 6/55:')[1].split('Supreme Toto')[0].strip() if 'Supreme Toto' in lotto_text else lotto_text.split('Power Toto 6/55:')[1].strip() }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if 'Supreme Toto' in lotto_text %}
+                        <div class="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl p-3">
+                            <div class="font-bold text-purple-800 text-xs mb-1">👑 Supreme Toto 6/58</div>
+                            <div class="text-xs text-purple-900">
+                                {{ lotto_text.split('Supreme Toto 6/58:')[1].strip() }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Toto Prize Groups (Singapore Toto) -->
+                    {% if 'Toto Numbers:' in card.get('1st', '') %}
+                    <div class="mt-4">
+                        <div class="bg-gradient-to-r from-green-100 to-teal-100 rounded-xl p-3">
+                            <div class="font-bold text-green-800 text-center mb-2">🎱 TOTO NUMBERS</div>
+                            <div class="text-center text-lg font-bold text-green-900">
+                                {{ card.get('1st', '').split('Toto Numbers:')[1].strip() }}
+                            </div>
+                        </div>
+                        {% if card.get('jackpot') and 'Group' in card.get('jackpot', '') %}
+                        <div class="mt-3 bg-white rounded-xl p-3 border border-green-300">
+                            <div class="text-xs space-y-1">
+                                {% for line in card['jackpot'].split('|') %}
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">{{ line.split(':')[0].strip() if ':' in line else line.strip() }}</span>
+                                    <span class="font-bold text-green-700">{{ line.split(':')[1].strip() if ':' in line else '' }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Magnum Life Numbers -->
+                    {% if 'Winning Numbers:' in card.get('1st', '') and 'magnum' in provider %}
+                    <div class="mt-4">
+                        <div class="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl p-3">
+                            <div class="font-bold text-yellow-800 text-center mb-2">🌟 MAGNUM LIFE</div>
+                            <div class="text-xs text-yellow-900 text-center">
+                                {{ card.get('1st', '').split('Winning Numbers:')[1].split('Bonus:')[0].strip() if 'Bonus:' in card.get('1st', '') else card.get('1st', '').split('Winning Numbers:')[1].strip() }}
+                            </div>
+                            {% if 'Bonus:' in card.get('1st', '') %}
+                            <div class="mt-2 text-center">
+                                <span class="text-xs font-bold text-yellow-800">Bonus: </span>
+                                <span class="text-xs text-yellow-900">{{ card.get('1st', '').split('Bonus:')[1].strip() }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Jackpot Gold (Magnum) -->
+                    {% if 'Jackpot 1:' in card.get('1st', '') or 'Jackpot 2:' in card.get('1st', '') %}
+                    <div class="mt-4 space-y-2">
+                        <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-3">
+                            <div class="font-bold text-yellow-800 text-center mb-2">🏆 JACKPOT GOLD</div>
+                            <div class="text-xs text-yellow-900 space-y-1">
+                                {% for line in card.get('1st', '').split('|') %}
+                                {% if 'Jackpot' in line or 'Prize' in line %}
+                                <div class="text-center">{{ line.strip() }}</div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- 3+3D (Da Ma Cai) -->
+                    {% if '3+3D' in provider or (card.get('1st_real', '')|length == 6) %}
+                    <div class="mt-4">
+                        <div class="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl p-3">
+                            <div class="font-bold text-blue-800 text-center mb-2">🎯 3+3D BONUS</div>
+                            {% if card.get('2nd', '') and 'Bonus' in card.get('2nd', '') %}
+                            <div class="text-xs text-blue-900 text-center space-y-1">
+                                {% for line in card.get('2nd', '').split('|') %}
+                                <div>{{ line.strip() }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Zodiac (if present) -->
+                    {% if 'Zodiac' in card.get('1st', '') or 'ZODIAC' in card.get('1st', '').upper() %}
+                    <div class="mt-4">
+                        <div class="bg-gradient-to-r from-red-100 to-pink-100 rounded-xl p-3">
+                            <div class="font-bold text-red-800 text-center mb-2">🐉 ZODIAC</div>
+                            <div class="text-center text-2xl">
+                                {{ card.get('1st', '').split('Zodiac')[1].strip() if 'Zodiac' in card.get('1st', '') else '' }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Footer Navigation -->
+    <div class="max-w-7xl mx-auto mt-8">
+        <div class="glass-card rounded-3xl p-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <a href="{{ url_for('hot_cold') }}" class="text-center p-4 rounded-xl bg-gradient-to-br from-red-100 to-blue-100 hover:shadow-lg transition">
+                    <i class="fas fa-fire-alt text-3xl text-red-500 mb-2"></i>
+                    <div class="font-bold text-gray-700">Hot/Cold</div>
+                </a>
+                <a href="{{ url_for('lucky_generator') }}" class="text-center p-4 rounded-xl bg-gradient-to-br from-green-100 to-teal-100 hover:shadow-lg transition">
+                    <i class="fas fa-clover text-3xl text-green-500 mb-2"></i>
+                    <div class="font-bold text-gray-700">Lucky Gen</div>
+                </a>
+                <a href="{{ url_for('statistics') }}" class="text-center p-4 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 hover:shadow-lg transition">
+                    <i class="fas fa-chart-bar text-3xl text-purple-500 mb-2"></i>
+                    <div class="font-bold text-gray-700">Statistics</div>
+                </a>
+                <a href="{{ url_for('prediction_details') }}" class="text-center p-4 rounded-xl bg-gradient-to-br from-yellow-100 to-orange-100 hover:shadow-lg transition">
+                    <i class="fas fa-magic text-3xl text-yellow-600 mb-2"></i>
+                    <div class="font-bold text-gray-700">Predictions</div>
+                </a>
+                <a href="{{ url_for('best_predictions') }}" class="text-center p-4 rounded-xl bg-gradient-to-br from-orange-100 to-red-100 hover:shadow-lg transition">
+                    <i class="fas fa-crown text-3xl text-orange-500 mb-2"></i>
+                    <div class="font-bold text-gray-700">Best Picks</div>
+                </a>
+                <a href="{{ url_for('advanced_analytics') }}" class="text-center p-4 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 hover:shadow-lg transition">
+                    <i class="fas fa-rocket text-3xl text-blue-500 mb-2"></i>
+                    <div class="font-bold text-gray-700">Analytics</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="text-center mt-8 pb-8">
+        <p class="text-white text-sm opacity-75">
+            © 2025 Smart 4D Predictions • Made with <i class="fas fa-heart text-red-400"></i> for Winners
+        </p>
+    </div>
+</body>
+</html>

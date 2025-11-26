@@ -49,40 +49,24 @@
       <div class="text-2xl font-bold text-yellow-300">{{ next_draw_date }}</div>
     </div>
 
-    <!-- MAGNUM 4D CARD FORMAT -->
-    <div class="bg-white rounded-lg shadow-2xl overflow-hidden mb-8">
-      <!-- Header -->
-      <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="bg-black text-white px-3 py-1 rounded font-bold">QUICK PICK</div>
-          <div class="text-xl font-bold text-gray-900">AI PREDICTIONS 萬能</div>
+    <!-- THE 5 NUMBERS - BIG AND SIMPLE -->
+    <div class="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-3xl p-12 mb-8 shadow-2xl">
+      <h2 class="text-3xl font-bold text-center mb-8 text-white">YOUR 5 LUCKY NUMBERS</h2>
+      
+      <div class="grid grid-cols-5 gap-4 mb-8">
+        {% for item in numbers_with_confidence %}
+        <div class="bg-white rounded-2xl p-6 text-center shadow-xl transform hover:scale-110 transition">
+          <div class="text-6xl font-extrabold text-black mb-2">{{ item.number }}</div>
+          <div class="text-sm font-bold text-green-600">{{ item.confidence }}% Confidence</div>
         </div>
+        {% endfor %}
       </div>
-      
-      <!-- Date Info -->
-      <div class="bg-white p-3 border-b-2 border-gray-300 flex justify-between text-sm text-gray-800">
-        <div>Next Draw: <span class="font-semibold">{{ next_draw_date }}</span></div>
-        <div>Method: <span class="font-semibold">Pure Frequency Analysis</span></div>
-      </div>
-      
-      <!-- Predictions Grid (2x5 format like Special/Consolation) -->
-      <div class="bg-gray-800 text-white font-bold p-3 text-center">AI Predictions 預測</div>
-      <div class="bg-white p-4">
-        <div class="grid grid-cols-5 gap-2 mb-2">
-          {% for item in numbers_with_confidence[:5] %}
-          <div class="border-2 border-blue-500 bg-blue-50 p-3 text-center rounded">
-            <div class="text-2xl font-extrabold text-blue-600">{{ item.number }}</div>
-            <div class="text-xs text-green-600 font-bold mt-1">{{ item.confidence }}%</div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      
-      <div class="bg-white p-4 text-center border-t-2 border-gray-300">
-        <button onclick="copyNumbers()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-6 py-3 rounded-lg text-lg shadow-lg mr-2">
+
+      <div class="text-center">
+        <button onclick="copyNumbers()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-4 rounded-xl text-xl shadow-lg">
           📋 Copy Numbers
         </button>
-        <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-lg text-lg shadow-lg">
+        <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-xl shadow-lg ml-4">
           🔄 Get New Numbers
         </button>
       </div>

@@ -1,0 +1,30 @@
+TO RESTORE ALL FEATURES WITH CORRECT CSV DATA:
+
+1. Backup current app.py:
+   copy app.py app_current.py
+
+2. Copy app_backup.py to app.py:
+   copy app_backup.py app.py
+
+3. Edit app.py and find the load_csv_data() function (around line 56)
+
+4. Replace the csv_paths line with:
+   csv_paths = ['utils/4d_results_history.csv', '4d_results_history.csv', 'scraper/4d_results_history.csv']
+
+5. Add after the pd.read_csv line:
+   # Handle CSV with header
+   df_test = pd.read_csv(csv_path, nrows=1, on_bad_lines='skip', encoding='utf-8', engine='python')
+   if 'date' in str(df_test.iloc[0].tolist()).lower():
+       df = pd.read_csv(csv_path, header=0, on_bad_lines='skip', encoding='utf-8', engine='python')
+   else:
+       df = pd.read_csv(csv_path, header=None, on_bad_lines='skip', encoding='utf-8', engine='python')
+
+6. Add HTML decoding before prize extraction:
+   import html
+   df['prize_text'] = df['prize_text'].fillna('').astype(str).apply(html.unescape)
+
+7. Restart Flask:
+   taskkill /F /IM python.exe
+   python app.py
+
+All 35 routes will work with correct CSV data!

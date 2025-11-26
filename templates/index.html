@@ -6,9 +6,6 @@
   <title>Smart 4D Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="{{ url_for('static', filename='themes-enhanced.css') }}" rel="stylesheet"/>
-  <link href="{{ url_for('static', filename='spiderman-theme.css') }}" rel="stylesheet"/>
-  <link href="{{ url_for('static', filename='wallpaper-loader.css') }}" rel="stylesheet"/>
   <style>
     @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
@@ -172,13 +169,7 @@
     
     <!-- Header -->
     <div class="glass rounded-3xl shadow-2xl p-6 mb-6">
-      <div class="flex justify-between items-center mb-2">
-        <div class="flex-1"></div>
-        <h1 class="text-5xl font-black text-center bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent flex-1">🎯 Smart 4D Dashboard</h1>
-        <div class="flex-1 text-right">
-          <a href="/theme-gallery" class="text-sm bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700 transition">🎨 Themes</a>
-        </div>
-      </div>
+      <h1 class="text-5xl font-black text-center bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent mb-2">🎯 Smart 4D Dashboard</h1>
       <p class="text-center text-gray-600 font-semibold">AI-Powered Prediction & Analysis System</p>
     </div>
     {% if test_marker %}
@@ -201,105 +192,45 @@
 
     <!-- Prediction Tools -->
     <div class="mb-6">
-      <!-- MATCH VALIDATION - TOP PRIORITY -->
-      <a href="/match-checker" class="card-hover block glass text-white px-6 py-8 rounded-3xl text-center font-black text-4xl mb-4 shadow-2xl border-4 transform hover:scale-105 transition-all" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%); border-color: #f5576c; box-shadow: 0 0 40px rgba(245,87,108,0.6), 0 0 80px rgba(79,172,254,0.4), 0 20px 60px rgba(0,0,0,0.3);">
-        <div class="text-5xl mb-2" style="text-shadow: 0 0 20px rgba(255,255,255,0.8);">🎯</div>
-        <div style="text-shadow: 0 0 20px rgba(255,255,255,0.5);">WHICH PREDICTIONS MATCHED?</div>
-        <div class="text-base font-normal mt-2 opacity-90">See Exact, iBox, Front, Back, Partial Matches • All Providers • AI Learning</div>
-      </a>
-      
-      <!-- Decision Helper -->
-      <a href="/decision-helper" class="card-hover block glass text-white px-6 py-10 rounded-3xl text-center font-black text-4xl mb-6 shadow-2xl border-4 btn-glow transform hover:scale-105 transition-all" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%); border-color: #00f2fe; box-shadow: 0 0 40px rgba(0,242,254,0.6), 0 0 80px rgba(118,75,162,0.4), 0 20px 60px rgba(0,0,0,0.3);">
-        <div class="text-5xl mb-2" style="text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(0,242,254,0.6);">💡</div>
-        <div style="text-shadow: 0 0 20px rgba(255,255,255,0.5);">WHAT SHOULD I PLAY?</div>
-        <div class="text-sm font-normal mt-2 opacity-90">AI-Powered Decision Helper</div>
-      </a>
-      
-      <!-- Main Prediction Tools Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <a href="/quick-pick" class="card-hover glass bg-gradient-to-br from-green-400 to-blue-600 text-white px-6 py-8 rounded-2xl text-center font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all">
-          <div class="text-5xl mb-3">🎲</div>
-          <div class="text-2xl mb-2">QUICK PICK</div>
-          <div class="text-sm opacity-90">Get 5 Numbers Instantly</div>
-        </a>
-        
-        <a href="/ultimate-ai" class="card-hover glass bg-gradient-to-br from-purple-600 to-pink-600 text-white px-6 py-8 rounded-2xl text-center font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all">
-          <div class="text-5xl mb-3">🚀</div>
-          <div class="text-2xl mb-2">ULTIMATE AI</div>
-          <div class="text-sm opacity-90">6 Advanced AI Methods</div>
-        </a>
-        
-        <a href="/ultimate-predictor" class="card-hover glass bg-gradient-to-br from-indigo-600 to-blue-600 text-white px-6 py-8 rounded-2xl text-center font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all">
-          <div class="text-5xl mb-3">🏆</div>
-          <div class="text-2xl mb-2">ULTIMATE</div>
-          <div class="text-sm opacity-90">All Methods Combined</div>
-        </a>
-      </div>
-      
-      <!-- Secondary Tools -->
-      <div class="grid grid-cols-2 gap-3">
-        <a href="/best-predictions" class="card-hover glass bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-4 rounded-xl text-center font-bold hover:shadow-xl transition-all">
-          <span class="text-2xl mr-2">📊</span>Best Predictions
-        </a>
-        <a href="/prediction-history" class="card-hover glass bg-gradient-to-r from-teal-500 to-green-600 text-white px-4 py-4 rounded-xl text-center font-bold hover:shadow-xl transition-all">
-          <span class="text-2xl mr-2">📜</span>History
-        </a>
-        <a href="/auto-validator" class="card-hover glass bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-4 rounded-xl text-center font-bold hover:shadow-xl transition-all">
-          <span class="text-2xl mr-2">🚀</span>Test All Methods
-        </a>
-      </div>
+      <a href="/decision-helper" class="card-hover block glass bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white px-6 py-10 rounded-3xl text-center font-black text-5xl mb-4 shadow-2xl border-4 border-yellow-300 btn-glow">🎯 WHAT SHOULD I PLAY?</a>
+      <a href="/quick-pick" class="card-hover block glass bg-gradient-to-r from-green-400 via-teal-500 to-blue-600 text-white px-4 py-8 rounded-3xl text-center font-bold text-4xl mb-4 shadow-2xl border-4 border-green-300 btn-glow">🎲 QUICK PICK - GET 5 NUMBERS!</a>
+      <!-- Ultimate predictor route not implemented yet -->
+      <!-- <a href="/ultimate-predictor" class="block bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white px-4 py-4 rounded-lg text-center font-bold text-2xl mb-3 hover:from-yellow-500 hover:via-orange-600 hover:to-red-700 shadow-2xl border-4 border-yellow-300">🏆 ULTIMATE PREDICTOR - ALL METHODS COMBINED!</a> -->
+      <a href="/advanced-predictions" class="block bg-gradient-to-r from-yellow-500 to-red-600 text-white px-4 py-3 rounded-lg text-center font-bold text-lg mb-2 hover:from-yellow-600 hover:to-red-700">🎯 ADVANCED PREDICTIONS</a>
+      <a href="/prediction-history" class="block bg-gradient-to-r from-green-500 to-blue-600 text-white px-4 py-3 rounded-lg text-center font-bold text-lg mb-2 hover:from-green-600 hover:to-blue-700">🎯 PREDICTION HISTORY</a>
     </div>
 
-    <!-- Quick Access Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-      <a href="/past-results" class="card-hover glass bg-gradient-to-br from-purple-500 to-pink-600 text-white px-6 py-6 rounded-2xl text-center font-bold shadow-xl hover:shadow-2xl transition-all">
-        <div class="text-4xl mb-2">📊</div>
-        <div class="text-xl mb-1">PAST RESULTS</div>
-        <div class="text-sm opacity-90">5D/6D/Lotto/3+3D</div>
-      </a>
-      
-        <a href="/" class="card-hover glass bg-gradient-to-br from-pink-500 to-purple-600 text-white px-6 py-6 rounded-2xl text-center font-bold shadow-xl hover:shadow-2xl transition-all">
-        <div class="text-4xl mb-2">🎠</div>
-        <div class="text-xl mb-1">3D CAROUSEL</div>
-        <div class="text-sm opacity-90">Rotating Dragon Gallery</div>
-      </a>
-    </div>
-    
-    <!-- NEW: Positional OCR Analyzer -->
-    <div class="mb-6">
-      <a href="/positional-ocr" class="card-hover block glass text-white px-6 py-8 rounded-3xl text-center font-black text-3xl shadow-2xl border-4 transform hover:scale-105 transition-all" style="background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 50%, #00d2ff 100%); border-color: #00d2ff; box-shadow: 0 0 40px rgba(0,210,255,0.6), 0 0 80px rgba(58,123,213,0.4), 0 20px 60px rgba(0,0,0,0.3);">
-        <div class="text-5xl mb-2" style="text-shadow: 0 0 20px rgba(255,255,255,0.8);">📊</div>
-        <div style="text-shadow: 0 0 20px rgba(255,255,255,0.5);">POSITIONAL OCR ANALYZER</div>
-        <div class="text-sm font-normal mt-2 opacity-90">Digit Position Frequency • Auto Next Day Predictions • Match Validation</div>
-      </a>
+    <div class="mb-2">
+      <a href="/past-results" class="block bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-3 rounded-lg text-center font-bold text-lg hover:from-purple-600 hover:to-pink-700">📊 PAST RESULTS - 5D/6D/Lotto/3+3D</a>
     </div>
 
-
-
-
+    <div class="mb-4 p-4 bg-gradient-to-r from-purple-900 to-pink-900 rounded-lg">
+      <h2 class="text-2xl font-bold text-white text-center mb-3">⚡ POWER PREDICTIONS ⚡</h2>
+      <a href="/power-simple" class="block bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-4 rounded-lg text-center font-bold text-xl hover:from-yellow-500 hover:to-orange-600 shadow-xl border-2 border-yellow-300">⚡ VIEW POWER PREDICTIONS<br><span class="text-sm">AI + ML + Pattern Analysis</span></a>
+    </div>
 
 
 
     <div class="glass rounded-2xl shadow-xl p-6 mb-6">
-      <h2 class="text-3xl font-black text-gray-800 mb-4 text-center">🔧 All Prediction Methods (Each with Own Logic)</h2>
+      <h2 class="text-3xl font-black text-gray-800 mb-4 text-center">🔧 Analysis & Prediction Tools</h2>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-      <a href="/pattern-analyzer" class="card-hover bg-gradient-to-br from-green-500 to-green-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-green-600 hover:to-green-800 shadow-lg" title="Grid Pattern Logic">🔍 Pattern</a>
-      <a href="/best-predictions" class="card-hover bg-gradient-to-br from-orange-500 to-orange-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-orange-600 hover:to-orange-800 shadow-lg" title="Positional Frequency Logic">📊 Best</a>
-      <a href="/accuracy-dashboard" class="card-hover bg-gradient-to-br from-purple-500 to-purple-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-purple-600 hover:to-purple-800 shadow-lg" title="Track Accuracy">📜 Accuracy</a>
-      <a href="/statistics" class="card-hover bg-gradient-to-br from-indigo-500 to-indigo-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-indigo-600 hover:to-indigo-800 shadow-lg" title="Statistical Analysis">📊 Stats</a>
-      <a href="/lucky-generator" class="card-hover bg-gradient-to-br from-red-500 to-red-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-red-600 hover:to-red-800 shadow-lg" title="Astrology + Date Logic">🧠 Lucky</a>
-      <a href="/day-to-day-predictor" class="card-hover bg-gradient-to-br from-pink-500 to-pink-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-pink-600 hover:to-pink-800 shadow-lg" title="Day-to-Day Transition Logic">📅 Daily</a>
-      <a href="/frequency-analyzer" class="card-hover bg-gradient-to-br from-yellow-500 to-yellow-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-yellow-600 hover:to-yellow-800 shadow-lg" title="Frequency Analysis Logic">📊 Freq</a>
-      <a href="/missing-number-finder" class="card-hover bg-gradient-to-br from-teal-500 to-teal-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-teal-600 hover:to-teal-800 shadow-lg" title="Overdue Numbers Logic">🔍 Missing</a>
-      <a href="/empty-box-predictor" class="card-hover bg-gradient-to-br from-cyan-500 to-cyan-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-cyan-600 hover:to-cyan-800 shadow-lg" title="Empty Box Pattern Logic">📦 Empty</a>
-      <a href="/master-analyzer" class="card-hover bg-gradient-to-br from-gray-600 to-gray-800 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-gray-700 hover:to-gray-900 shadow-lg" title="Master Analysis Logic">🔬 Master</a>
-      <a href="/smart-auto-weight" class="card-hover bg-gradient-to-br from-blue-500 to-blue-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-blue-600 hover:to-blue-800 shadow-lg" title="Auto-Weight Tuning Logic">⚙️ Smart</a>
-      <a href="/ml-predictor" class="card-hover bg-gradient-to-br from-violet-500 to-violet-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-violet-600 hover:to-violet-800 shadow-lg" title="Machine Learning Logic">🤖 ML</a>
-      <a href="/consensus-predictor" class="card-hover bg-gradient-to-br from-emerald-500 to-emerald-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-emerald-600 hover:to-emerald-800 shadow-lg" title="Multi-Method Consensus Logic">🎯 Consensus</a>
-      <a href="/learning-dashboard" class="card-hover bg-gradient-to-br from-indigo-500 to-indigo-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-indigo-600 hover:to-indigo-800 shadow-lg" title="AI Learning Dashboard">🧠 Learning</a>
-      <a href="/smart-predictor" class="card-hover bg-gradient-to-br from-fuchsia-500 to-fuchsia-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-fuchsia-600 hover:to-fuchsia-800 shadow-lg" title="Smart Auto Predictor">🎯 Auto</a>
-      <a href="/smart-history" class="card-hover bg-gradient-to-br from-lime-500 to-lime-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-lime-600 hover:to-lime-800 shadow-lg" title="Smart History">📈 History</a>
-      <a href="/hot-cold" class="card-hover bg-gradient-to-br from-rose-500 to-rose-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-rose-600 hover:to-rose-800 shadow-lg" title="Hot/Cold Analysis Logic">🌶️ Hot/Cold</a>
+      <a href="/pattern-analyzer" class="card-hover bg-gradient-to-br from-green-500 to-green-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-green-600 hover:to-green-800 shadow-lg">🔍 Pattern</a>
+      <a href="/best-predictions" class="card-hover bg-gradient-to-br from-orange-500 to-orange-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-orange-600 hover:to-orange-800 shadow-lg">📊 Best</a>
+      <a href="/accuracy-dashboard" class="card-hover bg-gradient-to-br from-purple-500 to-purple-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-purple-600 hover:to-purple-800 shadow-lg">📜 Accuracy</a>
+      <a href="/statistics" class="card-hover bg-gradient-to-br from-indigo-500 to-indigo-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-indigo-600 hover:to-indigo-800 shadow-lg">📊 Stats</a>
+      <a href="/lucky-generator" class="card-hover bg-gradient-to-br from-red-500 to-red-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-red-600 hover:to-red-800 shadow-lg">🧠 Lucky</a>
+      <a href="/day-to-day-predictor" class="card-hover bg-gradient-to-br from-pink-500 to-pink-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-pink-600 hover:to-pink-800 shadow-lg">📅 Daily</a>
+      <a href="/frequency-analyzer" class="card-hover bg-gradient-to-br from-yellow-500 to-yellow-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-yellow-600 hover:to-yellow-800 shadow-lg">📊 Freq</a>
+      <a href="/missing-number-finder" class="card-hover bg-gradient-to-br from-teal-500 to-teal-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-teal-600 hover:to-teal-800 shadow-lg">🔍 Missing</a>
+      <a href="/empty-box-predictor" class="card-hover bg-gradient-to-br from-cyan-500 to-cyan-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-cyan-600 hover:to-cyan-800 shadow-lg">📦 Empty</a>
+      <a href="/master-analyzer" class="card-hover bg-gradient-to-br from-gray-600 to-gray-800 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-gray-700 hover:to-gray-900 shadow-lg">🔬 Master</a>
+      <a href="/smart-auto-weight" class="card-hover bg-gradient-to-br from-blue-500 to-blue-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-blue-600 hover:to-blue-800 shadow-lg">⚙️ Smart</a>
+      <a href="/ml-predictor" class="card-hover bg-gradient-to-br from-violet-500 to-violet-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-violet-600 hover:to-violet-800 shadow-lg">🤖 ML</a>
+      <a href="/consensus-predictor" class="card-hover bg-gradient-to-br from-emerald-500 to-emerald-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-emerald-600 hover:to-emerald-800 shadow-lg">🎯 Consensus</a>
+      <a href="/learning-dashboard" class="card-hover bg-gradient-to-br from-indigo-500 to-indigo-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-indigo-600 hover:to-indigo-800 shadow-lg">🧠 Learning</a>
+      <a href="/smart-predictor" class="card-hover bg-gradient-to-br from-fuchsia-500 to-fuchsia-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-fuchsia-600 hover:to-fuchsia-800 shadow-lg">🎯 Auto</a>
+      <a href="/smart-history" class="card-hover bg-gradient-to-br from-lime-500 to-lime-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-lime-600 hover:to-lime-800 shadow-lg">📈 History</a>
+      <a href="/hot-cold" class="card-hover bg-gradient-to-br from-rose-500 to-rose-700 text-white px-3 py-3 rounded-xl text-center font-bold hover:from-rose-600 hover:to-rose-800 shadow-lg">🌶️ Hot/Cold</a>
       </div>
     </div>
 
@@ -365,32 +296,6 @@
       </div>
     </div>
     {% endif %}
-
-    <!-- Method Performance Section -->
-    <div class="glass rounded-2xl shadow-xl p-6 mb-6">
-      <h2 class="text-3xl font-black mb-4 text-center" style="background: linear-gradient(90deg, #FFD700, #FFA500, #FF6347); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🏆 WHICH METHOD WORKS BEST?</h2>
-      <p class="text-center text-gray-300 mb-4">Based on actual match validation</p>
-      <div id="method-rankings" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl p-4 text-center">
-          <div class="text-4xl mb-2">🥇</div>
-          <div class="text-xl font-bold text-white" id="rank1-name">Loading...</div>
-          <div class="text-sm text-white/80" id="rank1-stats">-</div>
-        </div>
-        <div class="bg-gradient-to-br from-gray-300 to-gray-400 rounded-xl p-4 text-center">
-          <div class="text-4xl mb-2">🥈</div>
-          <div class="text-xl font-bold text-gray-800" id="rank2-name">Loading...</div>
-          <div class="text-sm text-gray-700" id="rank2-stats">-</div>
-        </div>
-        <div class="bg-gradient-to-br from-orange-400 to-red-500 rounded-xl p-4 text-center">
-          <div class="text-4xl mb-2">🥉</div>
-          <div class="text-xl font-bold text-white" id="rank3-name">Loading...</div>
-          <div class="text-sm text-white/80" id="rank3-stats">-</div>
-        </div>
-      </div>
-      <div class="mt-4 text-center">
-        <button onclick="loadMethodRankings()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg font-bold">🔄 Refresh Rankings</button>
-      </div>
-    </div>
 
     <!-- Results Cards -->
     <div class="glass rounded-2xl shadow-xl p-6">
@@ -493,43 +398,5 @@
     </div>
 
   </div>
-
-  <script>
-    function loadMethodRankings() {
-      fetch('/api/method-rankings')
-        .then(r => r.json())
-        .then(data => {
-          if (data.rankings && data.rankings.length > 0) {
-            for (let i = 0; i < 3; i++) {
-              if (data.rankings[i]) {
-                const rank = data.rankings[i];
-                document.getElementById(`rank${i+1}-name`).textContent = rank.method.toUpperCase().replace(/_/g, ' ');
-                document.getElementById(`rank${i+1}-stats`).textContent = `${rank.exact} exact | ${rank['3_digit']} 3-digit | ${rank.accuracy_rate}%`;
-              } else {
-                document.getElementById(`rank${i+1}-name`).textContent = 'No data';
-                document.getElementById(`rank${i+1}-stats`).textContent = '-';
-              }
-            }
-          } else {
-            document.getElementById('rank1-name').textContent = 'No tracking data yet';
-            document.getElementById('rank1-stats').textContent = 'Use prediction tools & track results';
-            document.getElementById('rank2-name').textContent = 'Start predicting';
-            document.getElementById('rank2-stats').textContent = 'Click any prediction button above';
-            document.getElementById('rank3-name').textContent = 'Track accuracy';
-            document.getElementById('rank3-stats').textContent = 'Rankings will appear here';
-          }
-        })
-        .catch(err => {
-          console.error('Error:', err);
-          document.getElementById('rank1-name').textContent = 'Error loading';
-          document.getElementById('rank1-stats').textContent = 'Check console for details';
-        });
-    }
-    
-    // Load on page load
-    loadMethodRankings();
-  </script>
-  <script src="{{ url_for('static', filename='theme-switcher-spidey.js') }}"></script>
-  <script src="{{ url_for('static', filename='auto-wallpaper.js') }}"></script>
 </body>
 </html>

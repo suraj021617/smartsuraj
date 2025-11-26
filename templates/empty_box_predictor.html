@@ -20,28 +20,25 @@
 
     <!-- Filters -->
     <div class="bg-white rounded-lg shadow-lg p-4 mb-6">
-      <form method="get" class="flex flex-wrap gap-4 items-center justify-center">
+      <form method="get" class="flex flex-wrap gap-4 items-center">
         <div>
-          <label class="font-semibold mr-2 text-gray-700">📍 Provider:</label>
-          <select name="provider" class="border-2 border-blue-300 rounded-lg px-4 py-2 font-semibold bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-            <option value="all">ALL</option>
+          <label class="font-semibold mr-2">Provider:</label>
+          <select name="provider" class="border rounded px-3 py-2">
             {% for opt in provider_options %}
-            {% if opt != 'all' %}
             <option value="{{ opt }}" {% if opt == provider %}selected{% endif %}>{{ opt|upper }}</option>
-            {% endif %}
             {% endfor %}
           </select>
         </div>
         <div>
-          <label class="font-semibold mr-2 text-gray-700">📅 Month:</label>
-          <select name="month" class="border-2 border-green-300 rounded-lg px-4 py-2 font-semibold bg-white focus:border-green-500 focus:ring-2 focus:ring-green-200">
+          <label class="font-semibold mr-2">Month:</label>
+          <select name="month" class="border rounded px-3 py-2">
             <option value="">All Months</option>
             {% for month in month_options %}
             <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}</option>
             {% endfor %}
           </select>
         </div>
-        <button type="submit" class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 font-bold shadow-lg transform hover:scale-105 transition-all">🔄 Apply Filters</button>
+        <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 font-semibold">Apply Filters</button>
       </form>
     </div>
 
@@ -65,24 +62,17 @@
           </div>
           
           <div class="border-t pt-3">
-            {% if pred.predicted_numbers[0].number != 'N/A' %}
-            <div class="text-xs text-gray-600 mb-2">Top Predicted Numbers for this position:</div>
+            <div class="text-xs text-gray-600 mb-2">Top Predicted Numbers:</div>
             {% for num_pred in pred.predicted_numbers[:3] %}
             <div class="flex items-center justify-between mb-2 bg-gray-50 p-2 rounded">
               <span class="text-xl font-bold text-blue-600">{{ num_pred.number }}</span>
               <span class="text-sm text-gray-600">{{ num_pred.confidence }}%</span>
             </div>
             {% endfor %}
-            {% else %}
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
-              <p class="text-sm text-yellow-800 font-semibold">⚠️ This position is predicted to be EMPTY</p>
-              <p class="text-xs text-yellow-700 mt-1">No specific numbers predicted - position likely to remain empty</p>
-            </div>
-            {% endif %}
           </div>
           
           <div class="text-xs text-gray-500 mt-2">
-            📊 Appeared empty {{ pred.frequency }} times in {{ draws|length }} draws ({{ pred.probability }}% of the time)
+            Appeared empty {{ pred.frequency }} times in history
           </div>
         </div>
         {% endfor %}

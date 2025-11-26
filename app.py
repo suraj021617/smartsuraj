@@ -3579,11 +3579,11 @@ def power_dashboard():
         
         # Try to import advanced modules
         try:
-            # from utils.power_predictor import enhanced_predictor
-            # from utils.confidence_scorer import ConfidenceScorer
-            # from utils.adaptive_learner import AdaptiveLearner
-            # from utils.auto_updater import AutoUpdater
-            advanced_available = False  # Disabled for now
+            from utils.power_predictor import enhanced_predictor
+            from utils.confidence_scorer import ConfidenceScorer
+            from utils.adaptive_learner import AdaptiveLearner
+            from utils.auto_updater import AutoUpdater
+            advanced_available = True
         except ImportError as e:
             logger.warning(f"Advanced modules not available: {e}")
             advanced_available = False
@@ -3598,20 +3598,30 @@ def power_dashboard():
             if col in df.columns:
                 all_numbers.extend([n for n in df[col].astype(str) if len(n) == 4 and n.isdigit()])
         
-        # Since advanced_available is always False, use fallback
-        # Fallback to basic predictions
-        basic_preds = advanced_predictor(df, provider, 200)[:10]
-        power_predictions = [{
-            'number': num,
-            'confidence': score,
-            'level': 'high' if score > 0.6 else 'medium',
-            'emoji': '✅' if score > 0.6 else '⚠️',
-            'color': 'green' if score > 0.6 else 'yellow',
-            'reasons': [reason]
-        } for num, score, reason in basic_preds]
-        adaptive_weights = {'advanced': 0.25, 'smart': 0.25, 'ml': 0.25, 'pattern': 0.25}
-        update_stats = {'total_updates': 0, 'last_update': 'Install libraries', 'avg_rows_per_update': 0}
-        feature_importance = []
+        if advanced_available:
+            # Use advanced features
+            power_preds = enhanced_predictor(df, provider, 300)
+            scorer = ConfidenceScorer()
+            power_predictions = scorer.batch_score(power_preds, all_numbers[-200:])
+            learner = AdaptiveLearner()
+            adaptive_weights = learner.learning_data['method_weights']
+            updater = AutoUpdater()
+            update_stats = updater.get_update_stats()
+            feature_importance = []
+        else:
+            # Fallback to basic predictions
+            basic_preds = advanced_predictor(df, provider, 200)[:10]
+            power_predictions = [{
+                'number': num,
+                'confidence': score,
+                'level': 'high' if score > 0.6 else 'medium',
+                'emoji': '✅' if score > 0.6 else '⚠️',
+                'color': 'green' if score > 0.6 else 'yellow',
+                'reasons': [reason]
+            } for num, score, reason in basic_preds]
+            adaptive_weights = {'advanced': 0.25, 'smart': 0.25, 'ml': 0.25, 'pattern': 0.25}
+            update_stats = {'total_updates': 0, 'last_update': 'Install libraries', 'avg_rows_per_update': 0}
+            feature_importance = []
         
         return render_template('power_dashboard.html',
                              power_predictions=power_predictions,

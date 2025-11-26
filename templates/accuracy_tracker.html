@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Accuracy Tracker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #333; margin-bottom: 10px; }
+        .filters { display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
+        .filters select, .filters button { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
+        .filters button { background: #667eea; color: white; border: none; cursor: pointer; }
+        .filters button:hover { background: #5568d3; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .stat-card h3 { color: #666; font-size: 14px; margin-bottom: 10px; }
+        .stat-card .number { font-size: 36px; font-weight: bold; color: #667eea; }
+        .stat-card .label { color: #999; font-size: 12px; margin-top: 5px; }
+        
+        .results-table { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #667eea; color: white; padding: 12px; text-align: left; font-weight: 600; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        tr:hover { background: #f8f9fa; }
+        
+        .match-exact { background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .match-3digit { background: #f59e0b; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .match-2digit { background: #6b7280; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .match-none { background: #ef4444; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        
+        .number-list { display: flex; gap: 5px; flex-wrap: wrap; }
+        .number-badge { background: #667eea; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; }
+        .number-badge.actual { background: #10b981; }
+        
+        .back-btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background: white; color: #667eea; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .back-btn:hover { background: #f8f9fa; }
+        
+        .provider-stats { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .provider-row { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
+        .provider-row:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Prediction Accuracy Tracker</h1>
+            <p>Track how accurate our predictions are over time</p>
+            
+            <form class="filters" method="GET">
+                <select name="provider" onchange="this.form.submit()">
+                    <option value="all" {% if provider == 'all' %}selected{% endif %}>All Providers</option>
+                    {% for prov in provider_options %}
+                        {% if prov != 'all' %}
+                        <option value="{{ prov }}" {% if provider == prov %}selected{% endif %}>{{ prov|title }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                
+                <select name="days" onchange="this.form.submit()">
+                    <option value="7" {% if days == 7 %}selected{% endif %}>Last 7 Draws</option>
+                    <option value="30" {% if days == 30 %}selected{% endif %}>Last 30 Draws</option>
+                    <option value="60" {% if days == 60 %}selected{% endif %}>Last 60 Draws</option>
+                    <option value="90" {% if days == 90 %}selected{% endif %}>Last 90 Draws</option>
+                </select>
+            </form>
+        </div>
+        
+        <!-- NEXT DRAW PREDICTIONS -->
+        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); color: white;">
+            <h2 style="margin-bottom: 15px; font-size: 24px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px;">🎯 NEXT DRAW PREDICTIONS</h2>
+            <p style="margin-bottom: 20px; font-size: 16px;">Based on analysis of {{ total_draws }} historical draws</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                {% for num, count in next_predictions %}
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px);">
+                    <div style="font-size: 32px; font-weight: bold; margin-bottom: 8px;">{{ num }}</div>
+                    <div style="font-size: 14px; background: rgba(255,255,255,0.3); padding: 5px 10px; border-radius: 5px;">Appeared {{ count }}x</div>
+                </div>
+                {% endfor %}
+            </div>
+            <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 14px;">
+                💡 <strong>How it works:</strong> These are the most frequent numbers from the selected draws. Higher appearance count = Higher probability based on historical patterns.
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>EXACT MATCH RATE</h3>
+                <div class="number">{{ exact_rate }}%</div>
+                <div class="label">Predicted exact winning number</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>3-DIGIT MATCH RATE</h3>
+                <div class="number">{{ digit_3_rate }}%</div>
+                <div class="label">Matched 3 out of 4 digits</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>2-DIGIT MATCH RATE</h3>
+                <div class="number">{{ digit_2_rate }}%</div>
+                <div class="label">Matched 2 out of 4 digits</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>TOTAL DRAWS ANALYZED</h3>
+                <div class="number">{{ total_draws }}</div>
+                <div class="label">Historical predictions tested</div>
+            </div>
+        </div>
+        
+        <div class="provider-stats">
+            <h2 style="margin-bottom: 15px;">📊 Provider Statistics</h2>
+            {% for stat in provider_stats %}
+            <div class="provider-row">
+                <span><strong>{{ stat.name|title }}</strong></span>
+                <span>{{ stat.draws }} draws | {{ stat.accuracy }}% accuracy</span>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="results-table">
+            <h2 style="margin-bottom: 15px;">📈 Recent Prediction Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Provider</th>
+                        <th>Our Predictions</th>
+                        <th>Actual Winners</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result.date }}</td>
+                        <td>{{ result.provider|title }}</td>
+                        <td>
+                            <div class="number-list">
+                                {% for pred in result.predictions %}
+                                <span class="number-badge">{{ pred }}</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="number-list">
+                                {% for actual in result.actuals %}
+                                <span class="number-badge actual">{{ actual }}</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            {% if result.exact %}
+                            <span class="match-exact">✓ EXACT</span>
+                            {% elif result.digit_3 %}
+                            <span class="match-3digit">3 DIGITS</span>
+                            {% elif result.digit_2 %}
+                            <span class="match-2digit">2 DIGITS</span>
+                            {% else %}
+                            <span class="match-none">NO MATCH</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <a href="/" class="back-btn">← Back to Home</a>
+    </div>
+</body>
+</html>

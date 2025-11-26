@@ -1,0 +1,47 @@
+================================================================================
+  PROBLEM IDENTIFIED!
+================================================================================
+
+You have MULTIPLE CSV files:
+1. scraper/4d_results_history.csv - 559 rows (ends Sept 17) ← Flask uses THIS
+2. 4d_results_history.csv - 288 rows (root folder)
+3. Another CSV file (in your editor) - 20,000+ rows with Sept 21 data
+
+Flask is loading #1 which doesn't have Sept 21 data!
+
+================================================================================
+  SOLUTION
+================================================================================
+
+Option 1: Find the correct CSV file
+------------------------------------
+1. Check which file is open in your editor (look at the tab/title)
+2. Copy that file to: scraper/4d_results_history.csv
+3. Restart Flask
+
+Option 2: Update Flask to use the correct CSV
+----------------------------------------------
+If your Sept 21 data is in a different file, update app.py line 88:
+  csv_paths = ['scraper/4d_results_history.csv', '4d_results_history.csv']
+
+Add your actual CSV file path.
+
+Option 3: Merge the data
+-------------------------
+1. Find the CSV file with Sept 21 data (20,000+ lines)
+2. Copy it to: scraper/4d_results_history.csv
+3. Restart Flask
+
+================================================================================
+  TO FIND THE CORRECT FILE
+================================================================================
+
+Run this in terminal:
+  dir /s /b 4d_results_history.csv
+
+This will show ALL CSV files named "4d_results_history.csv" on your system.
+
+Then check which one has 20,000+ lines:
+  python -c "import pandas as pd; df = pd.read_csv('PATH_TO_FILE', header=None); print(len(df))"
+
+================================================================================
