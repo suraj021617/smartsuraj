@@ -416,8 +416,9 @@
         <table class="table-fixed border-collapse">
           <tbody>
             {% set max_val = 0 %}
-            {% for row in cell_heatmap %}
-            {% for val in row %}
+            {% for i in range(4) %}
+            {% for j in range(4) %}
+            {% set val = cell_heatmap.get(i, {}).get(j, 0) %}
             {% if val > max_val %}
             {% set max_val = val %}
             {% endif %}
@@ -426,7 +427,7 @@
             {% for i in range(4) %}
             <tr>
               {% for j in range(4) %}
-              {% set v = cell_heatmap[i][j] %}
+              {% set v = cell_heatmap.get(i, {}).get(j, 0) %}
               {% set pct = (v / max_val * 100) if max_val else 0 %}
               <td class="w-12 h-12 text-center align-middle border
                   {% if pct > 60 %}

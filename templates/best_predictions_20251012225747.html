@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 BEST PREDICTIONS - Top Picks</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .header { background: white; padding: 40px; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; }
+        h1 { color: #667eea; margin-bottom: 15px; font-size: 48px; }
+        .subtitle { color: #666; font-size: 20px; line-height: 1.6; }
+        
+        .next-draw { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .next-draw h2 { font-size: 32px; margin-bottom: 10px; }
+        .next-draw p { font-size: 18px; }
+        
+        .filters { background: white; padding: 20px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .filters select { padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; width: 100%; max-width: 300px; }
+        
+        .predictions-grid { display: grid; gap: 20px; }
+        .prediction-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.15); position: relative; overflow: hidden; }
+        .prediction-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #667eea, #764ba2); }
+        
+        .rank { position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #ffd700, #ffed4e); color: #333; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        
+        .number-display { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+        .number { font-size: 72px; font-weight: bold; color: #667eea; }
+        .confidence { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px 25px; border-radius: 10px; font-size: 24px; font-weight: bold; }
+        
+        .score-info { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+        .score-info strong { color: #667eea; font-size: 18px; }
+        
+        .sources { margin-top: 20px; }
+        .sources h3 { color: #333; margin-bottom: 15px; font-size: 20px; }
+        .source-item { background: #f8f9fa; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #667eea; font-size: 15px; }
+        
+        .info-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .info-box h3 { color: #856404; margin-bottom: 10px; }
+        .info-box ul { margin-left: 20px; line-height: 2; color: #856404; }
+        
+        .nav-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-btn { display: inline-block; padding: 12px 24px; background: white; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .nav-btn:hover { background: #f8f9fa; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 BEST PREDICTIONS</h1>
+            <p class="subtitle">Combined analysis from ALL prediction methods<br>These are your TOP picks based on Hot Numbers, Trending Data, Day Patterns & Overall Frequency</p>
+        </div>
+        
+        <div class="next-draw">
+            <h2>📅 Next Draw: {{ next_draw_day }}, {{ next_draw_date }}</h2>
+            <p>Pick from the top 10 numbers below - ranked by combined prediction score</p>
+        </div>
+        
+        <div class="filters">
+            <form method="GET">
+                <label style="display: block; margin-bottom: 10px; font-weight: bold;">Select Provider:</label>
+                <select name="provider" onchange="this.form.submit()">
+                    <option value="all" {% if provider == 'all' %}selected{% endif %}>All Providers</option>
+                    {% for prov in provider_options %}
+                        {% if prov != 'all' %}
+                        <option value="{{ prov }}" {% if provider == prov %}selected{% endif %}>{{ prov|title }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        
+        <div class="info-box">
+            <h3>💡 How These Predictions Work:</h3>
+            <ul>
+                <li><strong>🔥 Hot Numbers:</strong> Numbers appearing most in last 30 draws (Weight: 3x)</li>
+                <li><strong>📈 Trending Up:</strong> Numbers increasing in frequency recently (Weight: 5x)</li>
+                <li><strong>📅 Day Pattern:</strong> Numbers that appear most on {{ next_draw_day }}s (Weight: 2x)</li>
+                <li><strong>📊 Overall Frequency:</strong> Most common numbers in all history (Weight: 1x)</li>
+            </ul>
+            <p style="margin-top: 15px; font-weight: bold;">Numbers appearing in MULTIPLE methods = HIGHER confidence!</p>
+        </div>
+        
+        <div class="predictions-grid">
+            {% for pred in predictions %}
+            <div class="prediction-card">
+                <div class="rank">#{{ loop.index }}</div>
+                
+                <div class="number-display">
+                    <div class="number">{{ pred.number }}</div>
+                    <div class="confidence">{{ pred.confidence }}%</div>
+                </div>
+                
+                <div class="score-info">
+                    <strong>Combined Score: {{ pred.score }}</strong> | 
+                    Found in <strong>{{ pred.source_count }}</strong> prediction method(s)
+                </div>
+                
+                <div class="sources">
+                    <h3>📋 Why This Number?</h3>
+                    {% for source in pred.sources %}
+                    <div class="source-item">{{ source }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="margin-top: 30px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);">
+            <h3 style="color: #667eea; margin-bottom: 15px; font-size: 24px;">🎯 How to Use These Predictions:</h3>
+            <ol style="margin-left: 20px; line-height: 2; color: #333; font-size: 16px;">
+                <li><strong>Pick Top 3-5 numbers</strong> from the list above (higher rank = better)</li>
+                <li><strong>Look for numbers with multiple sources</strong> - these have the strongest signals</li>
+                <li><strong>Higher confidence %</strong> means the number appears across more prediction methods</li>
+                <li><strong>Combine with your lucky numbers</strong> for a personalized selection</li>
+            </ol>
+        </div>
+        
+        <div class="nav-links" style="margin-top: 30px;">
+            <a href="/" class="nav-btn">← Home</a>
+            <a href="{{ url_for('advanced_analytics') }}" class="nav-btn">Advanced Analytics</a>
+            <a href="{{ url_for('pattern_analyzer') }}" class="nav-btn">Pattern Analyzer</a>
+            <a href="{{ url_for('accuracy_dashboard') }}" class="nav-btn">Accuracy Tracker</a>
+            <a href="{{ url_for('hot_cold_numbers') }}" class="nav-btn">Hot/Cold Numbers</a>
+            <a href="{{ url_for('statistics_dashboard') }}" class="nav-btn">Statistics</a>
+        </div>
+    </div>
+</body>
+</html>

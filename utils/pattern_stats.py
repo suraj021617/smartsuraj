@@ -8,7 +8,7 @@ def compute_pattern_frequencies(draws):
     return sorted(pattern_counts.items(), key=lambda x: -x[1])
 
 def compute_cell_heatmap(draws):
-    cell_counts = [[0] * 4 for _ in range(4)]
+    cell_counts = {i: {j: 0 for j in range(4)} for i in range(4)}
     for draw in draws:
         for patterns in [draw.get('highlight', []), draw.get('reverse_highlight', [])]:
             for coords in patterns:

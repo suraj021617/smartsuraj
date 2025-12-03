@@ -13,6 +13,31 @@
 <body>
     <h1>Match Checker - Predictions vs Actual Results</h1>
     
+    <form method="POST" class="mb-4">
+        <div class="form-group">
+            <label>Provider:</label>
+            <select name="provider" class="form-control">
+                <option value="all">All Providers</option>
+                <option value="magnum">Magnum</option>
+                <option value="damacai">Da Ma Cai</option>
+                <option value="toto">Toto</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Date Range:</label>
+            <select name="date_range" class="form-control">
+                <option value="7">Last 7 days</option>
+                <option value="30">Last 30 days</option>
+                <option value="90">Last 90 days</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Your Predictions:</label>
+            <textarea name="predictions" class="form-control" placeholder="1234, 5678, 9012"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Check Matches</button>
+    </form>
+    
     {% if matches %}
         {% for match in matches %}
         <div class="match-row">
@@ -25,7 +50,7 @@
         </div>
         {% endfor %}
     {% else %}
-        <p>No prediction data found.</p>
+        <p>Enter predictions above to check matches.</p>
     {% endif %}
     
     <a href="/">Back to Home</a>
