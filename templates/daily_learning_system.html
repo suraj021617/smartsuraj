@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Daily AI Learning System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold mb-6">🧠 Daily AI Learning System</h1>
+        
+        <!-- Provider Filter with Quick Buttons -->
+        <div class="bg-white rounded-lg shadow p-4 mb-6">
+            <form method="get" class="flex flex-wrap items-center gap-3">
+                <div>
+                    <label class="font-semibold">Provider:</label>
+                    <select name="provider" class="border rounded px-3 py-2 ml-2">
+                        {% for opt in provider_options %}
+                        <option value="{{ opt }}" {% if opt==provider %}selected{% endif %}>{{ opt|upper }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label class="font-semibold">Month:</label>
+                    <select name="month" class="border rounded px-3 py-2 ml-2">
+                        <option value="">All Months</option>
+                        {% for month in month_options %}
+                        <option value="{{ month }}" {% if month==selected_month %}selected{% endif %}>{{ month }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Apply Filters</button>
+            </form>
+            
+            <!-- Quick Provider Buttons -->
+            <div class="mt-4 pt-4 border-t">
+                <p class="text-sm font-semibold text-gray-600 mb-2">Quick Select Provider:</p>
+                <div class="flex flex-wrap gap-2">
+                    {% for opt in provider_options %}
+                    <a href="/daily-learning-system?provider={{ opt }}{% if selected_month %}&month={{ selected_month }}{% endif %}" 
+                       class="px-3 py-1 rounded {% if opt==provider %}bg-purple-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} text-sm font-medium transition">
+                        {{ opt|upper }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Quick Month Buttons -->
+            <div class="mt-4 pt-4 border-t">
+                <p class="text-sm font-semibold text-gray-600 mb-2">Quick Select Month:</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="/daily-learning-system?provider={{ provider }}" 
+                       class="px-3 py-1 rounded {% if not selected_month %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} text-sm font-medium transition">
+                        ALL MONTHS
+                    </a>
+                    {% for month in month_options %}
+                    <a href="/daily-learning-system?provider={{ provider }}&month={{ month }}" 
+                       class="px-3 py-1 rounded {% if month==selected_month %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} text-sm font-medium transition">
+                        {{ month }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Learning Status -->
+        {% if learning_stats %}
+        <div class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg shadow-xl p-6 mb-6 text-white">
+            <h2 class="text-xl font-bold mb-3">🤖 AI Learning Status</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.total_learned }}</div>
+                    <div class="text-xs opacity-90">Patterns Learned</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.match_rate }}%</div>
+                    <div class="text-xs opacity-90">Match Rate</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.best_pattern }}</div>
+                    <div class="text-xs opacity-90">Best Pattern</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.confidence }}%</div>
+                    <div class="text-xs opacity-90">AI Confidence</div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm">
+                <p>✅ <strong>Last Match:</strong> {{ learning_stats.last_match or 'No matches yet' }}</p>
+                <p>✅ <strong>Learning:</strong> {{ learning_stats.learning_message }}</p>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- DECISION LOGIC GUIDE -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-xl p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-3">🎯 How to Choose Between Multiple Predictions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <div class="text-3xl mb-2">🥇</div>
+                    <h3 class="font-bold mb-2">1st Number = BEST</h3>
+                    <p class="text-sm">Always choose the FIRST predicted number - it has the highest AI confidence score</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <div class="text-3xl mb-2">🥈</div>
+                    <h3 class="font-bold mb-2">2nd Number = BACKUP</h3>
+                    <p class="text-sm">Use as your backup choice if you want to play multiple numbers</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <div class="text-3xl mb-2">🥉</div>
+                    <h3 class="font-bold mb-2">3rd Number = EXTRA</h3>
+                    <p class="text-sm">Optional third choice for diversification</p>
+                </div>
+            </div>
+            <div class="mt-4 bg-yellow-400 text-gray-900 p-3 rounded-lg">
+                <p class="font-bold">⚡ QUICK RULE: When you see 3 predictions, ALWAYS pick the FIRST one!</p>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for item in learning_data %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden {% if item.has_match %}border-4 border-green-500{% else %}border-4 border-orange-500{% endif %}">
+                <div class="bg-yellow-400 p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-lg">{{ item.date_from }} → {{ item.date_to }}</span>
+                        <span class="bg-white px-3 py-1 rounded-full text-sm font-semibold">🧠 Learning</span>
+                    </div>
+                    <div class="text-sm font-semibold">Provider: {{ item.provider|upper if item.provider else 'ALL' }}</div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-2">Predicted:</p>
+                            <div class="flex gap-2">
+                                {% for num in item.predicted %}
+                                <div class="bg-blue-500 text-white px-4 py-2 rounded font-bold">{{ num }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-2">Actual:</p>
+                            <div class="flex gap-2">
+                                {% for num in item.actual %}
+                                <div class="bg-gray-500 text-white px-4 py-2 rounded font-bold">{{ num }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if item.has_match %}
+                    <div class="bg-green-50 p-3 rounded mb-3">
+                        <p class="text-green-700 font-semibold flex items-center">
+                            <span class="mr-2">✓</span> Matches Found:
+                        </p>
+                        <div class="flex gap-2 mt-2">
+                            {% for match in item.matches %}
+                            <div class="bg-green-600 text-white px-3 py-1 rounded text-sm">{{ match }} ✓</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="bg-orange-50 p-3 rounded mb-3">
+                        <p class="text-orange-700 font-semibold flex items-center">
+                            <span class="mr-2">⚠</span> No Matches:
+                        </p>
+                        <div class="flex gap-2 mt-2">
+                            {% for num in item.predicted %}
+                            <div class="bg-gray-600 text-white px-3 py-1 rounded text-sm">{{ num }} ✗ (Miss)</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="grid grid-cols-5 gap-2 text-center mb-3">
+                        <div>
+                            <p class="text-xs text-gray-600">Exact</p>
+                            <p class="text-2xl font-bold text-green-600">{{ item.exact }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-600">iBox</p>
+                            <p class="text-2xl font-bold text-yellow-600">{{ item.ibox }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-600">Front</p>
+                            <p class="text-2xl font-bold text-blue-600">{{ item.front }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-600">Back</p>
+                            <p class="text-2xl font-bold text-cyan-600">{{ item.back }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-600">Partial</p>
+                            <p class="text-2xl font-bold text-purple-600">{{ item.partial }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- DETAILED MATCH STATISTICS BOX -->
+                    <div class="bg-gray-50 border-2 border-gray-300 rounded-lg p-3 mb-3 text-xs">
+                        <p class="font-bold text-gray-700 mb-2">📊 Detailed Match Analysis:</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-white p-2 rounded">
+                                <p class="text-gray-600">Exact Matches</p>
+                                <p class="font-bold text-lg">{{ item.exact }} {% if item.exact > 0 %}✓{% else %}N/A{% endif %}</p>
+                            </div>
+                            <div class="bg-white p-2 rounded">
+                                <p class="text-gray-600">IBOX Match</p>
+                                <p class="font-bold text-lg">{% if item.ibox > 0 %}✓ Yes{% else %}✗ No{% endif %}</p>
+                            </div>
+                            <div class="bg-white p-2 rounded col-span-2">
+                                <p class="text-gray-600 mb-1">Digit Matches (2/3/4)</p>
+                                <div class="flex justify-between">
+                                    <span>2 Digits: <strong>{{ item.digit_2 or 0 }}</strong></span>
+                                    <span>3 Digits: <strong>{{ item.digit_3 or 0 }}</strong></span>
+                                    <span>4 Digits: <strong>{{ item.exact }}</strong></span>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded col-span-2">
+                                <p class="text-gray-600">Other Matches</p>
+                                <p class="font-bold">Front: {{ item.front }} | Back: {{ item.back }} | Partial: {{ item.partial }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BEST PICK RECOMMENDATION -->
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-lg mb-3">
+                        <p class="text-sm font-bold mb-2">🎯 AI RECOMMENDATION:</p>
+                        <div class="text-2xl font-bold">{{ item.predicted[0] }}</div>
+                        <p class="text-xs mt-1 opacity-90">Choose the FIRST prediction (highest confidence)</p>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-semibold">Learning Score:</span>
+                            <span class="text-lg font-bold {% if item.score >= 70 %}text-green-600{% elif item.score >= 40 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                                {{ item.score }}/100
+                            </span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="h-3 rounded-full {% if item.score >= 70 %}bg-green-500{% elif item.score >= 40 %}bg-yellow-500{% else %}bg-red-500{% endif %}" 
+                                 style="width: {{ item.score }}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="mt-6 text-center">
+            <a href="/" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 inline-block">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

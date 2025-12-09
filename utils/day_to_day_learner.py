@@ -38,82 +38,87 @@ def learn_day_to_day_patterns(draws):
 
 def predict_tomorrow(today_nums, patterns, recent_nums):
     """
-    Predict tomorrow's numbers based on learned patterns
+    Predict tomorrow's numbers based on learned patterns - FIXED for diversity
     """
     if not patterns or not today_nums:
         return []
 
-    predictions = []
-    confidence_scores = []
+    predictions = defaultdict(lambda: {'score': 0, 'reasons': []})
+    
+    # Use ALL today's numbers, not just the last one
+    for today_num in set(str(n) for n in today_nums[-10:]):
+        if len(today_num) != 4:
+            continue
 
-    # Get the most recent number as reference
-    today_num = str(today_nums[-1]) if today_nums else ""
-    if len(today_num) != 4:
-        return []
+        # Method 1: Direct sequence patterns (HIGHEST PRIORITY)
+        if today_num in patterns['sequence_patterns']:
+            next_candidates = patterns['sequence_patterns'][today_num]
+            total_occurrences = sum(next_candidates.values())
 
-    # Method 1: Direct sequence patterns
-    if today_num in patterns['sequence_patterns']:
-        next_candidates = patterns['sequence_patterns'][today_num]
-        total_occurrences = sum(next_candidates.values())
+            for next_num, count in next_candidates.items():
+                confidence = count / total_occurrences
+                predictions[next_num]['score'] += confidence * 3.0  # High weight
+                predictions[next_num]['reasons'].append(f"Follows {today_num}")
 
-        for next_num, count in next_candidates.items():
-            confidence = count / total_occurrences
-            predictions.append((next_num, confidence, "sequence_pattern"))
-
-    # Method 2: Digit transition patterns
-    transition_predictions = defaultdict(float)
-
+    # Method 2: Build diverse candidates from digit transitions
+    digit_transitions = patterns.get('digit_transitions', {})
+    
+    # Get most likely digit for each position
+    position_digits = []
     for pos in range(4):
-        current_digit = today_num[pos]
-        if current_digit in patterns['digit_transitions'] and pos in patterns['digit_transitions'][current_digit]:
-            transitions = patterns['digit_transitions'][current_digit][pos]
-            total_transitions = sum(transitions.values())
-
-            for next_digit, count in transitions.items():
-                transition_confidence = count / total_transitions
-
-                # Build candidate numbers by replacing digit at position
-                for base_num in [today_num] + recent_nums[-5:]:  # Use today + last 5 as base
-                    if len(str(base_num)) == 4:
-                        candidate = list(str(base_num))
-                        candidate[pos] = next_digit
-                        candidate_num = ''.join(candidate)
-
-                        transition_predictions[candidate_num] += transition_confidence
-
-    # Convert transition predictions to list
-    for candidate, confidence in transition_predictions.items():
-        predictions.append((candidate, confidence * 0.8, "digit_transition"))  # Slightly lower confidence
-
-    # Method 3: Pattern-based variations (SIMPLIFIED)
-    pattern_predictions = []
-    recent_set = set(str(x) for x in recent_nums[-20:])
-
-    # Quick transformations
-    try:
-        candidates = [
-            (today_num, 0.3, "original"),
-            (str(int(today_num) + 1).zfill(4), 0.25, "plus_one"),
-            (str(int(today_num) - 1).zfill(4), 0.25, "minus_one"),
-            (today_num[::-1], 0.2, "reverse")
-        ]
+        digit_scores = defaultdict(float)
+        for today_num in set(str(n) for n in today_nums[-5:]):
+            if len(str(today_num)) == 4:
+                current_digit = str(today_num)[pos]
+                if current_digit in digit_transitions and pos in digit_transitions[current_digit]:
+                    for next_digit, count in digit_transitions[current_digit][pos].items():
+                        digit_scores[next_digit] += count
         
-        for cand, conf, reason in candidates:
-            if len(cand) == 4 and cand.isdigit() and cand in recent_set:
-                pattern_predictions.append((cand, conf, reason))
-    except:
-        pass
-
-    predictions.extend(pattern_predictions)
-
-    # Remove duplicates and sort by confidence
-    seen = set()
-    unique_predictions = []
-    for num, conf, reason in predictions:
-        if num not in seen:
-            seen.add(num)
-            unique_predictions.append((num, conf, reason))
-
-    # Sort by confidence and return top predictions
-    unique_predictions.sort(key=lambda x: x[1], reverse=True)
-    return unique_predictions[:10]  # Return top 10
+        # Get top 3 digits for this position
+        top_digits = sorted(digit_scores.items(), key=lambda x: x[1], reverse=True)[:3]
+        position_digits.append([d for d, s in top_digits] if top_digits else ['0', '1', '2'])
+    
+    # Generate diverse combinations
+    import itertools
+    for combo in itertools.product(*position_digits):
+        candidate = ''.join(combo)
+        if candidate not in predictions:
+            predictions[candidate]['score'] += 0.5
+            predictions[candidate]['reasons'].append('digit_transition')
+    
+    # Method 3: Use recent hot numbers
+    recent_freq = Counter(str(n) for n in recent_nums[-30:])
+    for num, count in recent_freq.most_common(15):
+        if len(num) == 4 and num.isdigit():
+            predictions[num]['score'] += (count / 30) * 0.8
+            predictions[num]['reasons'].append('hot_number')
+    
+    # Convert to list format
+    result = []
+    for num, data in predictions.items():
+        if len(num) == 4 and num.isdigit():
+            reason = '+'.join(data['reasons'][:2])
+            result.append((num, data['score'], reason))
+    
+    # Sort by score and return diverse top predictions
+    result.sort(key=lambda x: x[1], reverse=True)
+    
+    # Ensure diversity - no similar numbers
+    diverse_results = []
+    for num, score, reason in result:
+        # Check if too similar to existing predictions
+        is_diverse = True
+        for existing, _, _ in diverse_results:
+            # Count matching digits in same positions
+            matches = sum(1 for i in range(4) if num[i] == existing[i])
+            if matches >= 3:  # Too similar
+                is_diverse = False
+                break
+        
+        if is_diverse:
+            diverse_results.append((num, score, reason))
+        
+        if len(diverse_results) >= 10:
+            break
+    
+    return diverse_results[:10]

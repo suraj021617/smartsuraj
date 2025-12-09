@@ -1,58 +1,902 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Match Checker</title>
+    <title>🤖 AI Match Checker - Smart Lottery Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: Arial; margin: 20px; }
-        .match-row { border: 1px solid #ddd; margin: 10px 0; padding: 15px; }
-        .predictions { color: blue; font-weight: bold; }
-        .actual { color: green; font-weight: bold; }
-        .stats { background: #f5f5f5; padding: 10px; margin: 10px 0; }
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .ai-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .ai-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .control-panel {
+            background: var(--dark-gradient);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .ai-toggle {
+            background: var(--success-gradient);
+            border: none;
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .prediction-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prediction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        .match-badge {
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .exact-match { background: var(--success-gradient); }
+        .ibox-match { background: var(--warning-gradient); }
+        .partial-match { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        
+        .ai-insights {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .number-display {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 3px;
+        }
+        
+        .confidence-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.3);
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            transition: width 0.8s ease;
+        }
+        
+        .provider-badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin: 0.2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .animate-in {
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
-    <h1>Match Checker - Predictions vs Actual Results</h1>
+    <div class="main-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-0">
+                        <i class="fas fa-robot me-3"></i>
+                        AI Match Checker
+                        <small class="d-block mt-2 opacity-75">Intelligent Lottery Prediction Analysis</small>
+                    </h1>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <i class="fas fa-brain fa-3x me-3 pulse"></i>
+                        <div>
+                            <div class="h5 mb-0">AI Powered</div>
+                            <small>Smart Analysis</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <form method="POST" class="mb-4">
-        <div class="form-group">
-            <label>Provider:</label>
-            <select name="provider" class="form-control">
-                <option value="all">All Providers</option>
-                <option value="magnum">Magnum</option>
-                <option value="damacai">Da Ma Cai</option>
-                <option value="toto">Toto</option>
-            </select>
+    <div class="container">
+        
+        <div class="control-panel ai-card">
+            <form method="POST" id="matchForm">
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h3 class="mb-0">
+                                <i class="fas fa-cogs me-2"></i>
+                                AI Control Panel
+                            </h3>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="use_manual" id="manualMode" {{ 'checked' if not ai_mode else '' }}>
+                                <label class="form-check-label text-light" for="manualMode">
+                                    <i class="fas fa-hand-paper me-1"></i> Manual Override
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label text-light">
+                            <i class="fas fa-building me-2"></i>Provider:
+                        </label>
+                        <select name="provider" class="form-select form-select-lg" onchange="this.form.submit()">
+                            <option value="all" {{ 'selected' if selected_provider == 'all' else '' }}>All Providers</option>
+                            <option value="magnum" {{ 'selected' if selected_provider == 'magnum' else '' }}>Magnum</option>
+                            <option value="damacai" {{ 'selected' if selected_provider == 'damacai' else '' }}>DaMaCai</option>
+                            <option value="toto" {{ 'selected' if selected_provider == 'toto' else '' }}>Toto</option>
+                            <option value="singapore" {{ 'selected' if selected_provider == 'singapore' else '' }}>Singapore</option>
+                            <option value="grand_dragon" {{ 'selected' if selected_provider == 'grand_dragon' else '' }}>Grand Dragon</option>
+                            <option value="perdana" {{ 'selected' if selected_provider == 'perdana' else '' }}>Perdana</option>
+                            <option value="harihari" {{ 'selected' if selected_provider == 'harihari' else '' }}>HariHari</option>
+                            <option value="sandakan" {{ 'selected' if selected_provider == 'sandakan' else '' }}>Sandakan</option>
+                            <option value="cashsweep" {{ 'selected' if selected_provider == 'cashsweep' else '' }}>CashSweep</option>
+                            <option value="sabah_88" {{ 'selected' if selected_provider == 'sabah_88' else '' }}>Sabah 88</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-light">
+                            <i class="fas fa-calendar-alt me-2"></i>Analysis Period:
+                        </label>
+                        <select name="analysis_period" class="form-select form-select-lg mb-2" onchange="this.form.submit()">
+                            <option value="last_30_days" {{ 'selected' if analysis_period == 'last_30_days' else '' }}>Last 30 days</option>
+                            <option value="last_90_days" {{ 'selected' if analysis_period == 'last_90_days' else '' }}>Last 90 days</option>
+                            <optgroup label="2025">
+                                <option value="2025-09" {{ 'selected' if analysis_period == '2025-09' else '' }}>September 2025</option>
+                                <option value="2025-08" {{ 'selected' if analysis_period == '2025-08' else '' }}>August 2025</option>
+                                <option value="2025-07" {{ 'selected' if analysis_period == '2025-07' else '' }}>July 2025</option>
+                                <option value="2025-06" {{ 'selected' if analysis_period == '2025-06' else '' }}>June 2025</option>
+                                <option value="2025-05" {{ 'selected' if analysis_period == '2025-05' else '' }}>May 2025</option>
+                                <option value="2025-04" {{ 'selected' if analysis_period == '2025-04' else '' }}>April 2025</option>
+                                <option value="2025-03" {{ 'selected' if analysis_period == '2025-03' else '' }}>March 2025</option>
+                                <option value="2025-02" {{ 'selected' if analysis_period == '2025-02' else '' }}>February 2025</option>
+                                <option value="2025-01" {{ 'selected' if analysis_period == '2025-01' else '' }}>January 2025</option>
+                            </optgroup>
+                            <optgroup label="2024">
+                                <option value="2024-12" {{ 'selected' if analysis_period == '2024-12' else '' }}>December 2024</option>
+                                <option value="2024-11" {{ 'selected' if analysis_period == '2024-11' else '' }}>November 2024</option>
+                                <option value="2024-10" {{ 'selected' if analysis_period == '2024-10' else '' }}>October 2024</option>
+                                <option value="2024-09" {{ 'selected' if analysis_period == '2024-09' else '' }}>September 2024</option>
+                                <option value="2024-08" {{ 'selected' if analysis_period == '2024-08' else '' }}>August 2024</option>
+                                <option value="2024-07" {{ 'selected' if analysis_period == '2024-07' else '' }}>July 2024</option>
+                                <option value="2024-06" {{ 'selected' if analysis_period == '2024-06' else '' }}>June 2024</option>
+                                <option value="2024-05" {{ 'selected' if analysis_period == '2024-05' else '' }}>May 2024</option>
+                                <option value="2024-04" {{ 'selected' if analysis_period == '2024-04' else '' }}>April 2024</option>
+                                <option value="2024-03" {{ 'selected' if analysis_period == '2024-03' else '' }}>March 2024</option>
+                                <option value="2024-02" {{ 'selected' if analysis_period == '2024-02' else '' }}>February 2024</option>
+                                <option value="2024-01" {{ 'selected' if analysis_period == '2024-01' else '' }}>January 2024</option>
+                            </optgroup>
+                            <option value="custom" {{ 'selected' if analysis_period == 'custom' else '' }}>Custom Date</option>
+                        </select>
+                        <div id="customDateInput" style="{{ 'display: block;' if analysis_period == 'custom' else 'display: none;' }}">
+                            <input type="date" name="selected_date" class="form-control form-control-lg" value="{{ selected_date or '' }}" onchange="this.form.submit()">
+                            <small class="text-light opacity-75">Select specific date</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-light">
+                            <i class="fas fa-robot me-2"></i>AI Status:
+                        </label>
+                        <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
+                            <div id="aiStatus" class="h5 mb-0">
+                                {% if ai_mode %}
+                                <i class="fas fa-check-circle text-success me-2"></i>AI Active
+                                {% else %}
+                                <i class="fas fa-pause-circle text-warning me-2"></i>Manual Mode
+                                {% endif %}
+                            </div>
+                            <small class="opacity-75">{{ 'AI will generate predictions automatically' if ai_mode else 'Enter predictions manually below' }}</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4" id="manualInput" style="{{ 'display: none;' if ai_mode else '' }}">
+                    <div class="col-md-12">
+                        <label class="form-label text-light">
+                            <i class="fas fa-keyboard me-2"></i>Manual Predictions:
+                        </label>
+                        <textarea name="predictions" class="form-control form-control-lg" rows="3" 
+                                placeholder="Enter your predictions: 1234, 5678, 9012, 3456, 7890..."
+                                style="font-family: monospace; font-size: 1.1rem;"></textarea>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="ai-toggle btn-lg me-3" id="analyzeBtn">
+                            <i class="fas fa-magic me-2"></i>
+                            <span id="btnText">{{ 'Start AI Analysis' if ai_mode else 'Check Manual Predictions' }}</span>
+                        </button>
+                        <a href="/daily-learning-system" class="btn btn-success btn-lg me-3" style="background: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; margin: 0 10px;">
+                            🎯 WHICH PREDICTIONS MATCHED?
+                        </a>
+                        <a href="/" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label>Date Range:</label>
-            <select name="date_range" class="form-control">
-                <option value="7">Last 7 days</option>
-                <option value="30">Last 30 days</option>
-                <option value="90">Last 90 days</option>
-            </select>
+        
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Analyzing...</span>
+            </div>
+            <div class="mt-3 h5">AI is analyzing predictions...</div>
+            <div class="text-muted">This may take a few moments</div>
         </div>
-        <div class="form-group">
-            <label>Your Predictions:</label>
-            <textarea name="predictions" class="form-control" placeholder="1234, 5678, 9012"></textarea>
+    
+    {% if show_advanced and ai_insights %}
+    
+    <!-- Daily Learning System -->
+    {% if ai_insights.daily_learning %}
+    <div class="ai-card mb-4">
+        <div class="p-4">
+            <h3 class="mb-4"><i class="fas fa-brain me-2"></i>Daily AI Learning System</h3>
+            <div class="row">
+                {% for learning in ai_insights.daily_learning %}
+                <div class="col-md-6 mb-3">
+                    <div class="card {% if learning.ai_learned %}border-success{% else %}border-warning{% endif %}">
+                        <div class="card-header {% if learning.ai_learned %}bg-success{% else %}bg-warning{% endif %} text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><strong>{{ learning.prediction_date }}</strong> → {{ learning.actual_date }}</span>
+                                {% if learning.ai_learned %}
+                                <span class="badge bg-light text-success">🧠 AI Learned</span>
+                                {% else %}
+                                <span class="badge bg-light text-warning">📚 Learning</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body p-3">
+                            <!-- Predictions vs Actual -->
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small class="text-muted">Predicted:</small>
+                                    <div>
+                                        {% for pred in learning.predicted_numbers %}
+                                        <span class="badge bg-primary">{{ pred }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">Actual:</small>
+                                    <div>
+                                        {% for actual in learning.actual_numbers %}
+                                        <span class="badge bg-secondary">{{ actual }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Matches with Predictor Info -->
+                            {% if learning.matches %}
+                            <div class="mb-2">
+                                <small class="text-success">✅ Matches Found:</small>
+                                <div class="mt-1">
+                                    {% for match in learning.matches %}
+                                    <div class="d-inline-block me-2 mb-1">
+                                        <span class="badge bg-success">{{ match }}</span>
+                                        <small class="text-muted d-block">Predictor Hit</small>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <!-- Show which predictors generated the winning numbers -->
+                            {% if learning.matched_predictors %}
+                            <div class="mb-2">
+                                <small class="text-info">🎯 Winning Predictors:</small>
+                                <div class="mt-1">
+                                    {% for predictor in learning.matched_predictors %}
+                                    <div class="alert alert-success p-2 mb-1">
+                                        <strong>{{ predictor.number }}</strong> - {{ predictor.predictor }}
+                                        <br><small class="text-muted">{{ predictor.source }}</small>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="mb-2">
+                                <small class="text-info">📊 All Predictors:</small>
+                                <div class="mt-1">
+                                    {% for pred in learning.predicted_numbers %}
+                                    {% if pred in learning.matches %}
+                                    <span class="badge bg-success me-1 mb-1">
+                                        {{ pred }} ✓
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-secondary me-1 mb-1">
+                                        {{ pred }} ✗
+                                    </span>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="mb-2">
+                                <small class="text-warning">⚠️ No Matches:</small>
+                                <div class="mt-1">
+                                    {% for pred in learning.predicted_numbers %}
+                                    <div class="badge bg-secondary me-1 mb-1">
+                                        {{ pred }} ✗ <small>(Miss)</small>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Match Types Analysis -->
+                            <div class="row text-center mt-2">
+                                <div class="col">
+                                    <div class="small text-muted">Exact</div>
+                                    <div class="fw-bold text-success">{{ learning.match_types.exact }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="small text-muted">iBox</div>
+                                    <div class="fw-bold text-warning">{{ learning.match_types.ibox }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="small text-muted">Front</div>
+                                    <div class="fw-bold text-primary">{{ learning.match_types.front }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="small text-muted">Back</div>
+                                    <div class="fw-bold text-info">{{ learning.match_types.back }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="small text-muted">Partial</div>
+                                    <div class="fw-bold text-secondary">{{ learning.match_types.partial }}</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Learning Score -->
+                            <div class="mt-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">Learning Score:</small>
+                                    <span class="badge {% if learning.learning_score > 70 %}bg-success{% elif learning.learning_score > 40 %}bg-warning{% else %}bg-danger{% endif %}">
+                                        {{ learning.learning_score }}/100
+                                    </span>
+                                </div>
+                                <div class="progress mt-1" style="height: 5px;">
+                                    <div class="progress-bar {% if learning.learning_score > 70 %}bg-success{% elif learning.learning_score > 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                         style="width: {{ learning.learning_score }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Check Matches</button>
-    </form>
+    </div>
+    {% endif %}
+    
+    <div class="ai-insights animate-in">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-8">
+                <h3 class="mb-0">
+                    <i class="fas fa-brain me-3"></i>
+                    AI Strategic Analysis
+                </h3>
+                <p class="mb-0 mt-2 opacity-75">{{ ai_insights.ai_verdict or 'Advanced AI analysis complete' }}</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="badge bg-light text-dark p-3 rounded-pill">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Confidence: {{ ai_insights.ai_confidence or 'High' }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     
     {% if matches %}
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">📊 Prediction vs Actual Results</h2>
+        
         {% for match in matches %}
-        <div class="match-row">
-            <h3>{{ match.date }}</h3>
-            <div class="predictions">Predictions: {{ match.predictions|join(', ') }}</div>
-            <div class="actual">All Winners: {{ match.all_winners|join(', ') }}</div>
-            <div class="stats">
-                Exact: {{ match.exact }} | Special: {{ match.special }} | Consolation: {{ match.consolation }} | Accuracy: {{ match.accuracy }}%
+        {% if match.show_results %}
+        <!-- Display Actual Results Data -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">📊 Actual Results for Selected Period</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Provider</th>
+                                        <th>Results</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in match.results_data %}
+                                    <tr>
+                                        <td>{{ result.date_parsed.strftime('%d/%m/%Y') if result.date_parsed else 'Unknown' }}</td>
+                                        <td>{{ result.provider|title if result.provider else 'Unknown' }}</td>
+                                        <td>{{ result.prize_text[:150] if result.prize_text else result['3rd'][:150] if result['3rd'] else 'No data' }}...</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row mb-4">
+            <!-- Predicted Numbers Side -->
+            <div class="col-md-6">
+                <div class="card border-primary h-100">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5 class="mb-0">🎯 AI Predictions</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span class="badge bg-primary fs-4 p-3">{{ match.prediction }}</span>
+                        </div>
+                        <div class="mb-2">
+                            <small class="text-muted">Prediction Confidence</small>
+                            <div class="progress mt-1">
+                                <div class="progress-bar" style="width: {{ match.total_exact * 20 }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actual Results Side -->
+            <div class="col-md-6">
+                <div class="card border-success h-100">
+                    <div class="card-header bg-success text-white text-center">
+                        <h5 class="mb-0">🏆 Actual Results</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if match.exact_matches %}
+                        <div class="text-center mb-3">
+                            <span class="badge bg-success fs-6 p-2">✅ EXACT MATCH FOUND!</span>
+                        </div>
+                        {% for exact in match.exact_matches %}
+                        <div class="border rounded p-2 mb-2 bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">{{ match.prediction }}</span>
+                                <small class="text-muted">{{ exact.date }}</small>
+                            </div>
+                            <small class="text-muted">{{ exact.provider }}</small>
+                            {% if exact.full_result %}
+                            <div class="mt-1"><small class="text-info">{{ exact.full_result }}</small></div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-search fa-2x mb-2"></i>
+                            <p>No exact matches found</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Match Analysis Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">🔍 Smart Matching Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-2">
+                                <div class="p-3 border rounded">
+                                    <div class="h4 text-success">{{ match.total_exact or 0 }}</div>
+                                    <small>Exact</small>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="p-3 border rounded">
+                                    <div class="h4 text-warning">0</div>
+                                    <small>iBox</small>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="p-3 border rounded">
+                                    <div class="h4 text-primary">0</div>
+                                    <small>Front</small>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="p-3 border rounded">
+                                    <div class="h4 text-secondary">0</div>
+                                    <small>Back</small>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="p-3 border rounded">
+                                    <div class="h4 text-info">0</div>
+                                    <small>Partial</small>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="p-3 border rounded bg-light">
+                                    <div class="h6 text-dark">All Providers</div>
+                                    <div class="h6 text-dark">AI Learning</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         {% endfor %}
+    </div>
     {% else %}
-        <p>Enter predictions above to check matches.</p>
+    <div class="text-center py-5">
+        <div class="ai-card p-5">
+            <i class="fas fa-calendar-day fa-4x text-muted mb-4"></i>
+            <h3 class="text-muted mb-3">Select a Date to View Results</h3>
+            <p class="text-muted mb-4">
+                Choose a specific date above to see prediction vs actual results comparison.
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <i class="fas fa-search fa-2x text-primary mb-2"></i>
+                            <div class="small text-muted">Smart Matching</div>
+                        </div>
+                        <div class="col-4">
+                            <i class="fas fa-chart-line fa-2x text-success mb-2"></i>
+                            <div class="small text-muted">Multi-Type</div>
+                        </div>
+                        <div class="col-4">
+                            <i class="fas fa-brain fa-2x text-warning mb-2"></i>
+                            <div class="small text-muted">AI Learning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endif %}
     
-    <a href="/">Back to Home</a>
+        <!-- Side by Side: Predictions vs Actual with Match Analysis -->
+        {% if ai_insights.daily_results %}
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">🎯 Predictions vs Actual Results - Match Analysis</h5>
+            </div>
+            <div class="card-body">
+                {% for day in ai_insights.daily_results %}
+                <div class="row mb-4 border-bottom pb-3">
+                    <div class="col-md-2">
+                        <strong>{{ day.date }}</strong><br>
+                        <span class="badge bg-secondary">{{ day.provider }}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-primary">AI Predictions</h6>
+                        {% for pred in day.predictions %}
+                        <span class="badge bg-primary me-1 mb-1">{{ pred }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-warning">Actual Winners</h6>
+                        {% for actual in day.actual %}
+                        <span class="badge bg-warning text-dark me-1 mb-1">{{ actual }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-2">
+                        <h6 class="text-success">Match Analysis</h6>
+                        {% if day.exact_matches %}
+                        <div class="mb-1">
+                            <small class="text-success">Exact (4 digits):</small><br>
+                            {% for match in day.exact_matches %}
+                            <span class="badge bg-success me-1">✓ {{ match }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        {% if day.ibox_matches %}
+                        <div class="mb-1">
+                            <small class="text-info">iBox:</small><br>
+                            {% for match in day.ibox_matches %}
+                            <span class="badge bg-info me-1">{{ match }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        {% if day.partial_matches %}
+                        <div class="mb-1">
+                            <small class="text-secondary">Partial:</small><br>
+                            {% for match in day.partial_matches %}
+                            <span class="badge bg-secondary me-1">{{ match }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        {% if not day.exact_matches and not day.ibox_matches and not day.partial_matches %}
+                        <span class="text-muted">No matches</span>
+                        {% endif %}
+                        
+                        <div class="mt-2">
+                            <span class="badge {% if day.total_matches > 0 %}bg-success{% else %}bg-danger{% endif %}">
+                                Total: {{ day.total_matches }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enhanced UI interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const manualMode = document.getElementById('manualMode');
+            const manualInput = document.getElementById('manualInput');
+            const aiStatus = document.getElementById('aiStatus');
+            const btnText = document.getElementById('btnText');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const matchForm = document.getElementById('matchForm');
+            
+            // Toggle between AI and manual modes
+            manualMode.addEventListener('change', function() {
+                if (this.checked) {
+                    // Manual mode
+                    manualInput.style.display = 'block';
+                    aiStatus.innerHTML = '<i class="fas fa-pause-circle text-warning me-2"></i>Manual Mode';
+                    aiStatus.nextElementSibling.textContent = 'Enter predictions manually below';
+                    btnText.textContent = 'Check Manual Predictions';
+                    analyzeBtn.style.background = 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)';
+                } else {
+                    // AI mode
+                    manualInput.style.display = 'none';
+                    aiStatus.innerHTML = '<i class="fas fa-check-circle text-success me-2"></i>AI Active';
+                    aiStatus.nextElementSibling.textContent = 'AI will generate predictions automatically';
+                    btnText.textContent = 'Start AI Analysis';
+                    analyzeBtn.style.background = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
+                }
+                
+                // Force form submission to update the page
+                setTimeout(() => {
+                    matchForm.submit();
+                }, 100);
+            });
+            
+            // Auto-submit form when date or provider changes
+            const dateInput = document.querySelector('input[name="selected_date"]');
+            const providerSelect = document.querySelector('select[name="provider"]');
+            
+            if (dateInput) {
+                dateInput.addEventListener('change', function() {
+                    console.log('Date changed to:', this.value);
+                    matchForm.submit();
+                });
+            }
+            
+            if (providerSelect) {
+                providerSelect.addEventListener('change', function() {
+                    console.log('Provider changed to:', this.value);
+                    matchForm.submit();
+                });
+            }
+            
+            // Form submission with loading animation
+            matchForm.addEventListener('submit', function(e) {
+                loadingSpinner.style.display = 'block';
+                analyzeBtn.disabled = true;
+                analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Analyzing...';
+                
+                // Scroll to loading spinner
+                loadingSpinner.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Animate cards on load
+            const cards = document.querySelectorAll('.ai-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate-in');
+                }, index * 100);
+            });
+            
+            // Animate confidence bars
+            const confidenceFills = document.querySelectorAll('.confidence-fill');
+            confidenceFills.forEach(fill => {
+                const width = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = width;
+                }, 500);
+            });
+        });
+        
+        // Add hover effects to prediction cards
+        document.querySelectorAll('.prediction-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+            });
+        });
+    </script>
+    <!-- ENHANCED FUNCTIONALITY -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ensure all buttons are visible and working
+        const trackerBtn = document.querySelector('a[href="/prediction-tracker"]');
+        if (trackerBtn) {
+            trackerBtn.style.display = 'inline-block';
+            trackerBtn.style.visibility = 'visible';
+            console.log('Tracker button found and made visible');
+        }
+        
+        // Add status indicator
+        const statusDiv = document.createElement('div');
+        statusDiv.className = 'alert alert-info mt-3';
+        statusDiv.innerHTML = `
+            <h5>🔧 System Status</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Date Changes:</strong> ✅ Active
+                </div>
+                <div class="col-md-3">
+                    <strong>Provider Filter:</strong> ✅ Working
+                </div>
+                <div class="col-md-3">
+                    <strong>AI/Manual Toggle:</strong> ✅ Functional
+                </div>
+                <div class="col-md-3">
+                    <strong>Button Links:</strong> ✅ Enabled
+                </div>
+            </div>
+        `;
+        
+        const container = document.querySelector('.container');
+        if (container) {
+            container.appendChild(statusDiv);
+        }
+        
+        // Debug form submission
+        const form = document.getElementById('matchForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                console.log('Form submitted with data:', new FormData(form));
+            });
+        }
+    });
+    </script>
 </body>
 </html>

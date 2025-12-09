@@ -1,0 +1,9 @@
+prediction_date,draw_date,provider,predicted_numbers,predictor_methods,confidence,actual_1st,actual_2nd,actual_3rd,hit_status,accuracy_score
+2025-10-12 13:26:37,2025-09-23 (Tuesday),toto,"[""0032"",""6257"",""2653"",""2033"",""3301""]","ML, Pattern; Pattern; Pattern; Pattern; Pattern",50,,,,pending,0
+2025-10-12 13:45:16,2025-09-24,all,"[""9651"",""2976"",""7961"",""8075"",""7942""]",Pattern; Pattern; Pattern; Pattern; Pattern,25,,,,pending,0
+2025-10-12 13:45:48,2025-09-24,toto,"[""9651"",""2976"",""7961"",""8075"",""7942""]",Pattern; Pattern; Pattern; Pattern; Pattern,25,5D: 1st 58372 | 2nd 75360 | 3rd 61235 | 4th 8372 | 5th 372 | 6th 72 | 6D: 1st 300673 | 2nd 30067* or *00673 | 3rd 3006** or **0673 | 4th 300*** or ***673 | 5th 30**** or ****73,,,MISS,0
+2025-10-12 20:55:26,2025-09-24,toto,"[""4901"",""4252"",""5687"",""4909"",""6872""]",Pattern; Pattern; Pattern; Pattern; Pattern,25,5D: 1st 58372 | 2nd 75360 | 3rd 61235 | 4th 8372 | 5th 372 | 6th 72 | 6D: 1st 300673 | 2nd 30067* or *00673 | 3rd 3006** or **0673 | 4th 300*** or ***673 | 5th 30**** or ****73,,,MISS,0
+2025-10-12 21:06:06,2025-09-24,magnum,"[""9995"",""9895"",""9795"",""5995"",""5985""]",ML; ML; ML; ML; ML,25,Winning Numbers: 01 03 04 08 13 19 26 28 | Bonus: 23 33,,,MISS,0
+2025-10-12 21:06:30,2025-09-24,damacai,"[""4545"",""0543"",""4345"",""0545"",""5054""]",Pattern; Pattern; Pattern; Pattern; Pattern,25,6058,5364.0,3151.0,MISS,0
+2025-10-22 21:01:35,2025-09-27,toto,"[""3450"",""0543"",""2986"",""8759"",""9384""]",Pattern; Pattern; Pattern; Pattern; Pattern,30,,,,pending,0
+2025-10-26 21:32:55,2025-09-27,toto,"[""3450"",""0543"",""2943"",""9865"",""5701""]",Pattern; Pattern; Pattern; Pattern; Pattern,30,,,,pending,0

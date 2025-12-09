@@ -1,0 +1,165 @@
+{
+  "quick_pick": {
+    "total_predictions": 3,
+    "exact_matches": 3,
+    "3_digit_matches": 0,
+    "2_digit_matches": 0,
+    "1_digit_matches": 0,
+    "history": [
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "1234",
+          "5678",
+          "9012",
+          "3456",
+          "7890"
+        ],
+        "actual": [
+          "1234",
+          "5555",
+          "6666"
+        ],
+        "best_match": 4,
+        "matched": "1234 \u2192 1234"
+      },
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "2345",
+          "6789",
+          "1111",
+          "2222",
+          "3333"
+        ],
+        "actual": [
+          "2345",
+          "4444",
+          "5555"
+        ],
+        "best_match": 4,
+        "matched": "2345 \u2192 2345"
+      },
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "3456",
+          "7890",
+          "1234",
+          "5678",
+          "9012"
+        ],
+        "actual": [
+          "3456",
+          "1111",
+          "2222"
+        ],
+        "best_match": 4,
+        "matched": "3456 \u2192 3456"
+      }
+    ]
+  },
+  "ultimate_ai": {
+    "total_predictions": 3,
+    "exact_matches": 3,
+    "3_digit_matches": 0,
+    "2_digit_matches": 0,
+    "1_digit_matches": 0,
+    "history": [
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "1234",
+          "5678",
+          "9012",
+          "3456",
+          "7890"
+        ],
+        "actual": [
+          "1234",
+          "5678",
+          "6666"
+        ],
+        "best_match": 4,
+        "matched": "1234 \u2192 1234"
+      },
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "2345",
+          "6789",
+          "1111",
+          "2222",
+          "3333"
+        ],
+        "actual": [
+          "2345",
+          "6789",
+          "5555"
+        ],
+        "best_match": 4,
+        "matched": "2345 \u2192 2345"
+      },
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "3456",
+          "7890",
+          "1234",
+          "5678",
+          "9012"
+        ],
+        "actual": [
+          "3456",
+          "7890",
+          "2222"
+        ],
+        "best_match": 4,
+        "matched": "3456 \u2192 3456"
+      }
+    ]
+  },
+  "best_predictions": {
+    "total_predictions": 2,
+    "exact_matches": 2,
+    "3_digit_matches": 0,
+    "2_digit_matches": 0,
+    "1_digit_matches": 0,
+    "history": [
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "1234",
+          "5678",
+          "9012",
+          "3456",
+          "7890"
+        ],
+        "actual": [
+          "1234",
+          "9999",
+          "8888"
+        ],
+        "best_match": 4,
+        "matched": "1234 \u2192 1234"
+      },
+      {
+        "date": "2025-11-01",
+        "predicted": [
+          "2345",
+          "6789",
+          "1111",
+          "2222",
+          "3333"
+        ],
+        "actual": [
+          "2222",
+          "4444",
+          "5555"
+        ],
+        "best_match": 4,
+        "matched": "2222 \u2192 2222"
+      }
+    ]
+  }
+}

@@ -40,7 +40,62 @@
                 <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Apply
                     Filters</button>
             </form>
+            
+            <!-- Quick Provider Buttons -->
+            <div class="mt-4 pt-4 border-t">
+                <p class="text-sm font-semibold text-gray-600 mb-2">Quick Select Provider:</p>
+                <div class="flex flex-wrap gap-2">
+                    {% for opt in provider_options %}
+                    <a href="/day-to-day-predictor?provider={{ opt }}" 
+                       class="px-3 py-1 rounded {% if opt==provider %}bg-purple-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} text-sm font-medium transition">
+                        {{ opt|upper }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
+
+        <!-- Next Day Info Banner -->
+        <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-lg shadow-xl p-4 mb-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-bold">🔮 Predicting For: {{ next_draw_date }}</h3>
+                    <p class="text-sm opacity-90">Based on today's data ({{ today_date }})</p>
+                </div>
+                <a href="/day-to-day-predictor?provider=all" class="bg-white text-orange-600 px-4 py-2 rounded-lg font-semibold hover:bg-orange-50 transition">
+                    📊 All Providers
+                </a>
+            </div>
+        </div>
+
+        <!-- AI Learning Status -->
+        {% if learning_stats %}
+        <div class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg shadow-xl p-6 mb-6 text-white">
+            <h2 class="text-xl font-bold mb-3">🤖 AI Learning Status</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.total_learned }}</div>
+                    <div class="text-xs opacity-90">Patterns Learned</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.match_rate }}%</div>
+                    <div class="text-xs opacity-90">Match Rate</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.best_pattern }}</div>
+                    <div class="text-xs opacity-90">Best Pattern</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                    <div class="text-2xl font-bold">{{ learning_stats.confidence }}%</div>
+                    <div class="text-xs opacity-90">AI Confidence</div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm">
+                <p>✅ <strong>Last Match:</strong> {{ learning_stats.last_match or 'No matches yet' }}</p>
+                <p>✅ <strong>Learning:</strong> {{ learning_stats.learning_message }}</p>
+            </div>
+        </div>
+        {% endif %}
 
         <div class="bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg shadow-xl p-6 mb-6 text-white">
             <h2 class="text-xl font-bold mb-3">📊 Today's Numbers ({{ today_date }})</h2>
@@ -58,20 +113,51 @@
             </div>
         </div>
 
+        <!-- TOP 3 BEST PICKS -->
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-xl p-6 mb-6 text-white">
+            <h2 class="text-2xl font-bold mb-2">🎯 TOP 3 BEST PICKS</h2>
+            <p class="text-sm opacity-90 mb-4">AI-selected best numbers based on all prediction methods</p>
+            
+            {% if predictions %}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% for num, score, reason in predictions[:3] %}
+                <div class="bg-white text-gray-800 rounded-lg p-6 text-center shadow-lg relative">
+                    {% if num in matched_numbers %}
+                    <div class="absolute top-2 right-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">✓ HIT</div>
+                    {% endif %}
+                    <div class="text-5xl font-bold {% if num in matched_numbers %}text-green-600{% else %}text-gray-600{% endif %} mb-2">{{ num }}</div>
+                    <div class="text-sm text-gray-600">Confidence: {{ "%.0f"|format(score * 100) }}%</div>
+                    <div class="mt-2 text-xs text-gray-500">{{ reason|safe }}</div>
+                    {% if num in matched_numbers %}
+                    <div class="mt-2 text-xs text-green-600 font-bold">{{ match_types[num] }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-center py-4">No predictions available</p>
+            {% endif %}
+        </div>
+
+        <!-- ALL OTHER PREDICTIONS -->
         <div class="bg-white rounded-lg shadow-xl p-6 mb-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">🔮 Tomorrow's Predictions</h2>
-            <p class="text-sm text-gray-600 mb-4">Based on historical day-to-day patterns</p>
+            <h2 class="text-xl font-bold text-gray-800 mb-2">📋 All Predictions (Ranked)</h2>
+            <p class="text-sm text-gray-600 mb-4">Complete list sorted by confidence</p>
 
             {% if predictions %}
-            <div class="space-y-3">
+            <div class="space-y-2">
                 {% for num, score, reason in predictions %}
-                <div
-                    class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-l-4 border-purple-500">
+                <div class="flex items-center justify-between p-3 {% if num in matched_numbers %}bg-green-50 border-green-500{% else %}bg-gray-50 border-gray-300{% endif %} rounded-lg border-l-4">
                     <div class="flex items-center space-x-4">
-                        <span class="text-3xl font-bold text-purple-600">{{ num }}</span>
+                        <span class="text-2xl font-bold {% if num in matched_numbers %}text-green-600{% elif loop.index <= 3 %}text-green-600{% else %}text-gray-600{% endif %}">{{ num }}</span>
+                        {% if num in matched_numbers %}
+                        <span class="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">✓ MATCHED</span>
+                        {% endif %}
                         <div>
-                            <p class="text-sm text-gray-600">Pattern Score</p>
-                            <p class="text-lg font-semibold text-gray-800">{{ "%.2f"|format(score) }}</p>
+                            <p class="text-xs text-gray-500">Score: {{ "%.2f"|format(score) }}</p>
+                            {% if num in matched_numbers %}
+                            <p class="text-xs text-green-600 font-bold">{{ match_types[num] }}</p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="text-right">

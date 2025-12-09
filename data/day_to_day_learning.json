@@ -1,0 +1,42 @@
+{
+  "total_predictions": 2,
+  "total_matches": 0,
+  "pattern_success": {
+    "digit_transition": {
+      "hits": 1,
+      "total": 1
+    }
+  },
+  "digit_transition_success": {},
+  "sequence_success": {},
+  "last_match": {
+    "date": "2025-12-09",
+    "predicted": [
+      "6522",
+      "6508",
+      "6563"
+    ],
+    "actual": [
+      "8052",
+      "2229",
+      "1400"
+    ],
+    "matches": [
+      "8502"
+    ],
+    "types": {
+      "8502": "iBox"
+    }
+  },
+  "match_history": [
+    {
+      "date": "2025-12-09",
+      "matches": [
+        "8502"
+      ],
+      "types": {
+        "8502": "iBox"
+      }
+    }
+  ]
+}

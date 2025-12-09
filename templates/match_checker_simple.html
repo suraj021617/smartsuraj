@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Daily AI Learning System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-2xl p-8 mb-8 text-white">
+            <h1 class="text-4xl font-bold mb-2">🧠 Daily AI Learning System</h1>
+            <p class="text-xl opacity-90">Compare AI Predictions with Real CSV Results</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <form method="GET" class="flex flex-wrap gap-4 items-end">
+                <div class="flex-1 min-w-[200px]">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Provider</label>
+                    <select name="provider" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none">
+                        {% for opt in provider_options %}
+                        <option value="{{ opt }}" {% if opt==selected_provider %}selected{% endif %}>{{ opt|upper }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="flex-1 min-w-[200px]">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Analysis Period</label>
+                    <select name="analysis_period" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none">
+                        <option value="last_30_days">Last 30 Days</option>
+                        {% for month in month_options %}
+                        <option value="{{ month }}" {% if month==analysis_period %}selected{% endif %}>{{ month }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold rounded-lg hover:shadow-xl transition-all">
+                    🔍 Analyze
+                </button>
+                <a href="/" class="px-8 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition-all">
+                    ← Home
+                </a>
+            </form>
+            
+            <!-- Quick Provider Buttons -->
+            <div class="mt-6 pt-6 border-t">
+                <p class="text-sm font-semibold text-gray-600 mb-3">Quick Select Provider:</p>
+                <div class="flex flex-wrap gap-2">
+                    {% for opt in provider_options %}
+                    <a href="/match-checker?provider={{ opt }}{% if analysis_period != 'last_30_days' %}&analysis_period={{ analysis_period }}{% endif %}" 
+                       class="px-4 py-2 rounded-lg {% if opt==selected_provider %}bg-purple-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} font-medium transition">
+                        {{ opt|upper }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Quick Month Buttons -->
+            <div class="mt-4 pt-4 border-t">
+                <p class="text-sm font-semibold text-gray-600 mb-3">Quick Select Month:</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="/match-checker?provider={{ selected_provider }}&analysis_period=last_30_days" 
+                       class="px-4 py-2 rounded-lg {% if analysis_period=='last_30_days' %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} font-medium transition">
+                        LAST 30 DAYS
+                    </a>
+                    {% for month in month_options[:6] %}
+                    <a href="/match-checker?provider={{ selected_provider }}&analysis_period={{ month }}" 
+                       class="px-4 py-2 rounded-lg {% if month==analysis_period %}bg-blue-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} font-medium transition">
+                        {{ month }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Method Performance Comparison -->
+        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl shadow-2xl p-6 mb-8">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">🏆 WHICH METHOD WORKS BEST?</h2>
+            <p class="text-white text-center mb-6">Based on actual match validation from your data</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-bold text-gray-800 mb-2">📊 Day-to-Day AI Learner</h3>
+                    {% set exact_count = 0 %}
+                    {% for item in ai_insights.daily_learning %}
+                        {% if item['match_types']['exact'] > 0 %}
+                            {% set exact_count = exact_count + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="text-3xl font-bold text-green-600 mb-1">{{ ((exact_count / ai_insights.daily_learning|length * 100)|round(1)) if ai_insights.daily_learning|length > 0 else 0 }}%</div>
+                    <div class="text-sm text-gray-600">Exact Match Rate</div>
+                    
+                    {% set ibox_count = 0 %}
+                    {% for item in ai_insights.daily_learning %}
+                        {% if item['match_types']['ibox'] > 0 %}
+                            {% set ibox_count = ibox_count + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="text-2xl font-bold text-blue-600 mt-2">{{ ((ibox_count / ai_insights.daily_learning|length * 100)|round(1)) if ai_insights.daily_learning|length > 0 else 0 }}%</div>
+                    <div class="text-sm text-gray-600">iBox Match Rate</div>
+                    
+                    {% set front_back_total = 0 %}
+                    {% for item in ai_insights.daily_learning %}
+                        {% set front_back_total = front_back_total + item['match_types']['front'] + item['match_types']['back'] %}
+                    {% endfor %}
+                    <div class="text-lg font-bold text-purple-600 mt-2">{{ front_back_total }}</div>
+                    <div class="text-sm text-gray-600">Total Front+Back Matches</div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-bold text-gray-800 mb-2">📈 Overall Statistics</h3>
+                    <div class="text-3xl font-bold text-orange-600 mb-1">{{ ai_insights.daily_learning|length }}</div>
+                    <div class="text-sm text-gray-600">Total Predictions Tested</div>
+                    
+                    {% set match_days = 0 %}
+                    {% for item in ai_insights.daily_learning %}
+                        {% if item['match_count'] > 0 %}
+                            {% set match_days = match_days + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="text-2xl font-bold text-green-600 mt-2">{{ match_days }}</div>
+                    <div class="text-sm text-gray-600">Days with Matches</div>
+                    
+                    {% set total_score = 0 %}
+                    {% for item in ai_insights.daily_learning %}
+                        {% set total_score = total_score + item['learning_score'] %}
+                    {% endfor %}
+                    <div class="text-lg font-bold text-red-600 mt-2">{{ (total_score / ai_insights.daily_learning|length)|round(1) if ai_insights.daily_learning|length > 0 else 0 }}</div>
+                    <div class="text-sm text-gray-600">Average Learning Score</div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-bold text-gray-800 mb-2">🎯 Best Performance</h3>
+                    {% set partial_total = 0 %}
+                    {% for item in ai_insights.daily_learning %}
+                        {% set partial_total = partial_total + item['match_types']['partial'] %}
+                    {% endfor %}
+                    <div class="text-3xl font-bold text-purple-600 mb-1">{{ partial_total }}</div>
+                    <div class="text-sm text-gray-600">Total Partial Matches</div>
+                    <div class="text-2xl font-bold text-blue-600 mt-2">{{ ((partial_total / (ai_insights.daily_learning|length * 3) * 100)|round(1)) if ai_insights.daily_learning|length > 0 else 0 }}%</div>
+                    <div class="text-sm text-gray-600">Partial Match Rate</div>
+                    <div class="mt-3 text-center">
+                        <span class="bg-green-500 text-white px-4 py-2 rounded-full font-bold text-sm">RECOMMENDED</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg p-4">
+                <h3 class="font-bold text-gray-800 mb-3 text-center">💡 RECOMMENDATION</h3>
+                <p class="text-gray-700 text-center">
+                    {% if ((ibox_count / ai_insights.daily_learning|length * 100)|round(1)) > 15 %}
+                    ✅ <strong>Day-to-Day AI Learner is performing WELL!</strong> iBox rate above 15% is excellent. Keep using this method!
+                    {% elif ((partial_total / (ai_insights.daily_learning|length * 3) * 100)|round(1)) > 30 %}
+                    ✅ <strong>Good partial match rate!</strong> Focus on playing iBox combinations to increase winning chances.
+                    {% else %}
+                    ⚠️ <strong>Try different providers or time periods.</strong> Some providers may have better predictable patterns than others.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Daily Learning Cards -->
+        {% if ai_insights and ai_insights.daily_learning %}
+        <div class="space-y-6">
+            {% for learning in ai_insights.daily_learning %}
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-l-8 {% if learning.match_count > 0 %}border-green-500{% else %}border-orange-500{% endif %}">
+                <!-- Card Header -->
+                <div class="bg-gradient-to-r {% if learning.match_count > 0 %}from-green-500 to-emerald-500{% else %}from-orange-500 to-yellow-500{% endif %} text-white p-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-2xl font-bold">{{ learning.prediction_date }} → {{ learning.actual_date }}</h3>
+                            <p class="text-sm opacity-90">Provider: {{ learning.provider|upper }} | Day-to-Day Analysis</p>
+                        </div>
+                        <div class="text-right">
+                            {% if learning.match_count > 0 %}
+                            <span class="bg-white text-green-600 px-4 py-2 rounded-full font-bold text-lg">
+                                ✅ {{ learning.match_count }} Match{{ 'es' if learning.match_count > 1 else '' }}
+                            </span>
+                            {% else %}
+                            <span class="bg-white text-orange-600 px-4 py-2 rounded-full font-bold text-lg">
+                                ⚠️ No Matches
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-6">
+                    <!-- COMPARISON TABLE -->
+                    <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl shadow-2xl overflow-hidden mb-6 border-4 border-purple-300">
+                        <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 text-white p-5 text-center">
+                            <h3 class="text-2xl font-bold">📊 Prediction vs Actual Comparison</h3>
+                        </div>
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gradient-to-r from-gray-700 to-gray-800 text-white">
+                                    <th class="text-left p-3 font-bold border-r border-white/20">Metric</th>
+                                    <th class="text-center p-3 font-bold border-r border-white/20">🏆 Actual (A)</th>
+                                    <th class="text-center p-3 font-bold">🎯 Predicted (P)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 1st, 2nd, 3rd Prize Row -->
+                                <tr class="border-b-2 border-gray-200 bg-white">
+                                    <td class="p-4 font-bold text-gray-800 bg-gradient-to-r from-gray-100 to-gray-50 border-r-2 border-gray-200">🏆 Main Prizes</td>
+                                    <td class="p-4 border-r-2 border-gray-200">
+                                        <div class="flex justify-center gap-3">
+                                            {% for actual in learning.actual_numbers %}
+                                            <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white px-4 py-3 rounded-xl font-bold text-lg shadow-md">{{ actual }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex justify-center gap-3">
+                                            {% for pred in learning.predicted_numbers %}
+                                            <div class="{% if pred in learning.matches %}bg-gradient-to-br from-green-500 to-green-600 shadow-lg scale-110{% else %}bg-gradient-to-br from-blue-500 to-blue-600{% endif %} text-white px-4 py-3 rounded-xl font-bold text-lg shadow-md">{{ pred }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Special & Consolation Combined Row -->
+                                <tr class="border-b-2 border-gray-200 bg-gray-50">
+                                    <td class="p-3 font-bold text-gray-800 bg-gradient-to-r from-gray-100 to-gray-50 border-r-2 border-gray-200">⭐ Special + Consolation</td>
+                                    <td class="p-3 border-r-2 border-gray-200">
+                                        <div class="space-y-2">
+                                            <div class="flex flex-wrap gap-1 justify-center">
+                                                {% for num in learning.actual_special[:10] %}
+                                                <span class="bg-purple-400 text-white px-2 py-1 rounded text-xs font-semibold">{{ num }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="flex flex-wrap gap-1 justify-center">
+                                                {% for num in learning.actual_consolation[:10] %}
+                                                <span class="bg-purple-300 text-white px-2 py-1 rounded text-xs font-semibold">{{ num }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-3">
+                                        <div class="space-y-2">
+                                            <div class="flex flex-wrap gap-1 justify-center">
+                                                {% for num in learning.predicted_special[:10] %}
+                                                <span class="bg-blue-400 text-white px-2 py-1 rounded text-xs font-semibold">{{ num }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="flex flex-wrap gap-1 justify-center">
+                                                {% for num in learning.predicted_consolation[:10] %}
+                                                <span class="bg-blue-300 text-white px-2 py-1 rounded text-xs font-semibold">{{ num }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Exact Matches Row -->
+                                <tr class="border-b border-gray-300">
+                                    <td class="p-4 font-bold text-gray-700 bg-gray-50 border-r border-gray-300">Exact Matches</td>
+                                    <td class="p-4 text-center border-r border-gray-300">
+                                        <span class="text-3xl font-bold {% if learning.match_types.exact > 0 %}text-green-600{% else %}text-gray-400{% endif %}">{{ learning.match_types.exact }}</span>
+                                    </td>
+                                    <td class="p-4 text-center text-gray-400">N/A</td>
+                                </tr>
+                                <!-- IBOX Match Row -->
+                                <tr class="border-b border-gray-300">
+                                    <td class="p-4 font-bold text-gray-700 bg-gray-50 border-r border-gray-300">IBOX Match</td>
+                                    <td class="p-4 text-center border-r border-gray-300">
+                                        <span class="text-2xl font-bold {% if learning.match_types.ibox > 0 %}text-yellow-600{% else %}text-gray-400{% endif %}">
+                                            {% if learning.match_types.ibox > 0 %}✓ Yes{% else %}✗ No{% endif %}
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-center text-gray-400">N/A</td>
+                                </tr>
+                                <!-- Digit Match Count Row -->
+                                <tr class="border-b border-gray-300">
+                                    <td class="p-4 font-bold text-gray-700 bg-gray-50 border-r border-gray-300">Digit Matches (2/3/4)</td>
+                                    <td class="p-4 text-center border-r border-gray-300" colspan="2">
+                                        <div class="flex justify-center gap-6">
+                                            {% set two_digit = 0 %}
+                                            {% set three_digit = 0 %}
+                                            {% set four_digit = 0 %}
+                                            {% for pred in learning.predicted_numbers %}
+                                                {% for actual in learning.actual_numbers %}
+                                                    {% set match_count = 0 %}
+                                                    {% for i in range(4) %}
+                                                        {% if pred[i] == actual[i] %}
+                                                            {% set match_count = match_count + 1 %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    {% if match_count == 2 %}
+                                                        {% set two_digit = two_digit + 1 %}
+                                                    {% elif match_count == 3 %}
+                                                        {% set three_digit = three_digit + 1 %}
+                                                    {% elif match_count == 4 %}
+                                                        {% set four_digit = four_digit + 1 %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                            <div class="text-center">
+                                                <div class="text-2xl font-bold {% if two_digit > 0 %}text-blue-600{% else %}text-gray-400{% endif %}">{{ two_digit }}</div>
+                                                <div class="text-xs text-gray-600">2 Digits Match</div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="text-2xl font-bold {% if three_digit > 0 %}text-orange-600{% else %}text-gray-400{% endif %}">{{ three_digit }}</div>
+                                                <div class="text-xs text-gray-600">3 Digits Match</div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="text-2xl font-bold {% if four_digit > 0 %}text-green-600{% else %}text-gray-400{% endif %}">{{ four_digit }}</div>
+                                                <div class="text-xs text-gray-600">4 Digits Match (Exact)</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Additional Metrics Row -->
+                                <tr>
+                                    <td class="p-4 font-bold text-gray-700 bg-gray-50 border-r border-gray-300">Other Matches</td>
+                                    <td class="p-4 text-center border-r border-gray-300" colspan="2">
+                                        <div class="flex justify-center gap-4">
+                                            <div class="text-center">
+                                                <div class="text-xl font-bold text-blue-600">{{ learning.match_types.front }}</div>
+                                                <div class="text-xs text-gray-600">Front</div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="text-xl font-bold text-cyan-600">{{ learning.match_types.back }}</div>
+                                                <div class="text-xs text-gray-600">Back</div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="text-xl font-bold text-purple-600">{{ learning.match_types.partial }}</div>
+                                                <div class="text-xs text-gray-600">Partial</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- AI Status Footer -->
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-4 text-center">
+                            <span class="text-lg font-bold">✅ AI Retrained with new data - Ready for next prediction</span>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Learning Score -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-lg font-bold text-gray-900">AI Learning Score</h4>
+                            <span class="text-2xl font-bold {% if learning.learning_score > 70 %}text-green-600{% elif learning.learning_score > 40 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                                {{ learning.learning_score }}/100
+                            </span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                            <div class="h-full {% if learning.learning_score > 70 %}bg-green-500{% elif learning.learning_score > 40 %}bg-yellow-500{% else %}bg-red-500{% endif %} rounded-full transition-all duration-1000 flex items-center justify-end pr-2"
+                                 style="width: {{ learning.learning_score }}%">
+                                <span class="text-white text-xs font-bold">{{ learning.learning_score }}%</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2">
+                            {% if learning.ai_learned %}
+                            🧠 AI has learned from this pattern and will improve future predictions
+                            {% else %}
+                            📚 AI is analyzing this pattern for future learning
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- No Data State -->
+        <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+            <div class="text-6xl mb-4">📊</div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">No Data Available</h3>
+            <p class="text-gray-600 mb-6">Select a provider and analysis period to see AI learning results</p>
+            <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <div class="text-sm font-semibold text-gray-700">AI Predictions</div>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-4">
+                    <div class="text-3xl mb-2">🏆</div>
+                    <div class="text-sm font-semibold text-gray-700">Real Results</div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4">
+                    <div class="text-3xl mb-2">✅</div>
+                    <div class="text-sm font-semibold text-gray-700">Match Analysis</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Summary Stats -->
+        {% if ai_insights and ai_insights.daily_learning %}
+        <div class="bg-white rounded-xl shadow-lg p-6 mt-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">📈 Overall Performance</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white">
+                    <div class="text-4xl font-bold mb-2">{{ ai_insights.daily_learning|length }}</div>
+                    <div class="text-sm opacity-90">Total Days Analyzed</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white">
+                    <div class="text-4xl font-bold mb-2">
+                        {{ ai_insights.daily_learning|selectattr('match_count', 'gt', 0)|list|length }}
+                    </div>
+                    <div class="text-sm opacity-90">Days with Matches</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white">
+                    <div class="text-4xl font-bold mb-2">
+                        {{ (ai_insights.daily_learning|map(attribute='match_count')|sum) }}
+                    </div>
+                    <div class="text-sm opacity-90">Total Matches</div>
+                </div>
+                <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-6 text-white">
+                    <div class="text-4xl font-bold mb-2">
+                        {{ ((ai_insights.daily_learning|selectattr('match_count', 'gt', 0)|list|length / ai_insights.daily_learning|length * 100)|round(1)) if ai_insights.daily_learning|length > 0 else 0 }}%
+                    </div>
+                    <div class="text-sm opacity-90">Success Rate</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

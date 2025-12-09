@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Method Rankings - Which Predictor to Choose?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-bold mb-2">🏆 Method Rankings</h1>
+        <p class="text-gray-600 mb-6">Which prediction method should you choose? See real performance data below.</p>
+        
+        <!-- Top Performer -->
+        {% if best_method %}
+        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg shadow-xl p-6 mb-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold">🥇 BEST PERFORMER</h2>
+                    <p class="text-3xl font-bold mt-2">{{ best_method.name }}</p>
+                    <p class="text-lg mt-1">{{ best_method.accuracy }}% Accuracy | {{ best_method.hits }}/{{ best_method.total }} Hits</p>
+                </div>
+                <div class="text-6xl">🏆</div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Rankings Table -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
+            <table class="w-full">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="p-4 text-left">Rank</th>
+                        <th class="p-4 text-left">Method Name</th>
+                        <th class="p-4 text-center">Accuracy</th>
+                        <th class="p-4 text-center">Hits</th>
+                        <th class="p-4 text-center">Total</th>
+                        <th class="p-4 text-center">Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for method in rankings %}
+                    <tr class="border-b hover:bg-gray-50 {% if loop.index == 1 %}bg-yellow-50{% endif %}">
+                        <td class="p-4 font-bold text-2xl">
+                            {% if loop.index == 1 %}🥇
+                            {% elif loop.index == 2 %}🥈
+                            {% elif loop.index == 3 %}🥉
+                            {% else %}{{ loop.index }}{% endif %}
+                        </td>
+                        <td class="p-4">
+                            <div class="font-bold text-lg">{{ method.name }}</div>
+                            <div class="text-sm text-gray-600">{{ method.description }}</div>
+                        </td>
+                        <td class="p-4 text-center">
+                            <div class="text-2xl font-bold {% if method.accuracy >= 40 %}text-green-600{% elif method.accuracy >= 30 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                                {{ method.accuracy }}%
+                            </div>
+                        </td>
+                        <td class="p-4 text-center text-lg font-semibold text-green-600">{{ method.hits }}</td>
+                        <td class="p-4 text-center text-lg">{{ method.total }}</td>
+                        <td class="p-4 text-center">
+                            {% if method.accuracy >= 40 %}
+                            <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">✅ USE THIS</span>
+                            {% elif method.accuracy >= 30 %}
+                            <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">⚠️ GOOD</span>
+                            {% else %}
+                            <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">❌ AVOID</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Quick Decision Guide -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-green-100 border-l-4 border-green-500 p-4 rounded">
+                <h3 class="font-bold text-green-800 mb-2">✅ High Accuracy (40%+)</h3>
+                <p class="text-sm text-gray-700">Use these methods for your main predictions</p>
+            </div>
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded">
+                <h3 class="font-bold text-yellow-800 mb-2">⚠️ Medium Accuracy (30-40%)</h3>
+                <p class="text-sm text-gray-700">Good for backup numbers</p>
+            </div>
+            <div class="bg-red-100 border-l-4 border-red-500 p-4 rounded">
+                <h3 class="font-bold text-red-800 mb-2">❌ Low Accuracy (<30%)</h3>
+                <p class="text-sm text-gray-700">Avoid or use with caution</p>
+            </div>
+        </div>
+        
+        <!-- Recommendation -->
+        <div class="bg-blue-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-800 mb-3">💡 Our Recommendation</h2>
+            <div class="space-y-2 text-gray-700">
+                {% for rec in recommendations %}
+                <p class="flex items-start">
+                    <span class="mr-2">•</span>
+                    <span>{{ rec }}</span>
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="/" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 inline-block">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
